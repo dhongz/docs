@@ -1,0 +1,195 @@
+---
+title: "Retrieve all executions for an Airops app"
+description: "Returns all the executions for a given Airops app. You can use this endpoint to check the status/input/output of all the executions."
+api: GET https://api.airops.com/public_api/airops_apps/:airops_app_id/executions
+contentType: application/json
+---
+
+### Authorizations
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+### Query parameters
+<ParamField query="airops_app_id" type="integer" required>
+The Airops app ID to fetch executions from
+</ParamField>
+
+<ParamField query="cursor" type="string">
+The cursor value to use for pagination
+</ParamField>
+
+<ParamField query="items" type="integer" min="1" max="100">
+The amount of items to fetch
+
+Example: `10`
+</ParamField>
+
+## Responses
+
+### 200 Executions found
+
+<Expandable title="Response body">
+<ResponseField name="Response" type="object">
+<Expandable title="properties">
+<ResponseField name="data" type="object[]">
+The list of executions returned
+ <Expandable title="properties">
+  <ResponseField name="id" type="string" required>
+The unique identifier for the execution.
+</ResponseField>
+
+  <ResponseField name="status" type="string" enum required>
+The current status of the execution.
+
+Example: `success`
+</ResponseField>
+
+  <ResponseField name="airops_apps_version_id" type="integer">
+The ID of the app version that was executed.
+
+Example: `21`
+</ResponseField>
+
+  <ResponseField name="conversation_id" type="string">
+The ID of the conversation (for agent apps).
+
+Example: `23`
+</ResponseField>
+
+  <ResponseField name="credits_used" type="integer">
+The number of credits consumed by this execution.
+
+Example: `34`
+</ResponseField>
+
+  <ResponseField name="error_code" type="string">
+Error code if the execution failed.
+</ResponseField>
+
+  <ResponseField name="error_message" type="string">
+Detailed error message if the execution failed.
+</ResponseField>
+
+  <ResponseField name="feedback" type="string" enum>
+User feedback rating for the execution.
+</ResponseField>
+
+  <ResponseField name="inputs" type="object">
+The input values provided to the app.
+
+Example: `{"name":"John Doe"}`
+</ResponseField>
+
+  <ResponseField name="output" type="object">
+The output results produced by the app.
+
+Example: `{"greet":"Hello John Doe!"}`
+</ResponseField>
+
+  <ResponseField name="runtime" type="integer">
+The time it took to execute the app (in seconds).
+
+Example: `34`
+</ResponseField>
+
+  <ResponseField name="source" type="string">
+The source that triggered the execution.
+</ResponseField>
+
+  <ResponseField name="uuid" type="string" format="uuid">
+The UUID of the execution.
+
+Example: `c3405f16-d0e8-4d5c-8ad9-85ef332c44ee`
+</ResponseField>
+
+  <ResponseField name="workspace_id" type="integer">
+The ID of the workspace where the execution occurred.
+
+Example: `1`
+</ResponseField>
+
+  <ResponseField name="createdAt" type="string" format="date-time" required>
+Timestamp when the execution was created.
+
+Example: `2024-02-01T16:39:28.161Z`
+</ResponseField>
+
+  <ResponseField name="updatedAt" type="string" format="date-time" required>
+Timestamp when the execution was last updated.
+
+Example: `2024-02-01T16:39:28.161Z`
+</ResponseField>
+ </Expandable>
+ <ResponseField name="meta" type="object" required>
+ Pagination information
+ <Expandable title="properties">
+   <ResponseField name="count" type="integer">
+Total amount of records in all pages
+</ResponseField>
+
+  <ResponseField name="has_more" type="boolean">
+Whether there are more records to fetch
+</ResponseField>
+
+  <ResponseField name="cursor" type="string">
+Cursor value to use in the next request
+</ResponseField>
+ </Expandable>
+</ResponseField>
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+
+<ResponseExample>
+```bash 200 Executions found
+[
+  {
+    "data": [
+      {
+        "id": 22,
+        "status": "success",
+        "airops_apps_version_id": 21,
+        "conversation_id": 23,
+        "credits_used": 34,
+        "error_code": null,
+        "error_message": null,
+        "feedback": "positive",
+        "inputs": {
+          "name": "John Doe"
+        },
+        "output": {
+          "greet": "Hello John Doe!"
+        },
+        "runtime": 34,
+        "source": null,
+        "uuid": "c3405f16-d0e8-4d5c-8ad9-85ef332c44ee",
+        "workspace_id": 1,
+        "createdAt": "2024-02-01T16:39:28.161Z",
+        "updatedAt": "2024-02-01T16:39:28.161Z"
+      }
+    ],
+    "meta": {
+      "count": 2,
+      "has_more": true,
+      "cursor": 22
+    }
+  }
+]
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>

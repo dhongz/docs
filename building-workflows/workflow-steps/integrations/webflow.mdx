@@ -1,0 +1,69 @@
+---
+title: "Webflow"
+description: "Integrate your Workflow with Webflow"
+---
+
+<Frame>
+![](/images/building-workflows/webflow.png)
+</Frame>
+
+The Webflow Integration step allows you to connect your AirOps workflows directly with your Webflow account. This integration enables you to create and update content in your Webflow sites programmatically.
+
+## How to Configure the Webflow Integration Step
+
+### Authentication
+
+Before using the Webflow integration in your workflows, you must first connect your Webflow account in the AirOps Settings:
+
+<Steps>
+<Step>
+    Navigate to <Icon icon="gear" /> Settings > Integrations
+</Step>
+<Step>
+    Find the Webflow section and click "Configure"
+</Step>
+<Step>
+    Complete the authentication process by granting AirOps the necessary permissions
+</Step>
+</Steps>
+
+### Action Types
+
+The Webflow Integration supports the following actions:
+
+- **Create Collection Item**: Add a new item to a collection in your Webflow site
+- **List Collections**: Retrieve a list of collections from your Webflow site
+- **List Collection Items**: Get a list of items from a specific collection
+- **Update Collection Item (JSON)**: Modify an existing collection item
+
+### Action-Specific Parameters
+
+**Create Collection Item**
+
+- **Site**: Select the Webflow site
+- **Collection**: Select the collection where you want to create the item
+- **Name**: The name of the collection item
+- **Slug**: The URL slug for the collection item
+- **Theme (pastel)**: Pastel theme setting
+- **Theme (dark)**: Dark theme setting
+- **Thumbnail illustration (URL)**: URL for the thumbnail image
+
+**List Collections**
+
+- **Site**: Select the Webflow site to retrieve collections from
+
+**List Collection Items**
+
+- **Site**: Select the Webflow site
+- **Collection**: Select the collection to retrieve items from
+
+**Update Collection Item (JSON)**
+
+- **Collection ID**: The ID of the collection containing the item
+- **Item ID**: The ID of the item you want to update
+- **Fields**: Additional fields for the item as a JSON object
+- **Publish**: A yes or no toggle to make the changes live
+
+## Error Handling
+
+By default, the Webflow Integration step will terminate the workflow if it fails. You can configure it to continue by selecting "Continue" instead of "Terminate Workflow" in the step settings.

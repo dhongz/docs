@@ -1,0 +1,201 @@
+---
+title: "AEO Data"
+description: "Monitor your brand's presence in LLM-powered search and chat services to discover optimization opportunities through detailed analytics across all major AI platforms."
+---
+
+The AEO Data step allows you to access historical brand visibility for your tracked questions across LLM-powered search and chat services. Get comprehensive insights about mentions, citations, and competitive performance in AI-generated responses.
+
+## Overview
+
+**What it does:** Retrieves reports about your brand's visibility across ChatGPT, Perplexity, Gemini, and Google AI Mode, showing how often your brand appears in AI responses, which content gets cited, and how you compare to competitors.
+
+**When to use it:** For regular brand monitoring, competitive analysis, content performance tracking, and identifying optimization opportunities in AI search results.
+
+**Key benefits:**
+
+- **Unified cross-platform monitoring** across all major AI providers from a single workflow step
+- **Competitive benchmarking** with automated sentiment analysis and mention rate comparisons
+- **Actionable insights** for content optimization and strategic decision-making
+- **Automated data aggregation** eliminates manual monitoring across multiple platforms
+
+## Supported AI Providers
+
+The AEO Data step works with four major AI platforms, providing comprehensive coverage of the AI search landscape: **ChatGPT**, **Perplexity**, **Gemini**, and **Google AI Mode**.
+
+**Default behavior:** All providers are selected automatically to ensure comprehensive coverage. You can filter to specific providers using comma-separated values: `chat_gpt,perplexity,gemini,claude`, or by selecting them from the multiselect dropdown in the step configuration.
+
+**Data aggregation:** Results are combined across all selected providers, giving you unified metrics rather than platform-specific siloed data. This approach provides a holistic view of your brand's AI visibility.
+
+## Available Report Types
+
+### 1\. Mentions Report
+
+*Track brand and competitor visibility with sentiment analysis*.
+
+**Purpose:** Monitor how frequently your brand and competitors appear in AI responses, with automated sentiment scoring to understand perception trends.
+
+#### Report Fields
+
+| Field | Type | Description | Range/Format |
+| :--- | :--- | :--- | :--- |
+| `brand_name` | String | Brand or competitor name from your Brand Kit | |
+| `mention_rate` | Float | Relative frequency of mentions for this brand | 0.0 to 1.0 (proportion of total mentions) |
+| `sentiment_rate` | Float | Average sentiment score of mentions | -1.0 to 1.0 (-1 = negative, 1 = positive) |
+
+#### Understanding the Data
+
+- **Mention Rate:** Calculated as (this brand's mentions) / (total mentions across all brands). A rate of 0.25 means this brand accounts for 25% of all brand mentions in the analyzed responses. This is a relative metric showing market share of voice, not absolute frequency.
+- **Sentiment Rate:** Averaged across all mentions using sentiment analysis. Values range from -1.0 (completely negative) to 1.0 (completely positive), with 0.0 being neutral. Scores above 0.2 indicate generally positive sentiment, while scores below -0.2 suggest negative perception.
+- **Competitive Context:** Results are sorted by mention rate (descending), then by sentiment rate, allowing you to quickly identify brands with the largest share of voice and most positive sentiment.
+
+#### Technical Notes
+
+- **Data Freshness**: Results are filtered to answers from the past week
+
+#### Sample Response
+
+```json
+[
+  {
+    "brand_name": "TechCorp",
+    "mention_rate": 0.42,
+    "sentiment_rate": 0.65
+  },
+  {
+    "brand_name": "CompetitorA",
+    "mention_rate": 0.31,
+    "sentiment_rate": 0.45
+  },
+  {
+    "brand_name": "CompetitorB",
+    "mention_rate": 0.27,
+    "sentiment_rate": -0.15
+  }
+]
+```
+
+### 2\. Answers Report
+
+*Access actual AI-generated responses for context and positioning analysis*
+
+**Purpose:** Review the actual content of AI responses to understand how your brand is positioned, what context it appears in, and identify opportunities for improvement.
+
+#### Report Fields
+
+| Field | Type | Description | Format |
+| :--- | :--- | :--- | :--- |
+| `answer` | String | Complete AI-generated response text (truncated at 10,000 characters if needed) | |
+| `date` | String | When the AI response was generated | MM-DD-YYYY |
+
+
+#### Understanding the Data
+
+- **Content Analysis**: Examine how AI platforms describe your brand, products, or services in their responses
+- **Contextual Positioning**: Understand what topics and questions trigger mentions of your brand
+- **Competitive Framing**: See how you're positioned relative to competitors in direct comparisons
+- **Messaging Consistency**: Identify variations in how your brand is described across different queries
+- **Response Filtering**: Limited to 28 most recent answers (approximately 1 week of data across all providers) to ensure manageable response sizes
+
+#### Technical Notes
+
+- **Text Truncation**: Answers longer than 10,000 characters are automatically truncated to prevent oversized responses
+- **Data Freshness**: Results are filtered to answers from the past week and sorted by provider, then by creation date (most recent first)
+
+#### Sample Response
+
+```json
+[
+  {
+    "answer": "TechCorp offers enterprise-grade solutions with advanced security features, making it a popular choice for large organizations. Their API integration capabilities and customer support are frequently mentioned as key differentiators in the project management space.",
+    "date": "12-15-2024"
+  },
+  {
+    "answer": "For small businesses looking at project management tools, options include TechCorp, CompetitorA, and CompetitorB. TechCorp tends to be recommended for teams that need extensive customization and have technical resources available.",
+    "date": "12-14-2024"
+  }
+]
+```
+
+### 3\. Citations Report
+
+*Monitor which URLs are referenced as authoritative sources*
+
+**Purpose:** Track which URLs are being cited by AI platforms as authoritative sources, ranked by how frequently they appear across AI responses that contain citations.
+
+#### Report Fields
+
+|Field|Type|Description|Notes|
+| :--- | :--- | :--- | :--- |
+|`url`|String|The complete URL being cited (query parameters removed)|Each URL appears only once|
+|`citation_rate`|Float|Frequency this URL appears in answers with citations|0.0 to 1.0 (higher = more frequent)|
+
+#### Understanding the Data
+
+- **Citation Rate:** Defined as *(number of answers citing this URL) / (number of answers containing at least one citation).* A citation rate of 0.67 means that this URL appeared in 67% of responses that included citations. Note that this percentage is calculated only over responses with citations, not over all responses.
+- **URL Normalization**: Query parameters are automatically stripped from URLs (e.g., `?utm_source=...`) to avoid duplicate entries for the same content
+- **Authority Ranking**: Results are sorted by citation rate (descending), showing which sources AI platforms reference most frequently
+- **Citation Context**: Only includes URLs from answers that actually contain citations, filtering out responses with no source references
+
+#### Key Limitations
+
+- **Citation-Only Responses**: Only analyzes responses that include citations, not all AI responses
+- **URL Deduplication**: Multiple citations of the same URL in a single response count as one occurrence
+
+#### Sample Response
+
+```json
+[
+  {
+    "url": "<https://techcorp.com/enterprise-security-guide>",
+    "citation_rate": 0.67
+  },
+  {
+    "url": "<https://techcorp.com/api-documentation>",
+    "citation_rate": 0.33
+  },
+  {
+    "url": "<https://competitor.com/industry-report-2024>",
+    "citation_rate": 0.33
+  }
+]
+```
+
+## Step Configuration Guide
+
+### Configuration Fields
+
+When setting up your **AEO Data** step, you'll configure these fields in order:
+
+#### 1\. Report Type *(Required)*
+
+**Description:** Choose the type of analysis you want to perform. Each report type provides different insights for different use cases.
+
+**Options:**
+
+- **Mentions**: Brand visibility and sentiment tracking
+- **Answers**: Actual AI response content analysis
+- **Citations**: URL authority and citation performance
+
+#### 2\. Provider *(Multi-select)*
+
+**Description:** Select which AI platforms to include in your analysis. Data will be aggregated across all selected providers for unified insights.
+
+**Options:** ChatGPT, Perplexity, Gemini, Google AI Mode (all selected by default)
+
+**Liquid format:** Use comma-separated provider codes: `chat_gpt,perplexity,gemini,claude`
+
+#### 3\. Brand Kit *(Required)*
+
+**Description:** Select the [Brand Kit](https://www.notion.so/your-data/brand-kit.md) containing your brand information and competitor list. This determines which brands are analyzed and compared.
+
+#### 4\. Question *(Required)*
+
+**Description:** Focus your analysis on a specific question or topics rather than general brand monitoring.
+
+## Data Collection & Analysis
+
+### Timeframe Settings
+
+- **Analysis period**: Last 7 days (standard for all report types)
+- **Data freshness**: Updated continuously as new AI responses are generated
+- **Historical tracking**: Run workflows regularly to build trend data over time

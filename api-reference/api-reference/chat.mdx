@@ -1,0 +1,188 @@
+---
+title: "Chat"
+description: "This endpoint allows you to send a message (chat) to an Agent app. You can include inputs with your message which will be passed to the app."
+api: POST https://api.airops.com/public_api/agent_apps/{app_uuid}/chat
+contentType: application/json
+---
+### Authorizations
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+### Path parameters
+<ParamField path="app_uuid" type="string" format="uuid" required>
+The unique identifier (UUID) for the app. You can find this in your app's Integrate section.
+
+Example: `6d2f4e0b-1a1d-49ae-8034-ba56f932119e`
+</ParamField>
+
+
+
+### Body
+<ParamField body="message" type="string" required>
+The message to send to the agent
+
+Example: `Hello, I need help with this.`
+</ParamField>
+
+<ParamField body="session_id" type="string">
+The session id of the chat. Use the session_id to send a message to an existing conversation. If not present, a new session will be created after sending the first message.
+
+Example: `23iu3h23-34n43yib4-3243n34b4-34n434h`
+</ParamField>
+<ParamField body="inputs" type="object" optional>
+Optional inputs to send along with the message.
+
+Example: `{"name":"John Doe"}`
+<Expandable title=" properties">
+<ParamField path="Other properties" type="any" optional/>
+</Expandable>
+</ParamField>
+## Responses
+
+### 200 Message sent
+
+<Expandable title="Response body">
+<ResponseField name="Response" type="object">
+<ResponseField name="result" type="object" required>
+  The result from calling the agent
+
+  Example: `{"response":"How can I help you?","session_id":"23iu3h23-34n43yib4-3243n34b4-34n434h"}`
+<Expandable title="properties">
+ <ResponseField name="Other properties" type="any" optional/>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="airops_app_execution" type="object" required>
+Represents a single execution of an app, containing all inputs, outputs, and execution metadata.
+<Expandable title="properties">
+  <ResponseField name="id" type="integer" required>
+  The unique identifier for the execution.
+  </ResponseField>
+  <ResponseField name="status" type="string" required>
+  The current status of the execution.
+
+  Example: `success`
+
+  Possible values: `pending` `running` `error` `success` `cancelled` `review_needed`
+  </ResponseField>
+
+  <ResponseField name="airops_apps_version_id" type="integer">
+   The ID of the app version that was executed.
+
+   Example: `21`
+  </ResponseField>
+
+  <ResponseField name="conversation_id" type="integer">
+  The ID of the conversation (for agent apps).
+
+  Example: `23`
+  </ResponseField>
+
+  <ResponseField name="credits_used" type="integer">
+  The number of credits consumed by this execution.
+
+  Example: `34`
+</ResponseField>
+
+  <ResponseField name="error_code" type="string | nullable">
+  Error code if the execution failed.
+  </ResponseField>
+
+  <ResponseField name="error_message" type="string">
+  Detailed error message if the execution failed.
+  </ResponseField>
+  <ResponseField name="feedback" type="string · enum | nullable">
+  User feedback rating for the execution.
+
+Possible values: `positive` `neutral` `negative`
+</ResponseField>
+  <ResponseField name="inputs" type="object">
+  The input values provided to the app.
+
+Example: `{"name":"John Doe"}`
+</ResponseField>
+  <ResponseField name="output" type="object | nullable">
+  The output results produced by the app.
+
+Example: `{"greet":"Hello John Doe!"}`
+</ResponseField>
+  <ResponseField name="runtime" type="integer | nullable">
+  The time it took to execute the app (in seconds).
+
+Example: `34`
+</ResponseField>
+  <ResponseField name="source" type="string | nullable">
+  The source that triggered the execution.
+  </ResponseField>
+  <ResponseField name="uuid" type="string · uuid · min: 36 · max: 36" format="uuid">
+  The UUID of the execution.
+
+Example: `c3405f16-d0e8-4d5c-8ad9-85ef332c44ee`
+</ResponseField>
+  <ResponseField name="workspace_id" type="integer">
+  The ID of the workspace where the execution occurred.
+
+Example: `1`
+</ResponseField>
+  <ResponseField name="createdAt" type="string · date-time" format="date-time" required>
+  Timestamp when the execution was created.
+
+Example: `2024-02-01T16:39:28.161Z`
+</ResponseField>
+  <ResponseField name="updatedAt" type="string · date-time" format="date-time" required>
+  Timestamp when the execution was last updated.
+
+Example: `2024-02-01T16:39:28.161Z`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</ResponseField>
+</Expandable>
+
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+
+<ResponseExample>
+```bash 200 Message sent
+{
+  "result": {
+    "message": "Hello, how are you?.",
+    "session_id": "23iu3h23-34n43yib4-3243n34b4-34n434h"
+  },
+  "airops_app_execution": {
+    "id": 22,
+    "status": "success",
+    "airops_apps_version_id": 21,
+    "conversation_id": 23,
+    "credits_used": 34,
+    "error_code": null,
+    "error_message": null,
+    "feedback": "positive",
+    "inputs": {
+      "name": "John Doe"
+    },
+    "output": {
+      "greet": "Hello John Doe!"
+    },
+    "runtime": 34,
+    "source": null,
+    "uuid": "c3405f16-d0e8-4d5c-8ad9-85ef332c44ee",
+    "workspace_id": 1,
+    "createdAt": "2024-02-01T16:39:28.161Z",
+    "updatedAt": "2024-02-01T16:39:28.161Z"
+  }
+}
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>

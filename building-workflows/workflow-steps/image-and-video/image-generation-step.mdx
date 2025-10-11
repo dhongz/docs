@@ -1,0 +1,49 @@
+---
+title: "Generate Image with API"
+description: "Generate and edit images and variations"
+---
+
+<Frame>
+![](/images/building-workflows/image-and-video/image-generation.png)
+</Frame>
+
+The Generate Image with AI step allows you to create, edit, or generate variations of images directly within your AirOps workflows.
+
+## Generate Image
+
+### Popular AI Models for Image Generation
+
+AirOps offers 6 AI models at this time:
+
+1. DALL·E 3
+2. DALL·E 2
+3. Stable Diffusion 3.5 Large
+4. Stable Diffusion 3.5 Large Turbo
+5. Stable Image Ultra
+6. Stable Image Core
+
+## Edit Images
+
+The Image Generation Step also allows you to edit images. To do this, you must have an input in the form of either:
+
+1. A ["File Media" Workflow Input](/building-workflows/workflow-concepts/application-inputs#advanced-input-types) variable
+2. A publicly accessible URL with a .png endpoint
+
+Additionally, you must provide a similar input for an Image Mask URL (an image of the same size, with fully transparent areas to mark where the image should be edited).
+
+<Info>
+Editing images is currently only supported with **DALL·E 2.**
+</Info>
+
+## Generate Variations
+
+As a third option, the Image Generation Step allows you to generate variations of an existing image. Similar to editing an image, you are required to have an input in the form of either:
+
+1. A ["File Media" Workflow Input](/building-workflows/workflow-concepts/application-inputs#advanced-input-types) variable
+2. A publicly accessible URL with a .png endpoint
+
+<Info>
+Generating variations is currently only supported with **DALL·E 2.**
+</Info>
+
+If you choose to generate multiple images, the output will be surfaced in a JSON format with the accessible URL's for each distinctly generated image.

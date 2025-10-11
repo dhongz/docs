@@ -1,0 +1,60 @@
+---
+title: "Strapi"
+description: "Integrate your Workflow with Strapi"
+---
+
+<Frame>
+![](/images/building-workflows/strapi.png)
+</Frame>
+
+The Strapi Integration allows you to list, create, and update entries.
+
+## Authentication
+
+1. **Generate an API Token from Strapi:**
+
+<Steps>
+    <Step>
+        Log in to your Strapi admin dashboard
+    </Step>
+    <Step>
+        Navigate to Settings, then click on "API Tokens" on the left navigation
+    </Step>
+    <Step>
+        Click the "Create new API Token" button
+    </Step>
+    <Step>
+        Provide a descriptive name for the token (e.g: "AirOps token") and set the following attributes:
+        1. Token duration: "Unlimited"
+        2. Token type: "Full access"
+    </Step>
+    <Step>
+        Click "Save" to generate the token
+    </Step>
+    <Step>
+        After the token is generated, make sure to copy and securely store it immediately, as it will not be displayed again
+    </Step>
+</Steps>
+
+2. **Add the API Token to AirOps:**
+
+<Steps>
+    <Step>
+        Go to [https://app.airops.com/account/integrations](https://app.airops.com/account/integrations)
+    </Step>
+    <Step>
+        Find the section for Strapi integration and click the "Configure" button
+    </Step>
+    <Step>
+        In the modal that appears, paste the copied API Token into the designated field
+    </Step>
+    <Step>
+        Click "Add" to complete the setup
+    </Step>
+</Steps>
+
+<Info>
+**Security Note:** 
+
+Treat your API Token like a password. It provides full access to your Strapi space, and it should not be shared. Store it securely and only use it in server-side or secure, authenticated environments.
+</Info>

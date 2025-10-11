@@ -1,0 +1,34 @@
+---
+title: "Knowledge Base API"
+description: "Interact directly with your Knowledge Bases"
+---
+
+The AirOps REST API allows users to both read and write to their Knowledge Bases as needed.
+
+## Using the REST API
+
+You can call the Knowledge Bases REST API directly from the AirOps UI. To get started, simply navigate to the desired Knowledge Base and click on its "Rest API" tab as shown below:
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/1qOMDldFNqFWJ15cm6Wb?embed"
+title="https://demo.arcade.software/1qOMDldFNqFWJ15cm6Wb?embed"
+allowfullscreen=""
+allow="clipboard-write"
+class="contentkit-webframe"
+className="w-full aspect-video rounded-xl"
+></iframe>
+</Frame>
+
+## Supported API Calls
+
+Currently, the AirOps Knowledge Bases API supports the following calls:
+
+1. **Search** -- a read-only endpoint that performs a semantic search with filtering through the Knowledge Base. See our document on [Knowledge Bases Metadata](/your-data/memory-stores/memory-stores-metadata) for more details on filtering.
+2. **Insert** -- a write endpoint to populate your Knowledge Base with additional content
+3. **Update** -- a write endpoint that lets you edit the underlying information of your connected content
+4. **Delete** -- a write endpoint to remove content from your Knowledge Bases
+
+The "REST API" tab shown above walks through how to execute each of these calls, as well as the expected results.
+
+If there are any additional functions that are critical to your business, but currently missing an API call to help you automate, we would love get your feedback!

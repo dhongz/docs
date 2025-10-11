@@ -1,0 +1,545 @@
+---
+title: "Execute a workflow definition asynchronously"
+description: "Execute a custom workflow definition asynchronously. Use this endpoint to define and execute a workflow on-the-fly with custom steps."
+api: POST https://api.airops.com/public_api/airops_apps/{app_uuid}/async_execute_definition
+contentType: application/json
+---
+
+**Preconditions:** The app must be **published**.
+
+<Info>
+**Note:**
+
+Executions created through this endpoint will be queued and executed at your workspace's capacity.
+</Info>
+
+If you want to execute a workflow definition immediately, use the `execute_definition` endpoint instead.
+
+### Authorizations
+
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+### Path parameters
+<ParamField path="app_uuid" type="string" format="uuid" required>
+The unique identifier (UUID) for the app. You can find this in your app's Integrate section.
+
+Example: `6d2f4e0b-1a1d-49ae-8034-ba56f932119e`
+</ParamField>
+
+### Body
+<ParamField body="inputs" type="object" required>
+The inputs of the workflow
+
+Example: `{"name":"John Doe"}`
+</ParamField>
+
+
+<ParamField body="inputs_schema" type="object[]" required>
+
+Example: `[{"interface":"long_text","label":"Name","name":"name","hint":"Enter your name","required":true,"group_id":"no-group","action_id":"name","placeholder":"Enter your name","test_value":"John Doe","options":[]}]`
+<Expandable>
+  <ParamField body="interface" type="string · enum" required>
+    Possible values: `long_text` `short_text` `json` `single_select` `number`
+  </ParamField>
+
+  <ParamField body="label" type="string" required/>
+  <ParamField body="name" type="string" required/>
+
+  <ParamField body="hint" type="string" required/>
+
+  <ParamField body="required" type="boolean" required/>
+
+  <ParamField body="group_id" type="string · enum" required>
+    Possible values: `no-group`
+  </ParamField>
+
+  <ParamField body="action_id" type="string" required/>
+
+  <ParamField body="placeholder" type="string" required/>
+  <ParamField body="test_value" type="string" optional/>
+  <ParamField body="options" type="string[]" required/>
+</Expandable>
+</ParamField>
+
+<ParamField body="definition" type="object[]" required>
+Represents a single step in a workflow definition. Each step has a type and corresponding configuration.
+
+Example: `[{"name":"step_1","type":"llm","config":{"model":"gpt-3.5-turbo-instruct","soft_fail":false,"config":{"prompt":"Provide a nickname for {{inputs.name}}","request_consistent_results":true,"response_format":"text","stream":false,"temperature":0.5,"note":"","model_source":"airops","max_tokens":100}}},{"name":"step_2","type":"app","config":{"app_id":1,"inputs":{"name":"{{step_1.output}}"}}},{"name":"step_3","type":"text","config":{"text":"Hello {{step_2.output}}!"}}]`
+<Expandable  title="properties">
+<ParamField body="name" type="string" required>
+The unique name/identifier for this step. Can be referenced by other steps using `{{step_name.output}}.`
+
+Example: `step_1`
+</ParamField>
+<ParamField body="type" type="string . enum" required>
+The type of operation this step performs.
+
+Possible values: `llm` `conditional` `app` `text` `web_scrape` `fetch_api` `code` `iteration`
+</ParamField>
+
+<ParamField body="config" type="any of" required>
+Configuration object specific to the step type.
+<ParamField type="object" optional>
+Configuration for an LLM (Language Model) step.
+<Expandable title="properties">
+  <ParamField body="model" type="string" required>
+    The model identifier (e.g., 'gpt-4o').
+
+    Example: `gpt-4o`
+  </ParamField>
+
+  <ParamField body="soft_fail" type="boolean" required>
+    Whether to continue workflow execution if this step fails.
+
+    Example: `false`
+  </ParamField>
+
+  <ParamField body="config" type="object" required>
+    <Expandable title="properties">
+      <ParamField body="prompt" type="string" required>
+        Use prompt if the model is gpt-4o. Otherwise, use `messages`.
+      </ParamField>
+
+      <ParamField body="messages" type="object[]" required>
+        <Expandable title="properties">
+          <ParamField body="role" type="string · enum" required>
+            Possible values: `user` `system` `assistant`
+          </ParamField>
+
+          <ParamField body="content" type="string" required/>
+          <ParamField body="id" type="string" required/>
+          <ParamField body="images" type="string[] | nullable" />
+
+        </Expandable>
+            <ParamField body="request_consistent_results" type="boolean" required/>
+          <ParamField body="response_format" type="string · enum | nullable" required>
+            Possible values: `text` `json_object`
+          </ParamField>
+          <ParamField body="stream" type="boolean" required/>
+          <ParamField body="temperature" type="number · max: 1" required/>
+          <ParamField body="note" type="string" required/>
+          <ParamField body="model_source" type="string · enum" required>
+            Possible values: `airops`
+          </ParamField>
+          <ParamField body="max_tokens" type="integer | nullable" required/>
+
+
+      <ParamField body="json_schema" type="object | nullable">
+        <Expandable title="properties">
+          <ParamField body="schema" type="object" required>
+            <Expandable title="properties">
+              <ParamField body="type" type="object" />
+
+            </Expandable>
+          </ParamField>
+          <ParamField body="strict" type="boolean" required/>
+              <ParamField body="name" type="string" required/>
+        </Expandable>
+      </ParamField>
+      </ParamField>
+    </Expandable>
+  </ParamField>
+</Expandable>
+
+</ParamField>
+OR
+<ParamField type="object" optional>
+Configuration for a conditional (if/else) step.
+<Expandable title="properties">
+  <ParamField body="condition" type="string" required>
+    The condition to evaluate. Must be JavaScript-compatible code that returns true/false.
+
+    Example: `{{step_1.output}} > 100`
+  </ParamField>
+
+  <ParamField body="if_branch" type="object[]" required>
+    Steps to execute if the condition is true.
+
+    <Expandable title="properties">
+      <ParamField body="name" type="string" required>
+        The unique name/identifier for this step. Can be referenced by other steps using `{{step_name.output}}`.
+
+        Example: `step_1`
+      </ParamField>
+
+      <ParamField body="type" type="string · enum" required>
+        The type of operation this step performs.
+
+        Possible values: `llm` `conditional` `app` `text` `web_scrape` `fetch_api` `code` `iteration`
+
+        Circular reference to any of
+      </ParamField>
+    </Expandable>
+  </ParamField>
+
+  <ParamField body="else_branch" type="object[]" required>
+    Steps to execute if the condition is false.
+
+    <Expandable title="properties">
+      <ParamField body="name" type="string">
+        The unique name/identifier for this step. Can be referenced by other steps using `{{step_name.output}}`.
+
+        Example: `step_1`
+      </ParamField>
+
+      <ParamField body="type" type="string · enum">
+        The type of operation this step performs.
+
+        Possible values: `llm` `conditional` `app` `text` `web_scrape` `fetch_api` `code` `iteration`
+
+        Circular reference to any of
+      </ParamField>
+    </Expandable>
+  </ParamField>
+</Expandable>
+
+</ParamField>
+OR
+<ParamField type="object" optional>
+Configuration for calling another app as a step.
+<Expandable title="properties">
+  <ParamField body="app_id" type="integer">
+    The ID of the app to execute.
+
+    Example: `1`
+  </ParamField>
+
+  <ParamField body="app_version" type="integer | nullable">
+    The specific version of the app to use (optional).
+
+    Example: `5`
+  </ParamField>
+
+  <ParamField body="inputs" type="object">
+    Input values to pass to the app.
+
+    Example: `{"name":"{{step_1.output}}"}`
+  </ParamField>
+
+  <ParamField body="soft_fail" type="boolean">
+    Whether to continue workflow execution if this step fails.
+
+    Example: `false`
+  </ParamField>
+</Expandable>
+
+</ParamField>
+OR
+<ParamField type="object" optional>
+Configuration for a text template step.
+<Expandable title="properties">
+<ParamField body="template" type="string" required>
+The text template. Use `{{variable}}` syntax to reference inputs or other step outputs.
+
+Example: Hello `{{inputs.name}}!`
+</ParamField>
+</Expandable>
+</ParamField>
+OR
+<ParamField type="object" optional>
+Configuration for a web scraping step.
+<Expandable title="properties">
+  <ParamField body="config" type="object">
+    <Expandable title="properties">
+      <ParamField body="url" type="string" />
+
+      <ParamField body="max_length" type="integer | nullable" />
+
+      <ParamField body="hard_fail" type="boolean | nullable" />
+
+      <ParamField body="render_js" type="boolean | nullable" />
+
+      <ParamField body="proxy_type" type="string · enum">
+        Possible values: `auto` `datacenter` `residential`
+      </ParamField>
+
+      <ParamField body="output_type" type="string · enum | nullable">
+        Possible values: `text` `html` `markdown`
+      </ParamField>
+
+      <ParamField body="timeout" type="integer | nullable" />
+
+      <ParamField body="remove_boilerplate" type="boolean | nullable" />
+
+      <ParamField body="optimize_for" type="string · enum">
+        Possible values: `custom` `speed` `accuracy`
+      </ParamField>
+
+      <ParamField body="soft_fail" type="boolean | nullable" />
+
+      <ParamField body="auto_scroll" type="boolean | nullable" />
+    </Expandable>
+  </ParamField>
+</Expandable>
+
+</ParamField>
+OR
+<ParamField type="object" optional>
+Configuration for an API fetch/HTTP request step.
+<Expandable title="properties">
+  <ParamField body="body" type="string">
+    The JSON-stringified body of the request.
+
+    Example: `{"key": "value"}`
+  </ParamField>
+
+  <ParamField body="headers" type="string">
+    The JSON-stringified headers of the request.
+
+    Example: `{"Content-Type": "application/json"}`
+  </ParamField>
+
+  <ParamField body="method" type="string · enum" required>
+    The HTTP method to use.
+
+    Example: `post`
+
+    Possible values: `get` `post`
+  </ParamField>
+
+  <ParamField body="retries" type="integer · max: 3">
+    Number of retry attempts on failure.
+
+    Example: `2`
+  </ParamField>
+
+  <ParamField body="url" type="string" required>
+    The URL to fetch.
+
+    Example: `https://api.example.com/data`
+  </ParamField>
+
+  <ParamField body="soft_fail" type="boolean">
+    Whether to continue workflow execution if this step fails.
+
+    Example: `false`
+  </ParamField>
+</Expandable>
+</ParamField>
+OR
+<ParamField type="object" optional>
+Configuration for a code execution step (Python or JavaScript).
+
+<Expandable title="properties">
+<ParamField body="config" type="object">
+<Expandable title="properties">
+  <ParamField body="language" type="string · enum" required>
+    The programming language to execute.
+
+    Example: `python`
+
+    Possible values: `python` `javascript`
+  </ParamField>
+
+  <ParamField body="function" type="string" required>
+    The code to execute as a function.
+
+    Example: `def main(inputs):\n return inputs["value"] * 2`
+  </ParamField>
+
+  <ParamField body="soft_fail" type="boolean">
+    Whether to continue workflow execution if this step fails.
+
+    Example: `false`
+  </ParamField>
+
+  <ParamField body="lambda_function" type="string">
+    Alternative lambda function format.
+  </ParamField>
+  </Expandable>
+  </ParamField>
+</Expandable>
+
+</ParamField>
+OR
+<ParamField type="object" optional>
+Configuration for an iteration/loop step that executes steps for each item in a collection.
+<Expandable title="properties">
+  <ParamField body="config" type="object">
+    <Expandable title="properties">
+      <ParamField body="iterator" type="string" required>
+        The array or collection to iterate over. Can reference step outputs or inputs.
+
+        Example: `{{inputs.items}}`
+      </ParamField>
+
+      <ParamField body="step_function" type="object[]" required>
+        The steps to execute for each item in the iteration.
+
+        <Expandable title="properties">
+          <ParamField body="name" type="string">
+            The unique name/identifier for this step. Can be referenced by other steps using `{{step_name.output}}.`
+
+            Example: `step_1`
+          </ParamField>
+
+          <ParamField body="type" type="string · enum">
+            The type of operation this step performs.
+
+            Possible values: `llm` `conditional` `app` `text` `web_scrape` `fetch_api` `code` `iteration`
+          </ParamField>
+
+          Circular reference to any of
+        </Expandable>
+      </ParamField>
+    </Expandable>
+  </ParamField>
+</Expandable>
+
+</ParamField>
+</ParamField>
+</Expandable>
+</ParamField>
+
+## Responses
+
+### 200 Execution created
+
+<Expandable title="Response body">
+<ResponseField name="Response" type="object">
+<Expandable>
+<ResponseField name="airops_app_execution" type="object">
+Represents a single execution of an app, containing all inputs, outputs, and execution metadata.
+<ResponseField name="id" type="string" required>
+The unique identifier for the execution.
+</ResponseField>
+
+<ResponseField name="status" type="string" enum required>
+The current status of the execution.
+
+Example: `pending`
+</ResponseField>
+
+<ResponseField name="airops_apps_version_id" type="integer">
+The ID of the app version that was executed.
+
+Example: `21`
+</ResponseField>
+
+<ResponseField name="conversation_id" type="string">
+The ID of the conversation (for agent apps).
+
+Example: `23`
+</ResponseField>
+
+<ResponseField name="credits_used" type="integer">
+The number of credits consumed by this execution.
+
+Example: `34`
+</ResponseField>
+
+<ResponseField name="error_code" type="string">
+Error code if the execution failed.
+</ResponseField>
+
+<ResponseField name="error_message" type="string">
+Detailed error message if the execution failed.
+</ResponseField>
+
+<ResponseField name="feedback" type="string" enum>
+User feedback rating for the execution.
+</ResponseField>
+
+<ResponseField name="inputs" type="object">
+The input values provided to the app.
+
+Example: `{"name":"John Doe"}`
+</ResponseField>
+
+<ResponseField name="output" type="object">
+The output results produced by the app.
+
+Example: `{"greet":"Hello John Doe!"}`
+</ResponseField>
+
+<ResponseField name="runtime" type="integer">
+The time it took to execute the app (in seconds).
+
+Example: `34`
+</ResponseField>
+
+<ResponseField name="source" type="string">
+The source that triggered the execution.
+</ResponseField>
+
+<ResponseField name="uuid" type="string" format="uuid">
+The UUID of the execution.
+
+Example: `c3405f16-d0e8-4d5c-8ad9-85ef332c44ee`
+</ResponseField>
+
+<ResponseField name="workspace_id" type="integer">
+The ID of the workspace where the execution occurred.
+
+Example: `1`
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" format="date-time" required>
+Timestamp when the execution was created.
+
+Example: `2024-02-01T16:39:28.161Z`
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" format="date-time" required>
+Timestamp when the execution was last updated.
+
+Example: `2024-02-01T16:39:28.161Z`
+</ResponseField>
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+### 400 Invalid input
+<Expandable title="Response body">
+<ResponseField name="error" type="string" required>
+Example: `name_input_value can't be blank`
+</ResponseField>
+</Expandable>
+
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+
+<ResponseExample>
+```bash 200 Execution created
+{
+  "id": 22,
+  "status": "pending",
+  "airops_apps_version_id": 21,
+  "conversation_id": null,
+  "credits_used": 34,
+  "error_code": null,
+  "error_message": null,
+  "feedback": null,
+  "inputs": {
+    "name": "John Doe"
+  },
+  "output": null,
+  "runtime": null,
+  "source": null,
+  "uuid": "c3405f16-d0e8-4d5c-8ad9-85ef332c44ee",
+  "workspace_id": 1,
+  "createdAt": "2024-02-01T16:39:28.161Z",
+  "updatedAt": "2024-02-01T16:39:28.161Z"
+}
+```
+
+```bash 400 Invalid input
+{
+  "error": "name_input_value can't be blank"
+}
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>

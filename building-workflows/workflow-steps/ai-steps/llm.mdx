@@ -1,0 +1,209 @@
+---
+title: "Prompt LLM"
+sidebarTitle: "Overview"
+description: "Test and refine prompts for a Large Language Model"
+---
+
+Large Language Models (LLMs) are a category of machine learning models that generate human-like text. They are trained on extensive amounts of data and are capable of understanding and generating responses based on given inputs as well as powering conversational experiences
+
+We started AirOps to make it easier to build powerful solutions with these models as they play a growing role in business operations.
+
+## Setting up an LLM Step
+
+When setting up an LLM Step, there are multiple parameters to configure to best fit your use-case. We'll provide a brief overview of each parameter here.
+
+<Frame>
+![](/images/building-workflows/setting-an-llm-step.png)
+</Frame>
+
+### Select an AI Model
+
+Selecting a model depends on context window, task complexity, cost, and speed. Generally, more capable models offer higher quality output at a higher cost and slower speed.
+
+For guidance on which model to select, check out our doc page on [Choosing a Model](/building-workflows/workflow-steps/ai-steps/llm/choosing-a-model).
+
+<Info>
+You can also choose to bring your own fine-tuned model by connecting it via our [API Providers](/your-workspace/team#api-providers) page.
+</Info>
+
+<Frame>
+![](/images/building-workflows/select-an-ai-model.png)
+</Frame>
+
+### Temperature
+
+Temperature determines the amount of variability in the AI's response:
+
+- For greater variability and more "creative" responses, choose a higher temperature.
+- For less variability and more deterministic responses, choose a lower temperature.
+
+### Max Length (optional)
+
+Limits the maximum number of output tokens. If left empty no limits are enforced.
+
+<Frame>
+![](/images/building-workflows/max-length.png)
+</Frame>
+
+### Streaming
+
+Streaming allows you to see output generated token-by-token, similar to the ChatGPT experience. The text will stream in the Test panel of the Workflow Studio or when you run your Workflow in AirOps.
+
+**Reasons for Streaming:**
+
+- **Rapidly test prompts:** If you want to test prompts quickly, you can watch your output generate in real-time and validate your prompt faster instead of waiting for the entire response to finish.
+- **Deliver an API with streaming:** If streaming text in real-time is a better user-experience for your end-user, you should consider streaming as an option. On the other hand, if you're generating large amounts of text, perhaps streaming is not the ideal option for your end-user.
+- **AirOps Frontend SDK:** Our SDK makes it possible for you to stream Workflow outputs directly into your user experience
+
+### Output Format
+
+For OpenAI models, you can choose between "Text" (default) and "JSON".
+
+If you choose JSON, then the LLM step will always return its output in a valid JSON format. You should specify in your prompt what JSON output format you want the LLM to follow. For example if you want the JSON to include keys like "title" and "content", you should specify in in the prompt.
+
+### Structured Outputs
+
+For OpenAI models, when specifying a JSON output format, you can also use the "Define Column Outputs" option to specify the format the JSON will follow. This is a more formal specification than just writing down how you want the output format to be in your prompt. But it is also more limited. Right now you can only use Structured Outputs for a flat JSON with top level keys and no arrays.
+
+### Consistent Results
+
+Enabling the "Request Consistent Results" will request that the model make a best effort attempt to achieve consistent output results given the same input multiple times.
+
+This can be useful for testing purposes, as maintaining consistency in results is often a requirement as you test the broader workflow.
+
+The "Request Consistent Results" feature is only available for OpenAI models.
+
+### Prompt Your Model
+
+Once you've completed selecting your model and choosing the desired parameters, the next big step is to provide it with a prompt. Prompts should be as thorough and descriptive as possible, and we recommend referencing our doc pages on how best to "[Prompt with GPT](/building-workflows/workflow-steps/ai-steps/llm/prompt-with-gpt)" and "Prompt with Claude."
+
+We also encourage you to look through our suite of existing Templates. Nearly all of them include an LLM Step, and can help give some inspiration and guidelines for what your prompt may look like, e.g.
+
+### User Prompt
+
+The "User Prompt" field provides the model with sample inputs or conversation to get the desired output, e.g.
+
+```bash
+User:
+Please write an exciting poem targeted toward kindergarten students with the following:
+Poem Title: The First Day of School
+Topics: Recess, Art Class, Snack Time
+```
+
+#### Assistant Prompt
+
+The assistant prompt helps the model "learn" the desired output format. This is especially helpful to generate arrays, JSON, or HTML without extra "chat" text (*"Sure! This is an array..."*), e.g.
+
+```bash
+System: You output an array of 5 strings with nouns that are kitchen objects.
+
+User: Give me an output of 5 utensils
+
+Assistant: ["spoon", "fork", "knife", "spatula", "chopsticks"]
+
+User: Now, give me an array of 5 {{my_input}}
+```
+
+<Info>
+In AirOps, you can include multiple User / Assistant pairs in order to give the LLM examples of how to respond.
+</Info>
+
+## How to continue if the LLM step fails
+
+By default, the LLM step will terminate the workflow if it fails. However, to continue the workflow if the step fails, simply click on the Settings and click `Continue` at the bottom of the Settings:
+
+<Frame caption="Click Continue at the bottom of the LLM Step">
+![](/images/building-workflows/how-to-continue-if-llm-step-fails.png)
+</Frame>
+
+
+The step will return the following keys:
+
+- `output` : this will be `null`
+- `error` :
+	- `message`: the message returned from the step
+	- `code` : the error code representing the error
+
+<Frame>
+![](/images/building-workflows/keys-returned.png)
+</Frame>
+
+## How to retry if the LLM step fails
+
+To retry the LLM step if it fails,
+
+<Steps>
+<Step>
+    Select `Continue` instead of `Terminate Workflow` if the step fails
+</Step>
+<Step>
+    Add a conditional where the condition checks if the `error` from the step exists e.g. `step_1.error`
+</Step>
+<Step>
+    Add the step that you want to retry if there was an error
+</Step>
+</Steps>
+
+<Frame>
+![](/images/building-workflows/how-to-retry-if-llm-fails.png)
+</Frame>
+
+## Generate Prompt with AI
+
+When configuring your LLM Step, you can use our "Generate with AI" tool to assist you in filling in the prompt:
+
+<Frame>
+![](/images/building-workflows/generate-prompt-with-ai.png)
+</Frame>
+
+We'll provide a quick breakdown of each of the customizable options that come with this feature, and share a walkthrough example below.
+
+<Info>
+Note: "Generate with AI" is currently only compatible with OpenAI
+</Info>
+
+### Task Type
+
+You first have to define your Task Type. The list of currently supported types includes:
+
+1. **Content Creation** -- a good choice if you are looking to generate content, e.g. a blog post, an image, a marketing email, etc.
+2. **Question + Answer** -- choose this option if you plan for your input to be a question and your output to be the answer
+3. **Entity Extraction** -- choose this option if you're looking to extract specific values from a text or image
+4. **Text Extraction** -- similar to Entity Extraction, this can be useful for parsing out specific text values
+5. **Classification** -- choose this option if you would like for your output to group different values of your input into similar categories
+
+### Output Type
+
+Once you've defined your Task Type, the next decision to make is how you would like the LLM Step to output the results. The list of currently supported Output Types includes:
+
+1. Plain Text
+2. Markdown
+3. HTML
+4. JSON
+5. YAML
+
+By selecting a value here, you can save yourself the additional effort of specifying the output type in your prompt (or requiring a subsequent Text Step to reformat the output)
+
+### Prompt
+
+The Prompt section is similar to what we covered earlier in ["Prompt Your Model."](/building-workflows/workflow-steps/ai-steps/llm#prompt-your-model) However, the key difference here is that we can rely on our AI to flesh out the description further. So, if you were unsure of exactly how to phrase your prompt, OpenAI will attempt to expand upon it.
+
+### Advanced Settings
+
+- **Output Example (optional)** -- if the AI is struggling to output the results in the specified format, you can manually enter an example here for it to work from. This is similar to the User/Assistant Prompts above.
+- Selected Variables -- populates with any input variables you have leading into the step
+
+### Example
+
+As an example, let's walk through using the "Generate with AI" feature to help create a basic Workflow. We'll imitate the Restaurant Review we created in our Workflow Quick Start.
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/wwLuvhmlXoRTKETSBYPy?embed"
+title="https://demo.arcade.software/wwLuvhmlXoRTKETSBYPy?embed"
+allowFullScreen
+allow="clipboard-write"
+className="w-full rounded-xl"
+style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>

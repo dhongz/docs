@@ -1,0 +1,48 @@
+---
+title: "Write Liquid Text"
+description: "Format your output into a string"
+---
+
+## How does the Text Step work?
+
+The Text Step allows users to concatenate the outputs of previous steps into a single string. It's most often used as the final step in your workflow to ensure your final output is structured exactly the way you would like.
+
+<Info>
+Text Steps are also a great option for extracting multiple values stored in lists or arrays that you may want to concatenate into a single string.
+</Info>
+
+## How to Configure a Text Step?
+
+The most basic implementation of a Text Step is straightforward. You simply need to reference the desired variables or step outputs using Liquid syntax, as shown below:
+
+<Frame caption="Call your previous steps together">
+![](/images/building-workflows/code/configure-text-step.png)
+</Frame>
+
+In this example, our Text Step is concatenating Step 10 (generating a title) with Step 9 (generating the article content). So, our end result is a properly formatted article with the title followed by the body.
+
+## Concatenating the Output of an Iteration Step
+
+One of the more popular use-cases for a Text Step is to extract values from an Iteration Step. The general formatting for this is:
+
+```bash
+{% for chunk in step_x.output %}
+{{chunk}}
+{% endfor %}
+```
+
+with "step\_x" representing your Iteration Step, and the "chunk" being the values we want to pull. Let's take a look at another example:
+
+<Frame caption="Concatenate values pulled from the Iteration Step">
+![](/images/building-workflows/code/concatenate-iteration-step.png)
+</Frame>
+
+This is pulled directly from our "Article Merge" template. Out Iteration Step (step\_12) checks to see whether it is writing an introduction for our article or if it is writing the body of the article. By calling our Text Step as:
+
+```bash
+{% for chunk in step_12.output %}
+{{ chunk }}
+{% endfor %}
+```
+
+We are effectively combining the results of each piece into a single string.

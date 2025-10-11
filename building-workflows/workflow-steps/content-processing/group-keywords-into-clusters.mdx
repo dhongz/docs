@@ -1,0 +1,39 @@
+---
+title: "Group Keywords into Clusters"
+description: "The 'Group Keywords into Clusters' step allows you to organize a list of keywords into meaningful, thematic clusters based on semantic similarity. This powerful tool helps you identify related keyword groups for content planning and optimization."
+---
+
+### How to Configure the Group Keywords into Clusters Step
+
+- **Keywords**: List of keywords to be clustered as a JSON array (i.e. \["keyword a", "keyword b"\]
+- **Clustering Sensitivity**: Choose how sensitive you want the clustering logic to be:
+	- Low = lower number of clusters (more coarse clustering)
+	- High = higher number of clusters (more fine clustering)
+
+### Output Format
+
+The Group Keywords into Clusters step returns a JSON object containing the organized keyword clusters:
+
+```json expandable
+[
+ [
+  "keyword 1",
+  "keyword 2",
+  "keyword 3",
+  "keyword 4",
+  "keyword 5",
+  "keyword 6",
+  "keyword 7"
+ ],
+ [
+  "keyword 8",
+  "keyword 9",
+  "keyword 10",
+  "keyword 11",
+  "keyword 12",
+  "keyword 13",
+  "keyword 14"
+ ],
+ // Additional keyword clusters here
+]
+```

@@ -1,0 +1,290 @@
+---
+title: "People Data Labs"
+description: "People Data Labs steps provide access to comprehensive business intelligence data for companies and professionals. These powerful tools help you enrich your CRM, enhance lead generation, and create personalized outreach by retrieving detailed profiles for both companies and individuals."
+---
+
+### Available People Data Labs Steps
+
+AirOps offers the following People Data Labs integration steps:
+
+<Columns cols={2}>
+<Card title="People Data Labs - Company Enrichment" icon="building" href="/building-workflows/workflow-steps/b2b-enrichment/people-data-labs#people-data-labs-company-enrichment">
+Access detailed company information including funding, size, and industry data
+</Card>
+<Card title="People Data Labs - Person Enrichment" icon="user" href="/building-workflows/workflow-steps/b2b-enrichment/people-data-labs#people-data-labs-person-enrichment">
+Gather comprehensive professional profiles including work history and contact details
+</Card>
+</Columns>
+
+### People Data Labs - Company Enrichment
+
+This step allows you to access detailed company information including funding, size, and industry data. It provides comprehensive business intelligence that can enhance your lead qualification and targeting processes.
+
+**Configuration**
+
+You must provide **one** of the following identifiers to look up a company:
+
+- **Name**: The company's name as it's commonly known (e.g., "AirOps", "Microsoft Corporation")
+- **Ticker**: The company's stock market ticker symbol if it's publicly traded (e.g., "MSFT" for Microsoft)
+- **Website**: The company's website domain or full URL (e.g., "airops.com" or "https://www.airops.com")
+- **Profile**: A URL to the company's profile on a social platform like LinkedIn (e.g., "https://www.linkedin.com/company/airops/")
+
+**Output Format**
+
+```json expandable
+{
+  "id": "1a2b3c4d5e",
+  "name": "AirOps",
+  "display_name": "AirOps",
+  "size": "11-50",
+  "employee_count": 25,
+  "founded": 2021,
+  "industry": "Computer Software",
+  "naics": [
+    {
+      "name": "Software Publishers",
+      "naics": "511210"
+    }
+  ],
+  "location": {
+    "name": "New York, New York, United States",
+    "locality": "New York",
+    "region": "New York",
+    "country": "United States",
+    "continent": "North America"
+  },
+  "website": "https://www.airops.com",
+  "ticker": null,
+  "type": "private",
+  "summary": "AirOps is a platform for building and deploying AI-powered workflows for marketing and content creation.",
+  "tags": [
+    "artificial intelligence",
+    "machine learning",
+    "marketing automation"
+  ],
+  "metrics": {
+    "annual_revenue": "1M-10M",
+    "estimated_annual_revenue": 5000000,
+    "raised": 15000000
+  },
+  "profiles": {
+    "facebook": "https://www.facebook.com/airopsai",
+    "linkedin": "https://www.linkedin.com/company/airops/"
+  },
+  "phone": "+1 (555) 123-4567",
+  "emails": [
+    "info@airops.com"
+  ]
+}
+```
+
+### People Data Labs - Person Enrichment
+
+This step enables you to gather comprehensive professional profiles including work history and contact details. It provides LinkedIn information, contact information, and much more to power personalized outreach.
+
+**Configuration**
+
+You must provide **one** of the following identifiers to look up a person:
+
+- **Social Profile**: A URL to the person's profile on a social platform like LinkedIn (e.g., "https://www.linkedin.com/in/johndoe/")
+- **Email**: The person's email address (e.g., "john.doe@company.com")
+- **Phone Number**: The person's phone number in international format (e.g., "+14155559876")
+- **Name and Company**: If you don't have the above identifiers, you can search using:
+	- **First Name**: The person's first/given name
+	- **Last Name**: The person's last name/surname
+	- **Company Name**: The name of the company where the person works
+
+**Output Format**
+
+```json expandable
+{
+  "id": "pGj2y4NzB9aKpEWM3nGRdJ",
+  "full_name": "John Smith",
+  "first_name": "John",
+  "last_name": "Smith",
+  "middle_name": "Michael",
+  "gender": "male",
+  "birth_date": "1985-06-15",
+  "location": {
+    "name": "San Francisco, California, United States",
+    "locality": "San Francisco",
+    "region": "California",
+    "country": "United States"
+  },
+  "work_email": "john.smith@company.com",
+  "personal_emails": [
+    "johnsmith85@gmail.com"
+  ],
+  "mobile_phone": "+14155551234",
+  "work_phone": "+14155559876",
+  "industry": "Computer Software",
+  "job_title": "Senior Product Manager",
+  "job_title_role": "product",
+  "job_title_levels": [
+    "senior"
+  ],
+  "job_company_name": "Acme Inc",
+  "job_company_website": "acmeinc.com",
+  "job_company_size": "201-500",
+  "job_start_date": "2020-03-01",
+  "skills": [
+    "Product Management",
+    "Product Strategy",
+    "SaaS"
+  ],
+  "experience": [
+    {
+      "company": {
+        "name": "Acme Inc",
+        "size": "201-500",
+        "industry": "Computer Software"
+      },
+      "title": "Senior Product Manager",
+      "start_date": "2020-03-01",
+      "end_date": null,
+      "is_current": true
+    },
+    {
+      "company": {
+        "name": "Tech Solutions",
+        "size": "51-200",
+        "industry": "Computer Software"
+      },
+      "title": "Product Manager",
+      "start_date": "2017-05-01",
+      "end_date": "2020-02-28",
+      "is_current": false
+    }
+  ],
+  "education": [
+    {
+      "school": {
+        "name": "Stanford University",
+        "type": "college"
+      },
+      "degrees": [
+        "MBA"
+      ],
+      "start_date": "2015-09-01",
+      "end_date": "2017-06-01"
+    }
+  ],
+  "profiles": {
+    "linkedin": "https://www.linkedin.com/in/johnsmith",
+    "facebook": "https://www.facebook.com/johnsmith",
+    "twitter": "https://twitter.com/johnsmith"
+  }
+}
+```
+
+### Common Use Cases
+
+#### Enhanced Lead Qualification
+
+<Steps>
+  <Step>
+  Import a list of target companies
+  </Step>
+  <Step>
+Use **People Data Labs - Company Enrichment** to get detailed company information
+  </Step>
+  <Step>
+Use a Code step to filter companies based on size, industry, or funding
+  </Step>
+  <Step>
+For qualifying companies, use **People Data Labs - Person Enrichment** to find decision-makers
+  </Step>
+  <Step>
+Create personalized outreach based on comprehensive data points
+  </Step>
+</Steps>
+
+#### Personalized Sales Outreach
+
+<Steps>
+  <Step>
+  Start with a contact list of names and companies
+  </Step>
+  <Step>
+Use **People Data Labs - Person Enrichment** to get detailed professional profiles
+  </Step>
+  <Step>
+Use an LLM step to generate personalized outreach referencing:
+	- Current role and responsibilities
+	- Previous experience
+	- Educational background
+	- Skills relevant to your solution
+  </Step>
+  <Step>
+Send targeted messages through your connected email platform
+  </Step>
+</Steps>
+
+#### CRM Data Enrichment
+
+<Steps>
+  <Step>
+  Export contact data from your CRM
+  </Step>
+  <Step>
+Use **People Data Labs - Company Enrichment** to enhance company records
+  </Step>
+  <Step>
+Use **People Data Labs - Person Enrichment** to complete contact profiles
+  </Step>
+  <Step>
+Use a Code step to merge and format the enriched data
+  </Step>
+  <Step>
+Import the enhanced data back into your CRM
+  </Step>
+</Steps>
+
+### Error Handling
+
+By default, the People Data Labs steps will terminate the workflow if they fail. To continue the workflow if a step fails, click "Continue" at the bottom of the settings panel.
+
+\[IMAGE: Screenshot showing the "Continue" option in the step settings\]
+
+The step will return the following keys when it fails:
+
+- `output`: this will be `null`
+- `error`:
+	- `message`: the message returned from the step
+	- `code`: the error code representing the error
+
+Common error causes include:
+
+- Insufficient information provided
+- No matching record found
+- Rate limits exceeded
+
+### Example Workflow
+
+Here's an example workflow that uses both People Data Labs steps for a comprehensive lead enrichment process:
+
+<Steps>
+  <Step>
+  Start with a list of target companies
+  </Step>
+  <Step>
+Use **People Data Labs - Company Enrichment** to get detailed company information
+  </Step>
+  <Step>
+Use a Code step to filter companies based on criteria (size, industry, funding, etc.)
+  </Step>
+  <Step>
+For each qualifying company, use another Code step to construct a query for finding relevant decision-makers (e.g., "VP of Marketing", "Director of Content")
+</Step>
+<Step>
+Use **People Data Labs - Person Enrichment** to find the right contacts within those companies
+</Step>
+<Step>
+Use an LLM step to analyze the enriched profiles and generate personalized outreach messages
+</Step>
+<Step>
+Send targeted messages through your connected email platform
+</Step>
+</Steps>
+
+This workflow enables highly targeted, data-driven outreach based on comprehensive company and contact information, significantly improving engagement rates compared to generic approaches.

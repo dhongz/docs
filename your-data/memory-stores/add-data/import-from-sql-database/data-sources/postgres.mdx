@@ -1,0 +1,59 @@
+---
+title: "Postgres"
+description: "Connect to a Postgres database in AirOps"
+---
+
+<Info>
+**Remember to allowlist our IP Address `52.71.87.39`**
+
+If your database is protected by a firewall, remember to allow inbound access to AirOPs IP address over your database port.
+</Info>
+
+## Add Postgres as a Database in AirOps
+
+To setup a new database connection, go to **⚙️ Settings —> Warehouse Setup —> Add Source**
+
+Then, include the following:
+
+1. **Host** - The hostname or IP address of your PostgreSQL server.
+	Example: `example-postgres-instance.abcdefghijkl.us-west-2.rds.amazonaws.com`
+2. **Port** - The port on which your PostgreSQL server is listening. Default is `5432`.
+3. **User** - The PostgreSQL user that AirOps will connect to the database with. It is best practice to create a new user for AirOps (instructions below), but any user with SELECT privileges can be used.
+4. **Password** - Password for the above user.
+5. **Database** - The PostgreSQL database that AirOps will connect to.
+
+<Frame>
+![](/images/your-data/add-postgress-as-database.png)
+</Frame>
+
+## Setup User and Grant Access
+
+To add a PostgreSQL database as a Data Source on AirOps, use an existing user or create a user with **read** access to the tables and schemas you would like to access from AirOps:
+
+### 1\. Create AirOps User
+
+```bash
+CREATE USER airops_user
+WITH PASSWORD '<secure-password>';
+```
+
+### 2\. Grant USAGE and SELECT Privileges
+
+Replace with the appropriate schema and table names that you would like AirOps to interact with.
+
+```bash
+GRANT USAGE ON SCHEMA "<schema>" TO airops_user;
+
+GRANT SELECT ON TABLE "<schema>"."<table>" TO airops_user;
+```
+
+If you want to grant access to multiple tables, you can run the `GRANT SELECT` statement for each table or run `GRANT SELECT ON ALL TABLES`.
+
+### 3\. (Optional) Grant Access to Future Tables in Schema
+
+If you want to grant access to all future tables in a schema, you can use the following command, replacing with the appropriate schema name:
+
+```bash
+ALTER DEFAULT PRIVILEGES IN SCHEMA "<schema>"
+GRANT SELECT ON TABLES TO airops_user;
+```

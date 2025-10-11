@@ -1,0 +1,45 @@
+---
+title: "Run via API"
+description: "Call your AirOps Workflows via endpoints"
+---
+
+
+After publishing your workflow, you can call it through our API endpoints using your required input parameters to receive a response. For a broad overview of our API capabilities, check out our [API Reference](https://app.gitbook.com/s/rT8WZaGa5JcV0M5osTWg) for detailed technical specifications.
+
+## Authentication
+
+All endpoints require authentication using a Bearer token. To authenticate, include an Authorization header in your request with the value Bearer YOUR_API_KEY. You can find your API key in your [Workspace Settings](/your-workspace/workspaces#workspace-settings):
+<Frame>
+<img src="/images/workspace-setting.avif" alt="Workspace setting" />
+</Frame>
+## Finding Your Workflow ID
+
+In addition to your API Token, you will also need your Workflow ID to ensure your API calls are reaching the correct endpoint. The Workflow ID is the number found in the app's URL. For instance, in the URL:
+
+```bash
+https://app.airops.com/{your_workspace}/apps/123
+```
+
+The Workflow ID is:
+
+```bash
+123
+```
+
+Additionally, you can can reference the "Rest API" tab for the Workflow shown further below.
+
+## Endpoints
+
+To find the additional parameters and endpoints available for your Workflow, you can navigate to the "REST API" tab underneath the "Integrate" section of your Workflow:
+
+Ready to make your first request? Check out [API Reference docs](https://developers.airops.com/) for further details!
+<Frame>
+<iframe
+  src="https://demo.arcade.software/XLLOnL04P09gRC3dAwLv?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>

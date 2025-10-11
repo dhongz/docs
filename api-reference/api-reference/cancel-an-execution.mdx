@@ -1,0 +1,54 @@
+---
+title: "Cancel an execution"
+description: "Cancel a pending or running execution."
+api: PATCH https://api.airops.com/public_api/airops_apps/executions/{execution_uuid}/cancel
+contentType: application/json
+---
+
+**Preconditions:** The execution must be in **pending** or **running** status.
+
+### Authorizations
+
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+
+### Path parameters
+<ParamField path="execution_uuid" type="string" format="uuid" required>
+The unique identifier (UUID) for the execution.
+
+Example: `c3405f16-d0e8-4d5c-8ad9-85ef332c44ee`
+</ParamField>
+
+
+## Responses
+
+### 204 Execution cancelled
+<Expandable>
+No Content
+</Expandable>
+
+
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+<ResponseExample>
+```bash 204 Execution cancelled
+No Content
+```
+
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>
+
+
+

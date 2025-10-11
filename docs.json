@@ -1,68 +1,442 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "AirOps Docs",
+  "theme": "aspen",
+  "name": "AirOps",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#6e6eff",
+    "light": "#6e6eff",
+    "dark": "#000000"
   },
-  "favicon": "/favicon.svg",
+  "appearance": {
+    "default": "light"
+  },
+  "favicon": "/favicon.png",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Docs",
         "groups": [
           {
             "group": "Getting started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              {
+                "group": "Overview",
+                "pages": [
+                  "index",
+                  "getting-started/readme/readme",
+                  "getting-started/readme/building-your-first-workflow"
+                ]
+              }
             ]
           },
           {
-            "group": "Customization",
+            "group": "Your Data",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "your-data/brand-kit",
+              {
+                "group": "Knowledge Bases",
+                "pages": [
+                  "your-data/memory-stores",
+                  {
+                    "group": "Add Data",
+                    "pages": [
+                      "your-data/memory-stores/add-data",
+                      "your-data/memory-stores/add-data/upload-files",
+                      "your-data/memory-stores/add-data/web-scrape",
+                      "your-data/memory-stores/add-data/import-from-google-drive",
+                      {
+                        "group": "Import from SQL Database",
+                        "pages": [
+                          "your-data/memory-stores/add-data/import-from-sql-database",
+                          {
+                            "group": "Data Sources",
+                            "pages": [
+                              "your-data/memory-stores/add-data/import-from-sql-database/data-sources",
+                              "your-data/memory-stores/add-data/import-from-sql-database/data-sources/bigquery",
+                              "your-data/memory-stores/add-data/import-from-sql-database/data-sources/postgres",
+                              "your-data/memory-stores/add-data/import-from-sql-database/data-sources/redshift",
+                              "your-data/memory-stores/add-data/import-from-sql-database/data-sources/snowflake"
+                            ]
+                          },
+                          "your-data/memory-stores/add-data/import-from-shopify"
+                        ]
+                      }
+                    ]
+                  },
+                  "your-data/knowledge-base-search",
+                  "your-data/memory-stores/memory-stores-metadata",
+                  "your-data/memory-stores/memory-stores-api"
+                ]
+              }
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Building Workflows",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              {
+                "group": "Workflow Concepts",
+                "pages": [
+                  "building-workflows/workflow-concepts",
+                  {
+                    "group": "Workflow Inputs",
+                    "pages": [
+                      "building-workflows/workflow-concepts/application-inputs",
+                      "building-workflows/workflow-concepts/application-inputs/input-types"
+
+                    ]
+                  },
+                  "building-workflows/workflow-concepts/workflow-outputs",
+                  "building-workflows/workflow-concepts/variable-referencing",
+                  "building-workflows/workflow-concepts/liquid-template"
+                ]
+              },
+              {
+                "group": "Workflow Steps",
+                "pages": [
+                  "building-workflows/workflow-steps",
+                  {
+                    "group": "AI",
+                    "pages": [
+                      "building-workflows/workflow-steps/ai-steps",
+                      {
+                        "group": "Prompt LLM",
+                        "pages": [
+                          "building-workflows/workflow-steps/ai-steps/llm",
+                          "building-workflows/workflow-steps/ai-steps/llm/choosing-a-model",
+                          "building-workflows/workflow-steps/ai-steps/llm/prompt-with-gpt"
+                        ]
+                      },
+                      "building-workflows/workflow-steps/ai-steps/transcription"
+                    ]
+                  },
+                  {
+                    "group": "Web Research",
+                    "pages": [
+                      "building-workflows/workflow-steps/web-research",
+                      "building-workflows/workflow-steps/web-research/google-search",
+                      "building-workflows/workflow-steps/web-research/google-search-1",
+                      "building-workflows/workflow-steps/web-research/web-page-scrape"
+                    ]
+                  },
+                  {
+                    "group": "Code",
+                    "pages": [
+                      "building-workflows/workflow-steps/logic-steps",
+                      "building-workflows/workflow-steps/logic-steps/code",
+                      "building-workflows/workflow-steps/logic-steps/api",
+                      "building-workflows/workflow-steps/logic-steps/json",
+                      "building-workflows/workflow-steps/logic-steps/sql-query",
+                      "building-workflows/workflow-steps/logic-steps/text"
+                    ]
+                  },
+                  {
+                    "group": "Flow",
+                    "pages": [
+                      "building-workflows/workflow-steps/flow",
+                      "building-workflows/workflow-steps/flow/conditional",
+                      "building-workflows/workflow-steps/flow/iteration",
+                      "building-workflows/workflow-steps/flow/human-review",
+                      "building-workflows/workflow-steps/flow/content-comparison",
+                      "building-workflows/workflow-steps/flow/error-step"
+                    ]
+                  },
+                  {
+                    "group": "Data",
+                    "pages": [
+                      "building-workflows/workflow-steps/memory-steps",
+                      "building-workflows/workflow-steps/memory-steps/read-from-grid",
+                      "building-workflows/workflow-steps/memory-steps/write-to-grid",
+                      "building-workflows/workflow-steps/memory-steps/memory-search",
+                      "building-workflows/workflow-steps/memory-steps/memory-write",
+                      "building-workflows/workflow-steps/memory-steps/knowledge-base-read"
+                    ]
+                  },
+                  {
+                    "group": "AirOps",
+                    "pages": [
+                      "building-workflows/workflow-steps/utility-steps",
+                      "building-workflows/workflow-steps/utility-steps/app",
+                      "building-workflows/workflow-steps/utility-steps/agent"
+                    ]
+                  },
+                  {
+                    "group": "Image & Video",
+                    "pages": [
+                      "building-workflows/workflow-steps/image-and-video",
+                      "building-workflows/workflow-steps/image-and-video/image-generation-step",
+                      "building-workflows/workflow-steps/image-and-video/search-stock-images",
+                      "building-workflows/workflow-steps/image-and-video/fetch-stock-image-with-id",
+                      "building-workflows/workflow-steps/image-and-video/resize-image",
+                      "building-workflows/workflow-steps/image-and-video/screenshot-from-url",
+                      "building-workflows/workflow-steps/image-and-video/create-opengraph-image",
+                      "building-workflows/workflow-steps/image-and-video/create-video-avatar"
+                    ]
+                  },
+                  {
+                    "group": "SEO Research",
+                    "pages": [
+                      "building-workflows/workflow-steps/seo-research",
+                      "building-workflows/workflow-steps/seo-research/semrush",
+                      "building-workflows/workflow-steps/seo-research/content-+-seo"
+                    ]
+                  },
+                  {
+                    "group": "AEO Research",
+                    "pages": [
+                      "building-workflows/workflow-steps/aeo-research",
+                      "building-workflows/workflow-steps/aeo-research/aeo-data"
+                    ]
+                  },
+                  {
+                    "group": "Content Quality",
+                    "pages": [
+                      "building-workflows/workflow-steps/content-quality",
+                      "building-workflows/workflow-steps/content-quality/detect-ai-content",
+                      "building-workflows/workflow-steps/content-quality/scan-content-for-plagiarism"
+                    ]
+                  },
+                  {
+                    "group": "Content Processing",
+                    "pages": [
+                      "building-workflows/workflow-steps/content-processing",
+                      "building-workflows/workflow-steps/content-processing/convert-pdf-url-to-text",
+                      "building-workflows/workflow-steps/content-processing/group-keywords-into-clusters"
+                    ]
+                  },
+                  {
+                    "group": "B2B Enrichment",
+                    "pages": [
+                      "building-workflows/workflow-steps/b2b-enrichment",
+                      "building-workflows/workflow-steps/b2b-enrichment/contact-enrichment",
+                      "building-workflows/workflow-steps/b2b-enrichment/people-data-labs"
+                    ]
+                  },
+                  {
+                    "group": "CMS Integrations",
+                    "pages": [
+                      "building-workflows/workflow-steps/integrations",
+                      "building-workflows/workflow-steps/integrations/webflow",
+                      "building-workflows/workflow-steps/integrations/wordpress",
+                      "building-workflows/workflow-steps/integrations/shopify",
+                      "building-workflows/workflow-steps/integrations/contentful",
+                      "building-workflows/workflow-steps/integrations/sanity",
+                      "building-workflows/workflow-steps/integrations/strapi"
+                    ]
+                  },
+                  {
+                    "group":"Analytics Integrations",
+                    "pages": [
+                      "building-workflows/workflow-steps/analytics-integrations",
+                      "building-workflows/workflow-steps/analytics-integrations/google-search-console"
+                    ]
+                  },
+                  {
+                    "group":"Collaboration Integrations",
+                    "pages": [
+                      "building-workflows/workflow-steps/collaboration-integrations",
+                      "building-workflows/workflow-steps/collaboration-integrations/gmail",
+                      "building-workflows/workflow-steps/collaboration-integrations/google-docs",
+                      "building-workflows/workflow-steps/collaboration-integrations/google-sheets",
+                      "building-workflows/workflow-steps/collaboration-integrations/notion",
+                      "building-workflows/workflow-steps/collaboration-integrations/slack"
+                    ]
+                  },
+                  {
+                    "group": "Other Integrations",
+                    "pages": [
+                      "building-workflows/workflow-steps/other-integrations",
+                      "building-workflows/workflow-steps/other-integrations/youtube",
+                      "building-workflows/workflow-steps/other-integrations/youtube-1"
+                    ]
+                  }
+                ]
+              },
+              "building-workflows/power-agents",
+              "building-workflows/testing-and-iteration",
+              "building-workflows/publishing-and-versioning",
+              "building-workflows/testing-and-iteration-1",
+              "building-workflows/studio-toolbar"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Running Workflows",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "running-workflows/run-once",
+              "running-workflows/run-in-bulk-grid",
+              "running-workflows/api",
+              {
+                "group": "Run via Trigger",
+                "pages": [
+                  "running-workflows/trigger",
+                  "running-workflows/trigger/incoming-webhook",
+                  "running-workflows/trigger/zapier"
+                ]
+              },
+              "running-workflows/schedule",
+              "running-workflows/error-handling"
+            ]
+          },
+          {
+            "group": "Grids",
+            "pages": [
+              {
+                "group": "Create a Grid",
+                "pages": [
+                  "grids/create-a-grid",
+                  "grids/create-a-grid/import-from-webflow",
+                  "grids/create-a-grid/import-from-wordpress",
+                  "grids/create-a-grid/import-from-semrush",
+                  "grids/create-a-grid/import-from-google-search-console"
+                ]
+              },
+              "grids/add-columns-in-the-grid",
+              {
+                "group": "Run Workflows in the Grid",
+                "pages": [
+                  "grids/run-workflows-in-grid",
+                  "grids/run-workflows-in-grid/add-workflow-column",
+                  "grids/run-workflows-in-grid/run-workflow-column",
+                  "grids/run-workflows-in-grid/run-workflow-column-1",
+                  "grids/run-workflows-in-grid/map-workflow-outputs",
+                  "grids/run-workflows-in-grid/review-workflow-run-metadata"
+                ]
+              },
+              {
+                "group": "Review Content in the Grid",
+                "pages": [
+                  "grids/review-content-in-the-grid",
+                  "grids/review-content-in-the-grid/review-markdown-content",
+                  "grids/review-content-in-the-grid/review-html-content",
+                  "grids/review-content-in-the-grid/compare-content-difference"
+                ]
+              },
+              "grids/publish-to-cms-from-grid",
+              "grids/pull-analytics-in-the-grid",
+              "grids/searching-and-filtering",
+              "grids/export-data"
+            ]
+          },
+          {
+            "group": "Copilot",
+            "pages": [
+              "copilot/chat-with-copilot",
+              "copilot/edit-workflows-with-copilot",
+              "copilot/fix-errors-with-copilot"
+            ]
+          },
+          {
+            "group": "Monitoring",
+            "pages": [
+              "monitoring/task-usage",
+              "monitoring/analytics",
+              "monitoring/alerts",
+              "monitoring/execution-logs"
+            ]
+          },
+          {
+            "group": "Your Workspace",
+            "pages": [
+              "your-workspace/workspaces",
+              "your-workspace/folders",
+              "your-workspace/workspaces-1",
+              "your-workspace/billing",
+              "your-workspace/byo-key",
+              "your-workspace/secrets",
+              "your-workspace/team"
+            ]
+          },
+          {
+            "group": "Chat Agents (Legacy)",
+            "pages": [
+              "chat-agents-legacy/agent-quick-start",
+              "chat-agents-legacy/chat-based-applications",
+              {
+                "group": "Integrate Agents",
+                "pages": [
+                  "chat-agents-legacy/integrate",
+                  "chat-agents-legacy/integrate/widget",
+                  "chat-agents-legacy/integrate/client-web-sdk"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "About",
+            "pages": [
+              "about/ethical-ai-and-ip-production",
+              "about/principles",
+              "about/security-and-compliance"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
-        "groups": [
+        "tab": "API Reference",
+        "pages": [
           {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
+            "group": "Using the API",
+            "pages": ["api-reference"]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Api Reference",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              {
+                "group": "Executions",
+                "pages": [
+                  "api-reference/api-reference/executions",
+                  "api-reference/api-reference/retrieve-an-execution",
+                  "api-reference/api-reference/execute-an-app-synchronously",
+                  "api-reference/api-reference/execute-an-app-asynchronously",
+                  "api-reference/api-reference/execute-a-workflow-definition-synchronously",
+                  "api-reference/api-reference/execute-a-workflow-definition-asynchronously",
+                  "api-reference/api-reference/execute-via-webhook",
+                  "api-reference/api-reference/cancel-an-execution",
+                  "api-reference/api-reference/retry-an-execution",
+                  "api-reference/api-reference/rate-an-execution",
+                  "api-reference/api-reference/retrieve-all-executions-for-an-airops-app"
+                ]
+              },
+              {
+                "group": "Workflows (Apps)",
+                "pages": [
+                  "api-reference/api-reference/workflows-apps",
+                  "api-reference/api-reference/list-all-apps",
+                  "api-reference/api-reference/retrieve-an-app"
+                ]
+              },
+              {
+                "group": "Grids",
+                "pages": [
+                  "api-reference/api-reference/grids",
+                  "api-reference/api-reference/generate-csv-from-a-sheet",
+                  "api-reference/api-reference/download-csv"
+                ]
+              },
+              {
+                "group": "Knowledge Base",
+                "pages": [
+                  "api-reference/api-reference/knowledge-base",
+                  "api-reference/api-reference/search-a-memory-store",
+                  "api-reference/api-reference/add-a-document",
+                  "api-reference/api-reference/update-a-document",
+                  "api-reference/api-reference/delete-a-document"
+                ]
+              },
+              {
+                "group": "Files",
+                "pages": [
+                  "api-reference/api-reference/files",
+                  "api-reference/api-reference/upload-a-file"
+                ]
+              },
+              {
+                "group": "Agents (Legacy)",
+                "pages": [
+                  "api-reference/api-reference/agents-legacy",
+                  "api-reference/api-reference/chat",
+                  "api-reference/api-reference/async-chat"
+                ]
+              }
             ]
           }
         ]
@@ -71,18 +445,18 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Contact Us",
+          "href": "mailto:info@airops.com",
+          "icon": "envelope"
         },
         {
           "anchor": "Community",
-          "href": "https://mintlify.com/community",
+          "href": "https://join.slack.com/t/airopsbuilders/shared_invite/zt-3b401du10-7wtCqHu~CaGdoXYWGi4_BQ",
           "icon": "slack"
         },
         {
           "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
+          "href": "https://www.airops.com/blog",
           "icon": "newspaper"
         }
       ]
@@ -90,38 +464,38 @@
   },
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "dark": "/logo/dark.svg",
+    "href": "https://www.airops.com"
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Book a Demo",
+        "href": "https://www.airops.com/book-a-call"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Start Building",
+      "href": "https://app.airops.com/users"
     }
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "linkedin": "https://www.linkedin.com/company/airopshq",
+      "slack": "https://join.slack.com/t/airopsbuilders/shared_invite/zt-3b401du10-7wtCqHu~CaGdoXYWGi4_BQ"
     }
   }
 }

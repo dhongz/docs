@@ -1,0 +1,127 @@
+---
+title: "Human Review"
+description: "Require Human Review of outputs before continuing a workflow"
+---
+
+<Frame>
+![](/images/building-workflows/flow/human-review.png)
+</Frame>
+
+With the Human Review step, the user can be prompted to review, validate, and edit a text value (*Single Item*) or select and edit multiple values (*Multiple Values*) before continuing a workflow.
+
+For example, you could create a list of 5 blog titles for a user to select from, ask the user to review and select the titles to publish with a review step, and finally publish the selected content to your blog.
+
+## Review a Single Item
+
+### What is a Single Item?
+
+The single item allows the user to edit the text from a single-line text box:
+
+<Frame caption="Single Item Review">
+![](/images/building-workflows/flow/single-item.png)
+</Frame>
+
+### How to Configure a Single Item
+
+1. **Label the item:** the label will automatically create the variable name associated with your label. In the example below, we label our item "Blog Title", which also created the variable `blog_title`
+2. **Assign the value of the item:** use Liquid syntax to pass the value that you want the user to edit and review. In the example below, this is `{{step_2.output}}`
+3. **(Optional) Notify a Slack channel:** choose a Slack channel which will notify users to review the output
+
+<Frame caption="Single Item Configuration">
+![](/images/building-workflows/flow/configure-single-item.png)
+</Frame>
+
+
+## Review Multiple Values
+
+### What is are Multiple Values?
+
+Multiple values allow the user to select and edit multiple values at once:
+
+<Frame caption="Multiple Values Review">
+![](/images/building-workflows/flow/multiple-values.png)
+</Frame>
+
+### How to Configure Multiple Values
+
+1. Set up a list of options:
+	1. **Generate a list:** use an LLM step to generate a list of items, it must be an Array
+
+        <Frame caption="A list of 5 blog titles">
+        ![](/images/building-workflows/flow/generate-a-list.png)
+        </Frame>
+	2. **Label the item:** the label will automatically create the variable name associated with your label. In the example below, we label our item "Blog Titles", which also created the variable `blog_titles`
+	3. **Assign the value of the item:** use Liquid syntax to pass the list you generated in Step 1. In the example below, this is `{{step_2.output}}`
+	4. **(Optional) Notify a Slack channel:** choose a Slack channel which will notify users to review the output
+
+    <Frame caption="Multiple Values Configuration">
+    ![](/images/building-workflows/flow/configure-multiple-values.png)
+    </Frame>
+
+## Referencing the Human Review Step
+
+### How to Reference a Single Item
+
+To reference a single item from the Human Review step, use the variable corresponding to the label you provided.
+
+In this example, we named the item "Blog Title" which created the variable `{{step_3.output.blog_title}}` :
+
+<Frame caption="Referencing a single item">
+![](/images/building-workflows/flow/reference-single-item.png)
+</Frame>
+
+### How to Reference Multiple Values
+
+To reference multiple values from the Human Review step, use the variable corresponding to the label you provided.
+
+However, unlike referencing a single item, the output of a multiple value review is a list:
+
+<Frame caption="Referencing multiple values">
+![](/images/building-workflows/flow/reference-multiple-values.png)
+</Frame>
+
+In other words, `{{step_3.output.blog_titles}}` from the example above gives the user a list of blog titles. If you want to reference only the first blog title, you would need to modify your syntax to `{{step_3.output.blog_titles[0]}}`.
+
+## Review Session
+
+When a workflow reaches the review step, it pauses the execution, leaves the workflow in a pending state for review, and creates a review session where the user can review the content.
+
+### How to Review Output
+
+- **For single items,** you can edit the content using *markdown* syntax.
+- **For multiple values,** you can edit the values and select/unselect them.
+- After editing you can either choose to accept the reviewed content, or cancel the execution.
+
+### Review in the Test Panel
+
+As you test your workflow, you can access the review session by clicking on "Review":
+
+<Frame caption="Review in the test panel">
+![](/images/building-workflows/flow/review-in-test-panel.png)
+</Frame>
+
+
+### Review in Real-Time when Running Once
+
+When you Run Once, the review session will automatically appear, and your user can review the outputs in real-time:
+
+<Frame caption="Review when running once">
+![](/images/building-workflows/flow/review-in-real-time.png)
+</Frame>
+
+
+### Review Asynchronously in the History
+
+To review executions asynchronously, you can review them in the **History** tab:
+
+<Steps>
+<Step title="Click on History to view all executions"/>
+<Step title="Filter the Status to Review needed"/>
+<Step title="Click on View in the Actions column"/>
+<Step title="Click on Review to review the output and continue the execution"/>
+</Steps>
+
+<Frame caption="Review from the history tab">
+![](/images/building-workflows/flow/review-async.png)
+</Frame>
+

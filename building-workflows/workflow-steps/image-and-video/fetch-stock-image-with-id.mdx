@@ -1,0 +1,29 @@
+---
+title: "Fetch Stock Image with ID"
+description: "The 'Fetch Stock Image with ID' step allows you to retrieve a specific stock image using its unique identifier from either Getty Images or Unsplash."
+---
+
+<Info>
+Note: This step is intended to be used with the Search Stock Images step. 
+
+Search Stock Images step should be used first to return image options, and the selected image ID should be used to retrieve the final image using the Fetch Stock Image with ID step.
+</Info>
+
+
+### How to Configure the Fetch Stock Image with ID Step
+
+Configuring the step requires setting the parameters shown below:
+
+- **Provider**: Getty or Unsplash (be sure that your selection is the same as the Search Stock Images step provider)
+- **Size**:
+	- Thumbnail (100×100)
+	- XSmall (480×480)
+	- Small (740×740)
+	- Medium (1080×1080) - optimized for web
+	- Large (2000×2000)
+	- Original
+- **Image ID**: Enter the unique identifier of the stock image you want to retrieve. This ID is typically obtained from a previous "Search Stock Images" step or from the stock image provider directly.
+
+### Output Format
+
+The Fetch Stock Image with ID step returns an image URL.

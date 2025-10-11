@@ -1,0 +1,100 @@
+---
+title: "Web Page Scrape"
+description: "Scrape text, markdown or HTML from a website"
+---
+
+The "Web Page Scrape" Step allows you to automate a text/markdown/HTML scrape from a specific URL. You can combine this with an Iteration Step to scrape through multiple websites, and parse the output separately.
+
+## Configuring the "Web Page Scrape" Step
+
+Configuring the step requires setting the parameters shown below:
+
+<Frame caption="Configuring your Web Page Scrape parameters">
+![](/images/building-workflows/web-page-scrape.png)
+</Frame>
+
+### URL
+
+Add the specific URL you want the step to scrape.
+
+### Maximum Length
+
+Optionally, you may limit the number of characters returned by the step.
+
+This parameter can be helpful to limit the amount of text passed to a subsequent LLM step, which has a limited context window.
+
+<Warning>
+
+**1 token is approximately 4 characters in English.** To estimate the number of characters, you should pass to an LLM step, multiply the # of tokens you want to pass by 4.
+</Warning>
+
+### How to continue if the Web Scrape step fails
+
+By default, the code step will terminate the workflow if it fails. However, to continue the workflow if the step fails, simply click `Continue` at the bottom of the step.
+
+<Frame>
+![](/images/building-workflows/web-page-scrape-fails.png)
+</Frame>
+
+Click continue to continue the workflow
+
+The step will return the following keys:
+
+- `output` : this will be `null`
+- `error` :
+	- `message`: the message returned from the step
+	- `code` : the error code representing the error
+
+<Frame>
+![](/images/building-workflows/web-page-scrape-fail-returns.png)
+</Frame>
+
+### Enable Javascript rendering?
+
+By default, the Web Page Scrape Step will not render websites that use Javascript.
+
+Check this box to enable scraping from websites that use Javascript to help render dynamic content (examples include Facebook, Airbnb, and more).
+
+### Timeout
+
+The maximum time to wait for your webscraped results to return in milliseconds.
+
+### Type of Proxy:
+
+Use the **residential proxy** for sites that require more reliability and higher success rates. On the other hand, use the **datacenter proxy** where reliability and success rates are not a concern.
+
+**Datacenter:**
+
+- Private IP addresses that are housed in data centers
+- Offer higher speed but they are less reliable in terms of anonymity
+- More likely to be detected and blocked by websites and internet services.
+
+#### Residential
+
+- A real IP address attached to a physical location
+- Webscraping will appear as if it's coming from a residential home in a certain location
+- Considered more legitimate and less likely to be blocked by websites
+
+<Info>
+**Note:**
+
+Using a residential proxy is more expensive than using the datacenter, so it's good to measure this against your use-case when deciding which proxy to use.
+</Info>
+
+#### Headers
+
+Use this field to pass custom headers for the web scrape request. Ensure the headers are formatted as valid JSON. For example:
+
+```json
+{
+    "authorization": "Bearer YOUR_API_KEY",
+    "Content-Type": "{{ a_variable }}"
+}
+```
+
+### Output Type
+
+- **Text:** No formatting included
+- **HTML:** Extract headers and formatting from a website in HTML
+- **Markdown:** Extract the headers from a website in markdown
+

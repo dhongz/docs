@@ -1,0 +1,128 @@
+---
+title: "Google Search Console"
+---
+
+<Frame>
+![](/images/building-workflows/google-search.png)
+</Frame>
+
+AirOps allows you to connect directly to your Google Search Console account to get valuable search performance data within your workflows, helping you make data-driven decision with your content.
+
+### How to Configure the Google Search Console Integration Step
+
+<Steps>
+<Step title="Add the step to your workflow">
+	- Click the "+" button to add a new step
+	- Select "Google Search Console" under the "Integrations" section from the available steps
+</Step>
+<Step title="Authentication">
+	- Select an existing Google Search Console connection from the dropdown, or set up a new one
+</Step>
+<Step title="Action Type">
+	- Choose from the following available actions:
+		- **Get Query Performance Overview**: Retrieves performance data for search queries that led to your site
+		- **Get Page Performance Overview**: Retrieves performance data for specific pages on your site
+		- **Get Query Page Performance Breakdown**: Provides detailed performance metrics between queries and pages
+		- **Get Page Indexing Status**: Checks if a specific URL is indexed by Google and when it was last indexed
+</Step>
+<Step title="Configure action-specific parameters">
+	- **Site Selection**: Choose which Google Search Console property to query
+	- **URL**: For page-specific actions, enter the URL you want to analyze
+	- **Period**: For performance data, select the time frame (Last 7 days, Last 28 days, Last 3 months, etc.)
+</Step>
+<Step title="Output formats vary by action type">
+	- **Query Performance**: Returns data including query text, clicks, impressions, CTR, and position in the following JSON format
+</Step>
+</Steps>
+
+```json
+{
+  "queries": [
+    {
+      "query": "string",  // The search query text
+      "clicks": number,   // Count of clicks from this query
+      "impressions": number,  // Count of impressions for this query
+      "ctr": number,      // Click-through rate (decimal format)
+      "position": number  // Average position in search results
+    }
+    // Multiple query objects will be returned
+  ]
+}
+```
+
+- **Page Performance**: Returns data about specific pages including clicks, impressions, and ranking
+
+```json expandable
+{
+  "clicks": {
+    "L7D": number,       // Total clicks in the Last 7 Days
+    "L30D": number,      // Total clicks in the Last 30 Days
+    "WoW Change": number, // Week-over-Week change in clicks (can be positive or negative)
+    "MoM Change": number  // Month-over-Month change in clicks (can be positive or negative)
+  },
+  "impressions": {
+    "L7D": number,       // Total impressions in the Last 7 Days
+    "L30D": number,      // Total impressions in the Last 30 Days
+    "WoW Change": number, // Week-over-Week change in impressions
+    "MoM Change": number  // Month-over-Month change in impressions
+  },
+  "ctr": {
+    "L7D": number,       // Average Click-Through Rate for the Last 7 Days (expressed as percentage)
+    "L30D": number,      // Average Click-Through Rate for the Last 30 Days (expressed as percentage)
+    "WoW Change": number, // Week-over-Week change in CTR (percentage points)
+    "MoM Change": number  // Month-over-Month change in CTR (percentage points)
+  },
+  "position": {
+    "L7D": number,       // Average position in search results for the Last 7 Days
+    "L30D": number,      // Average position in search results for the Last 30 Days
+    "WoW Change": number, // Week-over-Week change in position (negative change is improvement)
+    "MoM Change": number  // Month-over-Month change in position (negative change is improvement)
+  }
+}
+```
+
+- **Query Page Breakdown**: Shows how specific queries perform for specific pages
+
+```json expandable
+{
+  "queries": [  // Array of query objects
+    {
+      "query": "string",     // The specific search query text being analyzed
+      "clicks": number,      // Total clicks received from this query across all pages
+      "impressions": number, // Total impressions for this query across all pages
+      "ctr": number,         // Overall click-through rate for the query (expressed as percentage)
+      "position": number,    // Average position in search results for this query
+      
+      "ranking_pages": [     // Array of pages that rank for this query
+        {
+          "url": "string",   // Full URL of the ranking page
+          "clicks": number,  // Number of clicks this specific page received for this query
+          "impressions": number, // Number of impressions this page received for this query
+          "ctr": number,     // Page-specific click-through rate (expressed as decimal)
+          "position": number, // Average position of this page for this query
+          "clicks_percent_total": number, // Percentage of total query clicks going to this page
+          "impressions_percent_total": number // Percentage of total query impressions going to this page
+        }
+        // Multiple page objects will be returned, sorted by clicks in descending order
+      ]
+    },
+    // Multiple query objects will be returned, typically sorted by clicks in descending order
+  ],
+  
+  "metadata": {
+    "start_date": "string", // ISO format date marking the beginning of the reporting period
+    "end_date": "string",   // ISO format date marking the end of the reporting period
+    "queries": number,      // Total number of unique queries analyzed in this report
+    "urls": number          // Total number of unique URLs that appeared in search results
+  }
+}
+```
+
+- **Indexing Status**: Returns whether a page is indexed, along with the last crawl date in the following JSON format
+
+```json
+{
+  "last_crawled_at": "string", // Timestamp of the last crawl
+  "indexed": boolean           // Whether the page is indexed
+}
+```

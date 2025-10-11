@@ -1,0 +1,196 @@
+---
+title: "Execute an app synchronously"
+description: "Execute an app and get the output immediately. This endpoint executes the app synchronously and returns the result."
+api: POST https://api.airops.com/public_api/airops_apps/{app_uuid}/execute
+contentType: application/json
+---
+
+**Preconditions:** The app must be **published**.
+
+<Info>
+**Important:**
+
+This endpoint executes the app immediately and returns the result, unless you are at your current capacity, or your app takes more than 10 minutes to run, in which case it will fail.
+</Info>
+If you want to execute an app asynchronously, use the `async_execute` endpoint instead.
+
+### Authorizations
+
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+### Path parameters
+<ParamField path="app_uuid" type="string" format="uuid" required>
+The app uuid
+
+Example: `6d2f4e0b-1a1d-49ae-8034-ba56f932119e`
+</ParamField>
+
+### Body
+<ParamField body="version_slug" type="integer">
+The version of the app (will use the default version if not provided)
+
+Example: `12`
+</ParamField>
+
+<ParamField body="inputs" type="object" required>
+The inputs of the app
+
+Example: `{"name":"John Doe"}`
+</ParamField>
+
+## Responses
+
+### 200 Execution created
+
+<Expandable title="Response body">
+<ResponseField name="Response" type="object">
+<Expandable title="properties">
+<ResponseField name="airops_app_execution" type="object">
+Represents a single execution of an app, containing all inputs, outputs, and execution metadata.
+<ResponseField name="id" type="string" required>
+The unique identifier for the execution.
+</ResponseField>
+
+<ResponseField name="status" type="string" enum required>
+The current status of the execution.
+
+Example: `success`
+</ResponseField>
+
+<ResponseField name="airops_apps_version_id" type="integer">
+The ID of the app version that was executed.
+
+Example: `21`
+</ResponseField>
+
+<ResponseField name="conversation_id" type="string">
+The ID of the conversation (for agent apps).
+
+Example: `23`
+</ResponseField>
+
+<ResponseField name="credits_used" type="integer">
+The number of credits consumed by this execution.
+
+Example: `34`
+</ResponseField>
+
+<ResponseField name="error_code" type="string">
+Error code if the execution failed.
+</ResponseField>
+
+<ResponseField name="error_message" type="string">
+Detailed error message if the execution failed.
+</ResponseField>
+
+<ResponseField name="feedback" type="string" enum>
+User feedback rating for the execution.
+</ResponseField>
+
+<ResponseField name="inputs" type="object">
+The input values provided to the app.
+
+Example: `{"name":"John Doe"}`
+</ResponseField>
+
+<ResponseField name="output" type="object">
+The output results produced by the app.
+
+Example: `{"greet":"Hello John Doe!"}`
+</ResponseField>
+
+<ResponseField name="runtime" type="integer">
+The time it took to execute the app (in seconds).
+
+Example: `34`
+</ResponseField>
+
+<ResponseField name="source" type="string">
+The source that triggered the execution.
+</ResponseField>
+
+<ResponseField name="uuid" type="string" format="uuid">
+The UUID of the execution.
+
+Example: `c3405f16-d0e8-4d5c-8ad9-85ef332c44ee`
+</ResponseField>
+
+<ResponseField name="workspace_id" type="integer">
+The ID of the workspace where the execution occurred.
+
+Example: `1`
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" format="date-time" required>
+Timestamp when the execution was created.
+
+Example: `2024-02-01T16:39:28.161Z`
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" format="date-time" required>
+Timestamp when the execution was last updated.
+
+Example: `2024-02-01T16:39:28.161Z`
+</ResponseField>
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+### 400 Invalid input
+<Expandable title="Response body">
+<ResponseField name="Response" type="object">
+<Expandable title="properties">
+<ResponseField name="error" type="string" required>
+Example: `name_input_value can't be blank`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+<ResponseExample>
+```bash 200 Execution created
+{
+  "id": 22,
+  "status": "success",
+  "airops_apps_version_id": 21,
+  "conversation_id": 23,
+  "credits_used": 34,
+  "error_code": null,
+  "error_message": null,
+  "feedback": "positive",
+  "inputs": {
+    "name": "John Doe"
+  },
+  "output": {
+    "greet": "Hello John Doe!"
+  },
+  "runtime": 34,
+  "source": null,
+  "uuid": "c3405f16-d0e8-4d5c-8ad9-85ef332c44ee",
+  "workspace_id": 1,
+  "createdAt": "2024-02-01T16:39:28.161Z",
+  "updatedAt": "2024-02-01T16:39:28.161Z"
+}
+```
+
+```bash 400 Invalid input
+{
+  "error": "name_input_value can't be blank"
+}
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>

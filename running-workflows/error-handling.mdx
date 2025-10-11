@@ -1,0 +1,38 @@
+---
+title: "Error Handling"
+description: "Continue workflow using branched logic if the step returns an error"
+---
+
+## What is error handling?
+
+Error handling lets you decide what happens when a step fails in your workflow. You can either terminate the entire workflow when an error occurs or allow it to continue running despite the error.
+
+If a step's output is essential for subsequent steps, choose to terminate the workflow when that step fails. If the workflow can proceed without a particular step's output, you can configure it to continue despite errors.
+
+<Frame>
+<img src="/images/error-handling.avif"/>
+</Frame>
+## How to Handle Failed Steps
+<Steps>
+<Step>
+ Select `Continue` instead of `Terminate Workflow` if the step fails
+</Step>
+<Step>
+ Add a conditional where the condition checks if the `error` from the step exists e.g. `step_1.error`
+</Step>
+<Step>
+ Add alternative steps or actions to execute when an error occurs
+
+ <Frame>
+<iframe
+  src="https://demo.arcade.software/DKDlZVzy53bV2TOmBxNP?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+</Step>
+</Steps>
+

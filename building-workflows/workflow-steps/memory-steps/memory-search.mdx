@@ -1,0 +1,132 @@
+---
+title: "Search Knowledge Base"
+description: 'Semantically search a Knowledge Base'
+---
+
+## What is a Knowledge Base Search Step?
+
+The Knowledge Base Search step allows you to semantically search your data in order to power customized content or recommendations to users.
+
+For more information on setting up a Knowledge Base, see our documentation page [here](/your-data/memory-stores).
+
+## How to Configure a Knowledge Base Search Step
+
+### Select a Knowledge Base
+
+Select the name of your Knowledge Base from the dropdown.
+
+### Max Results
+
+Choose the number of Knowledge Base results to return.
+
+<Info>
+Your content is chunked into 1000 tokens, so each result will be ~1000 tokens.
+</Info>
+
+If you're finding that your LLM isn't returning the exact results you're looking for, then we recommend increasing the number of results and asking it to synthesize them.
+
+### Filter the Knowledge Base (Optional)
+
+Knowledge Bases have two different filter modes, the first is a **Visual Editor** where you can filter data based on a specific metadata field.
+
+For example, if you wanted to filter a `client` column on an input `client_name`, you would pass the following:
+
+<Frame caption="Filter on a value via the Visual Editor">
+![](/images/building-workflows/data/filter-knowledge-base.png)
+</Frame>
+
+For more complex use cases, you can use the **Code Editor** which uses MongoDB's query and projection operators. Here are some common operators:
+
+- **$eq** - Equal to (for numbers, strings, booleans)
+- **$ne** - Not equal to (for numbers, strings, booleans)
+- **$gt** - Greater than (for numbers)
+- **$gte** - Greater than or equal to (for numbers)
+- **$lt** - Less than (for numbers)
+- **$lte** - Less than or equal to (for numbers)
+- **$in** - In array (for strings or numbers)
+- **$nin** - Not in array (for strings or numbers)
+
+Let's walk through a quick example of how you can filter on Metadata in your Workflow using our "Q&A" Template. In this specific example, we have already populated our Knowledge Base to include multiple countries' Constitutions, as well as Metadata focused around the "country" field to filter on.
+
+<Frame>
+<iframe src="https://demo.arcade.software/wdZVVd8LeM0QNGiSf9v9?embed"
+title="https://demo.arcade.software/wdZVVd8LeM0QNGiSf9v9?embed"
+style= {{width: '100%', maxWidth: '100%', aspectRatio: '1.43417 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+In order for filtering to be effective, we recommend reading through our ["Knowledge Bases Metadata" document](/your-data/memory-stores/memory-stores-metadata) to ensure you're providing optimal metadata fields to filter on.
+
+### Query
+
+The phrase used to search your knowledge base for semantically similar text.
+
+As best practice, we recommend that you utilize a liquid variable for your query. Because your workflows are meant to adapt to the inputs you provide, it typically isn't best to hard-code your query to a specific variable or question.
+
+Because the Knowledge Base will return the most *semantically* similar results, there will be times where providing a long string of text will be more likely to return your desired results than a targeted, accurate phrase. We encourage you to test your query prompt to ensure it best fits your needs.
+
+## Knowledge Base Search Step Output
+
+The Knowledge Base Search step will output a list of embeddings from the knowledge base.
+
+- **ID:** A unique ID based on the metadata Chunk ID, Record ID, and Vector Store Document ID.
+- **Score:** A [measure of semantic similarity](https://en.wikipedia.org/wiki/Cosine_similarity).
+- **Content:** The text (or columns) of your document that are searchable.
+- **Document Name:** Name of the document you provided.
+- **Document File URL:** The URL of the original document file you uploaded (if there's one).
+- **Metadata:** Any columns you provided as metadata.
+
+```json expandable
+[
+  {
+    "id": "vsdi:87:rid:1:cid:0",
+    "score": 0.78703,
+    "content": "Blog Title: How to Become a Prompt Engineer\\nBlog Content: In this blog, we're going to show you how to take your prompting...",
+    "document_name": "AirOps Knowledge Base",
+    "document_file_url": "https://app.airops.com/your_document_file.pdf",
+    "metadata": {
+      "__chunk_id": 0,
+      "__record_id": "1",
+      "__vector_store_document_id": 87,
+      "title": "How to Become a Prompt Engineer",
+      "description": "Learn how to elevate your prompting to the next level.",
+    }
+  },
+  {
+    ...
+  }
+ ]
+```
+
+### Formatting Your Output for LLM Steps
+
+The output of the Knowledge Base Search Step is a JSON blob as shown above. However, because you will often pass this output into an LLM, it is much more effective if you format the results in natural language.
+
+#### Formatting with Code Step
+
+One of the best ways to handle this is by using our Code Step in conjunction with Liquid syntax. Our "Q&A" Template shows a great example of how you can achieve this:
+
+<Frame>
+![](/images/building-workflows/data/formating-with-code-setup.png)
+</Frame>
+
+Our Code Step utilizes Javascript to format the JSON Blob into a more natural format for our LLM Step to interpret:
+
+```bash
+return step_1.output.map(item => \`Document Name: ${item.document_name}\nContent: ${item.content}\nConfidence Score: ${item.score}\`).join('\n\n');
+```
+
+#### Formatting with Liquid
+
+To pass context and formatted data to the LLM step, you can also use Liquid to format your Knowledge Base Search Step results.
+
+We modify our earlier example output above by iterating over each chunk and returning the `metadata.title` and `metadata.description`:
+
+```bash
+// Replace step_x.output
+
+{% for chunk in step_x.output %}
+    Title: {{chunk.metadata.title}}
+    Description: {{chunk.metadata.description}}
+{% endfor %}
+```

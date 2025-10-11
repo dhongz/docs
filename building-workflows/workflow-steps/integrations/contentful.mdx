@@ -1,0 +1,83 @@
+---
+title: "Contentful"
+description: "Integrate your Workflow with Contentful"
+---
+
+<Frame>
+![](/images/building-workflows/contentful.png)
+</Frame>
+
+
+The Contentful Integration allows you to create, list, get, and update entries.
+
+## Authentication
+
+1. **Generate a Personal Access Token from Contentful:**
+
+    <Steps>
+        <Step>
+        Log in to your Contentful account.
+        </Step>
+        <Step>
+        Navigate to settings, then click on "CMA Tokens."
+        </Step>
+        <Step>
+        Press the "Create Personal Access To" button.
+        </Step>
+        <Step>
+        Provide a descriptive name for the token to identify its usage easily.
+        </Step>
+        <Step>
+        After the token is generated, make sure to copy and securely store it immediately, as it will not be displayed again.
+        </Step>
+    </Steps>
+2. **Add the Personal Access Token to Your Workflow:**
+
+    <Steps>
+        <Step>
+	    Go to [https://app.airops.com/account/integrations](https://app.airops.com/account/integrations)
+        </Step>
+        <Step>
+        Find the section for Contentful integration and click on the "Configure" button.
+        </Step>
+        <Step>
+        In the modal that appears, paste the copied Personal Access Token into the designated field.
+        </Step>
+        <Step>
+        Click "Add" to complete the setup.
+        </Step>
+    </Steps>
+
+<Note>
+**Security Note:**
+
+Treat your Personal Access Token like a password. It provides full access to your Contentful space, and it should not be shared. Store it securely and only use it in server-side or secure, authenticated environments.
+</Note>
+
+## Functions and Their Parameters
+
+### Create Entry (JSON)
+
+1. **Space ID**
+2. **Environment**
+3. **Content Type ID**
+4. **JSON**
+
+### List Entries
+
+1. **Space ID**
+2. **Environment (optional)**
+
+### Get Entry
+
+1. **Space ID**
+2. **Environment**
+3. **Entry ID**
+
+### Update Entry (JSON)
+
+1. **Integration**
+2. **Space ID**
+3. **Environment**
+4. **Content Type ID**
+5. **JSON**

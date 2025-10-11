@@ -1,0 +1,246 @@
+---
+title: "Client Web SDK"
+description: "Integrate an Agent with the Client SDK"
+---
+
+## Introduction
+
+AirOps provides an easy and secure way to bring your AirOps Workflows to end user web experiences. To facilitate secure access to our Workflow directly from client-side code, we have implemented a Client SDK with an authorization mechanism.
+
+This document will guide you through the process of installing and integrating our Client SDK with your server-side code, enabling your end-users to securely access Workflows endpoints.
+
+Checkout our [apps](https://stackblitz.com/edit/stackblitz-starters-ldufu5?file=src%2FApp.tsx) and [chat](https://stackblitz.com/edit/stackblitz-starters-cpnzjp?file=src%2FApp.tsx) playgrounds with code examples.
+
+## Authentication
+
+To authenticate with our API using the SDK, you'll need three pieces of information:
+
+1. Your workspace ID: **Settings > Workspace ID**
+2. User ID (any unique identifier will work)
+3. Your API key: **Settings > API Key**
+
+First, use the API key to hash your user id on your back-end server. This will result in a hashed user id that is unique to your API key and user ID combination.
+
+Here's a sample implementation of the identity verification process for your server:
+
+<CodeGroup>
+    ```bash Ruby
+require "openssl"
+
+def user_id_hash
+  api_key = "YOUR_API_KEY" # your workspace token (keep safe!)
+  user_id = "YOUR_USER_ID"
+
+  # Convert your api key to bytes
+  key = api_key.encode("utf-8")
+
+  # Hash the message using HMAC-SHA256 and the key
+  hash = OpenSSL::HMAC.hexdigest('sha256', key, user_id)
+end
+```
+
+```bash Python
+import hashlib
+
+def user_id_hash():
+  api_key = "YOUR_API_KEY" # your workspace token (keep safe!)
+  user_id = "YOUR_USER_ID"
+
+  key = api_key.encode('utf-8')
+
+  # Hash the message using HMAC-SHA256 and the key
+  hash = hmac.new(key, user_id.encode('utf-8'), hashlib.sha256).hexdigest()
+
+  return hash
+```
+
+```bash NodeJS
+const crypto = require('crypto');
+
+const userIdHash = () => {
+  const apiKey = "YOUR_API_KEY"; // your workspace token (keep safe!)
+  const userId = "YOUR_USER_ID";
+
+  // Convert your api key to a buffer
+  const key = Buffer.from(apiKey, 'utf-8');
+
+  // Hash the message using HMAC-SHA256 and the key
+  const hash = crypto.createHmac('sha256', key)
+  .update(userId)
+  .digest('hex');
+
+  return hash;
+}
+```
+</CodeGroup>
+
+
+## Running Workflows via Client SDK
+
+### Install NPM Package
+
+```bash
+npm i @airops/airops-js
+```
+
+### Or use the CDN
+
+```bash
+<script src=“https://cdn.jsdelivr.net/npm/@airops/airops-js/dist/index.umd.min.js”></script>
+```
+
+### Identify the User
+
+#### Private Agent
+
+```bash
+import AirOps from '@airops/airops-js';
+
+const airops = AirOps.identify({
+  userId: 'YOUR_USER_ID',
+  workspaceId: 'YOUR_WORKSPACE_ID',
+  hashedUserId: 'YOUR_USER_ID_HASH'
+});
+```
+
+#### Public Agent
+
+```bash
+import AirOps from '@airops/airops-js';
+
+const airops = new AirOps();
+```
+
+### Use It to Execute a Workflow
+
+Once you have successfully initialized the SDK, you can begin using the methods available to interact with our API. Note that the methods will return promises.
+
+```bash
+// Execute an workflow
+const response = airops.apps.execute({
+  appId: 1,
+  version: 4,
+  payload: {
+    "inputs": {
+      "param": "XXXXYYYYZZZZ",
+      "song": "XXXXYYYYZZZZ"
+    }
+  }
+});
+
+// Wait for result
+const result = await response.result();
+// Do something with result.output
+
+// Cancel execution
+await response.cancel();
+```
+
+### Example Response
+
+The response from the execute method will contain the execution id that can be used to retrieve results later along with two methods to wait for results or cancel the execution:
+
+```bash
+interface ExecuteResponse {
+  executionId: number;
+  result: () => Promise<AppExecution>;
+  cancel: () => Promise<void>;
+}
+
+interface AppExecution {
+  airops_app_id: number;
+  id: number;
+  status: string;
+  output: string;
+  stream_channel_id: string;
+}
+```
+
+## Execute a Workflow with Streaming
+
+In order to stream the Workflow results you will need to enable stream and pass a callback function to the execute method. Optionally you can pass some extra callback function to get a notification when the Workflow is finished.
+
+```bash
+const response = await airopsInstance.apps.execute({
+  appId: 9,
+  version: 38,
+  payload: {
+    "inputs": {
+      "topic": "XXXXYYYYZZZZ"
+    }
+  },
+  stream: true,
+  streamCallback: (data: { content: string } ) => {
+    // Do something with the data
+  },
+  streamCompletedCallback: (data: { content: string }) => {
+    // Do something with the data
+  },
+});
+```
+
+### Pull Results Async
+
+You can implement your own pulling logic using the getResults method.
+
+```bash
+const result = await airops.apps.getResults({
+  appId: 1,
+  executionId: response.executionId,
+});
+```
+
+### Chat Assistant
+
+```bash expandable
+const response = await airopsInstance.apps.chatStream({
+  appId: 2,
+  message,
+  streamCallback: (data: { token: string; }) => {
+    // do something with data.token
+  },
+  streamCompletedCallback: (data: { result: string }) => {
+    // do something with data.result
+  },
+  ...(sessionId && { sessionId }), // optionally pass sessionId to continue chat.
+});
+
+// Wait for result
+const result = await response.result;
+// Do something with result.result
+
+// Cancel execution
+await response.cancel();
+
+// Use session id to continue chat
+response.sessionId;
+```
+
+### Example Response
+
+The response from the chatStream method will contain the sessionId and a result method to wait for the response. In order to continue with the chat pass the session Id along with the message.
+
+```bash
+export interface ChatStreamResponse {
+  sessionId: string;
+  result: Promise<{ result: string }>; // result is a promise that resolves when the execution is completed.
+}
+```
+
+### Error Handling
+
+```bash
+try {
+  await airops.apps.execute({
+    appId: 2,
+    version: 7,
+    payload: {
+    	"inputs": {
+      	"topic": "XXXXYYYYZZZZ"
+    	}
+    }
+  });
+} catch (e) {
+  // do something with error.message
+}
+```

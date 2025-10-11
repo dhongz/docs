@@ -1,0 +1,159 @@
+---
+title: "Widget"
+description: "Integrate an agent app on your website with a widget"
+---
+
+## Public AirOps Chat Agent
+
+Add the following HTML:
+
+```bash
+<div
+    data-airops-widget="<APP-UUID>"
+    data-airops-init="true"
+></div>
+<script src="https://assets.airops.com/widget/index.js"></script>
+```
+
+## Private AirOps Chat Agent
+
+Private AirOps Agents require authentication using three pieces of information:
+
+- Workspace ID
+- User ID (an identifier for the user in your application)
+- Hashed User ID
+
+Here's how to hash the User ID using your workspace's API key on your back-end server.
+<CodeGroup>
+```bash Ruby
+require "openssl"
+
+def user_id_hash
+  api_key = "YOUR_API_KEY" # your workspace token (keep safe!)
+  user_id = "YOUR_USER_ID"
+
+  # Convert your api key to bytes
+  key = api_key.encode("utf-8")
+
+  # Hash the message using HMAC-SHA256 and the key
+  hash = OpenSSL::HMAC.hexdigest('sha256', key, user_id)
+end
+```
+
+```bash Python
+import hashlib
+
+def user_id_hash():
+  api_key = "YOUR_API_KEY" # your workspace token (keep safe!)
+  user_id = "YOUR_USER_ID"
+
+  # Convert your api key to bytes
+  key = bytes(api_key, 'utf-8')
+
+  # Hash the message using HMAC-SHA256 and the key
+  hash = hashlib.sha256(key + bytes(user_id, 'utf-8')).hexdigest()
+  return hash
+```
+
+```bash Node.js
+const crypto = require('crypto');
+
+const userIdHash = () => {
+  const apiKey = "YOUR_API_KEY"; // your workspace token (keep safe!)
+  const userId = "YOUR_USER_ID";
+
+  // Convert your api key to a buffer
+  const key = Buffer.from(apiKey, 'utf-8');
+
+  // Hash the message using HMAC-SHA256 and the key
+  const hash = crypto.createHmac('sha256', key)
+  .update(userId)
+  .digest('hex');
+
+  return hash;
+}
+```
+</CodeGroup>
+
+
+```bash
+<div
+    data-airops-widget="<APP-UUID>"
+    data-airops-init="true"
+    data-airops-hashed-user-id="<HASHED-USER-ID>"
+    data-airops-user-id="<USER-ID>"
+    data-airops-workspace-id="<WORKSPACE-ID>"
+></div>
+<script src="https://assets.airops.com/widget/index.js"></script>
+```
+
+## AirOps App with Variables
+
+Let's assume that the AirOps App we are going to integrate requires the following variables:
+
+- `first_name`
+- `last_name`
+
+```bash
+<div
+    data-airops-widget="<APP-UUID"
+    data-airops-init="true"
+    data-airops-first_name="Nicolas"
+    data-airops-last_name="Tinte"
+></div>
+<script src="https://assets.airops.com/widget/index.js"></script>
+```
+
+## Programmatically Initialize
+
+If you need to fetch your `hashed user id` from a server or gather user input as variables, you may prefer not to initialize the widget automatically. Use the following:
+
+```bash
+<div
+    data-airops-widget="<APP-UUID>"
+></div>
+<script src="https://assets.airops.com/widget/index.js"></script>
+```
+
+Then, you will have a global `window.AirOps` object that has the following signature:
+
+```bash expandable
+type InitializeArg = {
+  auth?: {
+    hashedUserId?: string;
+    userId?: string;
+    workspaceId?: number;
+  };
+  variables: Record<string, string>;
+};
+
+window.AirOps = {
+  appType?: 'chat';
+  error?: string;
+  intialize: (arg: InitializeArg) => void;
+  deactivate: () => void;
+  methods: {
+    close: () => void;
+    open: () => void;
+    toggle: () => void;
+    setVariables: (variables: Record<string, string>) => void;
+  },
+  status: 'not-initialized' | 'initializing' | 'initialized' | 'missing-variables' | 'error';
+}
+```
+
+So, you can do:
+
+```bash
+window.AirOps.initialize({ auth : { YOUR_AUTH_DATA }, variables: { YOU_VARIABLES } });
+// note that both auth and variables are not required for this.
+```
+
+## Overview of Attributes
+
+- `data-airops-widget`: Specifies the AirOps App's UUID to be used.
+- `data-airops-init`: Set this attribute to `"true"` to initialize the widget on page load.
+- `data-airops-variable-*`: Use this to pass a value for the variable `*` when executing the AirOps App.
+- `data-airops-hashed-user-id`: The unique hashed User ID, generated using the API key of your workspace on your back-end server.
+- `data-airops-user-id`: The identifier for the user in your application, used in conjunction with the API key to generate the hashed User ID.
+- `data-airops-workspace-id`: Your workspace ID, which is specific to your AirOps environment and can be found in your workspace settings.

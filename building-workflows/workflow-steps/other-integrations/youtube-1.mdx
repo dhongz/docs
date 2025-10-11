@@ -1,0 +1,79 @@
+---
+title: "Reddit"
+description: "The Reddit Integration step allows you to interact with Reddit programmatically to monitor brand mentions, engage with communities, and manage your Reddit presence."
+---
+
+## Authentication Setup
+
+<Steps>
+<Step>
+    Navigate to **Settings > Integrations > Add New > Reddit**
+</Step>
+<Step>
+    Click Continue to begin authenticating
+</Step>
+<Step>
+    Enter your Reddit app credentials (Client ID and Client Secret)
+</Step>
+<Step>
+    Complete the OAuth flow and save
+</Step>
+</Steps>
+
+## Available Actions
+
+- **Submit a Post**: Create new posts in subreddits
+- **Submit a Comment**: Add comments to existing posts
+- **Search Posts**: Find posts relevant to your brand or keywords
+- **Leave a Subreddit**: Unsubscribe from subreddits
+- **Leave a Comment**: Add comments to specific posts
+
+## Configuration Parameters
+
+### Authentication
+
+Select your authenticated Reddit connection from the dropdown.
+
+### Action Type
+
+Choose the Reddit action you want to perform.
+
+### Subreddit
+
+Specify the target subreddit:
+
+- Use Liquid syntax: `{{ step_1.output.subreddit }}`
+- Select from dropdown list
+- Search for specific subreddits
+
+### Post Selection (for comment actions)
+
+Choose the specific post you want to interact with.
+
+## Primary Use Cases
+
+### Brand Visibility & Monitoring
+
+- Search for brand mentions across relevant subreddits
+- Monitor industry conversations and trends
+- Identify engagement opportunities where your input adds value
+
+### Automated Community Engagement
+
+- Generate contextual AI responses to posts
+- Submit valuable content to appropriate communities
+- Manage reputation through systematic responses
+
+## Best Practices
+
+- **Respect community guidelines**: Each subreddit has specific rules
+- **Provide genuine value**: Focus on helpful, authentic contributions
+- **Use human review**: Always review AI-generated content before posting
+- **Avoid spam**: Space out automated actions and vary your approach
+- **Monitor performance**: Track engagement and adjust strategy accordingly
+
+<Info>
+**Note:** 
+
+Reddit has strict anti-spam policies. Use this integration responsibly and in compliance with Reddit's terms of service and community guidelines.
+</Info>

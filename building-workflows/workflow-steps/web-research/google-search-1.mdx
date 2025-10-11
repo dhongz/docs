@@ -1,0 +1,62 @@
+---
+title: "Perplexity Deep Research"
+description: "Conduct comprehensive AI-powered research with citations"
+---
+
+The "Perplexity Deep Research" step allows you to perform in-depth research on any topic using Perplexity's advanced AI research capabilities. This step conducts thorough analysis across multiple sources and provides detailed, cited responses that are helpful for content creation, market research, and competitive analysis.
+
+<Frame>
+![](/images/building-workflows/perplexity-deep-research.png)
+</Frame>
+
+## Configuring the Perplexity Deep Research Step
+
+Configuring the step requires setting the core message and optional advanced parameters:
+
+### Message
+
+The "Message" input field contains your research query or question - what you want to conduct deep research on. This should be a clear, specific question or topic you want thoroughly researched.
+
+Examples:
+
+- "Compare the top 5 content management systems for enterprise businesses"
+- "Analyze the competitive landscape for project management software"
+
+To dynamically set the research query referencing an input or output variable, use Liquid syntax: `{{ query }}` or `{{ step_1.output }}`
+
+## Advanced Settings
+
+### Max Output Length (tokens)
+
+Control the length of the research output. Higher token limits allow for more comprehensive research and detailed analysis.
+
+### Search Recency
+
+Specify the time period for information sources. The model will only search for information from the selected time period, ensuring you get the most current data available.
+
+Options include:
+
+- Last year
+- Last month
+- Last week
+- Last hour
+
+### Domains to Include
+
+Limit research to specific domains by entering comma-separated domain names (e.g. `techcrunch.com, wired.com, verge.com`). This helps focus research on authoritative sources in your industry. This can include a maximum of 3 domains.
+
+### Domains to Exclude
+
+Exclude specific domains from research results by entering comma-separated domain names. Useful for filtering out competitors or unreliable sources. This can include a maximum of 3 domains.
+
+### Enable Streaming
+
+View research outputs as they are generated in real-time, rather than waiting for the entire execution to finish. Helpful for monitoring progress on complex research queries.
+
+### Get Images
+
+Return relevant images found during research in the response. These images can be used to enhance content or provide visual context for your research findings.
+
+### Get Related Questions
+
+Return a list of related questions that emerged during the research process. These can help identify additional content opportunities or research angles.

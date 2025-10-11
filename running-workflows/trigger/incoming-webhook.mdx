@@ -1,0 +1,47 @@
+---
+title: "Incoming Webhook Trigger"
+description: "Trigger a workflow with an incoming webhook"
+---
+
+## How to Trigger Your Workflow with an Incoming Webhook
+
+### 1. Create a Workflow with one JSON input
+
+To trigger a workflow with an incoming Webhook, first, you need to make sure that your Workflow has one JSON input value:
+<Frame>
+<iframe
+  src="https://demo.arcade.software/c3phBccxDiEZkJjtHpvB?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full aspect-video rounded-xl"
+></iframe>
+</Frame>
+
+### 2. Publish your workflow
+
+Next, publish your Workflow by clicking **Publish** Workflow in the top right hand corner of the Workflow Studio.
+
+### 3. Configure the Webhook URL
+
+Now, configure your Webhook URL with your [App UUID and API Key](/running-workflows/api):
+
+```bash
+curl --request POST \
+     --url 'https://app.airops.com/public_api/airops_apps/YOUR_APP_UUID/webhook_async_execute?auth_token=YOUR_API_KEY' \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json' \
+     --data '
+{
+  "custom_parameter": "Custom Value"
+}
+'
+```
+
+You can now test your API by running the call in Postman or in your terminal. You should see a 200 response, which you can then validate in the Workflow's "History" tab.
+
+Once you have confirmed the Workflow ran successfully, you can copy and paste the resulting Webhook URL to your external service. The URL will look something like this:
+
+```bash
+https://app.airops.com/public_api/airops_apps/a3cb8474-9ec1-4052-8c54-7cbcb7a4c846/webhook_async_execute?auth_token=your_workspace_token
+```

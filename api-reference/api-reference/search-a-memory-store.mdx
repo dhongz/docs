@@ -1,0 +1,122 @@
+---
+title: "Search a memory store"
+description: "Perform a semantic search on a memory store. Returns the most relevant documents based on your query, with optional filtering by metadata."
+api: GET https://api.airops.com/public_api/vector_stores/{memory_store_id}/search
+contentType: application/json
+---
+
+### Authorizations
+
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+
+
+### Path parameters
+<ParamField path="memory_store_id" type="string" required>
+The Memory Store id
+
+Example: `123`
+</ParamField>
+
+### Query parameters
+<ParamField query="query" type="string" required>
+The query to search for
+</ParamField>
+
+<ParamField query="topk" type="integer" min="1" max="1000">
+The number of results to return
+
+Example: `10`
+</ParamField>
+<ParamField query="filter" type="object" optional>
+The filter to apply to the search. See /basic-setup/memory-stores/memory-stores-metadata#how-to-filter-on-metadata for more information.
+<Expandable title="properties">
+<ParamField query="key" type="string" optional/>
+<ParamField query="value" type="string" optional/>
+</Expandable>
+</ParamField>
+
+
+## Responses
+
+### 200 Results found
+
+<Expandable title="Response body">
+<ResponseField name="Response" type="object">
+<Expandable title="properties">
+<ResponseField name="matches" type="object[]" required>
+A single search result from a memory store query.
+<Expandable title="properties">
+  <ResponseField name="id" type="string" required>
+The unique identifier for the search result chunk.
+</ResponseField>
+
+  <ResponseField name="score" type="number" required>
+The relevance score (higher is more relevant).
+
+Example: `0.95`
+</ResponseField>
+
+  <ResponseField name="content" type="string" required>
+The text content of the matching document chunk.
+</ResponseField>
+
+  <ResponseField name="document_name" type="string" required>
+The name of the source document.
+</ResponseField>
+
+  <ResponseField name="metadata" type="object">
+Additional metadata for the document chunk.
+<Expandable title="properties">
+<ResponseField name="Other properties" type="any" optional/>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+### 400 Invalid Request
+<Expandable>
+No Content
+</Expandable>
+
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+
+<ResponseExample>
+```bash 200 Results found
+{
+  "matches": [
+    {
+      "id": "text",
+      "score": 0.95,
+      "content": "text",
+      "document_name": "text",
+      "metadata": {
+        "ANY_ADDITIONAL_PROPERTY": "anything"
+      }
+    }
+  ]
+}
+```
+
+```bash 400 Invalid Request
+No Content
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>

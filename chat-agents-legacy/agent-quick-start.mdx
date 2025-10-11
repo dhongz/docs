@@ -1,0 +1,134 @@
+---
+title: "Agent Quick Start"
+description: "A step-by-step guide on how to chat to your docs"
+---
+
+
+In this guide, we'll show how you can quickly create an Agent to talk about our very own AirOps docs using a Knowledge Base.
+
+## 1. Configure your Knowledge Base
+
+What's a chatbot without unique knowledge? To get started let's create a simple Knowledge Base populated with some of our documentation pages:
+<Steps>
+<Step title="Click Your Data on the left hand tab"/>
+<Step title="Click Create Knowledge Base"/>
+<Step title="Name your Knowledge Base"/>
+<Step title="Click Add Data"/>
+<Step title="Add desired docs to the Knowledge Base">
+   a. Upload a .pdf, .csv, .txt
+
+   b. Sync to a Google Doc or Google Sheet
+
+   c. Sync a SQL Database
+
+   d. Import from URL (we'll use this option)
+
+   e. Import Sitemap
+</Step>
+</Steps>
+
+<Frame>
+<iframe
+  src="https://demo.arcade.software/0NvJd04UptpBa0KU5qKt?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+Your content will now be added to a Knowledge Base. After a few minutes, we'll be ready to build our agent using this Knowledge Base.
+
+## 2. Create an Agent
+
+Next, we'll set up the agent by navigating to "**Templates"** on the left-hand tab and selecting **"Blank Agent."** We'll have to customize the parameters of our Agent to make sure it provides results in the exact format we want:
+
+### i. Add a Memory Search Step
+<Steps>
+<Step title="Select a Knowledge Base:">
+ the name of your knowledge base from the dropdown, let's use the one we just created.
+</Step>
+<Step title="Max Results:">
+choose the number of Knowledge Base results to return. We recommend 5.
+</Step>
+<Step title="Description:">
+tell the AI how to use the Memory Search step. For example:
+
+```bash
+Use the memory search tool to answer the user's questions about their docs
+```
+</Step>
+<Step title="Filter">
+use the Metadata present in your uploaded sources to narrow down the search results.
+</Step>
+</Steps>
+
+
+<Frame>
+<iframe
+  src="https://demo.arcade.software/xNP1bOaCyjybhQyOyX7x?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+Now that we've defined the input parameters for our Agent, we'll focus on customizing the Agent itself.
+
+### ii. Configure the Agent
+<Steps>
+<Step title="Select the AI Model">
+   a. As of February 2024, we recommend using GPT-4 Turbo for Agents
+
+   b. For more detail on the differences between the models, check out our [Choosing a Model](/building-workflows/workflow-steps/ai-steps/llm/choosing-a-model) doc page.
+</Step>
+<Step title="System">
+   a. The System Prompt defines the AI's persona, objective, specific tasks or rules. What is it's role? What should it's tone of voice be? What should it refuse to answer?
+
+   b. Modify the existing prompt for your needs. As an example, replace `AirOps` with your company name in the following prompt:
+</Step>
+</Steps>
+```bash
+You are a helpful assistant for AirOps, and your task is to answer the user's question about AirOps docs using the memory search function. Your knowledge is limited to the context provided. If the user's question is vague, you ask clarifying questions. Never hallucinate an answer. You are encouraging, engaging and helpful. Your responses must be brief, summarized, and concise.
+```
+
+<Frame>
+<iframe
+  src="https://demo.arcade.software/sDmRNwMVYsucwSRuBybJ?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+## 3. Test and Publish Your Agent
+<Steps>
+<Step>
+ Click **Test All** to ask your agent a question about your docs
+</Step>
+<Step>
+ Tweak the **System** prompt, add a **User** prompt, or add a User-Assistant pair
+</Step>
+<Step>
+**Save Draft** and give your Agent a name
+</Step>
+<Step>
+ Once you're satisfied with the output, **Publish Agent**
+</Step>
+</Steps>
+<Frame>
+<iframe
+  src="https://demo.arcade.software/EGt26NcQITaSn40OQt1c?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+And that's it! You now have a fully functional chat Agent that will save you the time of looking through our documentation for specific answers.
+
+We encourage you to test out different use-cases for your Agents, and please don't hesitate to reach out to us with any questions as you dive deeper into AirOps.

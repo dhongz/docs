@@ -1,0 +1,53 @@
+---
+title: "Billing"
+description: "Manage your billing preferences"
+---
+
+The "Billing" tab allows you to manage your existing plan and monitor your task usage for the month.
+
+## Setting Workspace Task Limits
+
+You can set soft and hard limits on your workspace executions:
+
+- **Soft Limit:** receive an email notification when you hit a specified # of tasks
+- **Hard Limit:** prevent users from executing beyond a specified # of tasks
+
+For additional information regarding our plans, visit our [Pricing Page](https://www.airops.com/pricing).
+<Frame>
+<iframe
+  src="https://demo.arcade.software/YpBS0AHT3NpY0xdyrbhR?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full aspect-video rounded-xl"
+></iframe>
+</Frame>
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="What happens if I run out of tasks?">
+
+If you run out of tasks, you can keep using AirOps but you will be charged for incremental usage beyond your initial allotment. For Pro plan users, additional tasks cost `$9` per 1000 tasks. For Team plan users, tasks cost `$6` per 1000 tasks. Your tasks will automatically reset to your plan's monthly allotted amount at the beginning of the next calendar month.
+</Accordion>
+<Accordion title="If an error occurs and my Workflow doesn't complete, will I still be charged for tasks?">
+
+You will only be charged tasks for steps within your Workflow that run successfully. Steps that error out will not be charged, but if you have other Workflows embedded in your Workflow that incur tasks, you will be charged for those.
+</Accordion>
+<Accordion title="How can I track my task usage?">
+
+You can track your task usage through the AirOps Web App. Navigate to the Billing page, and you will see the tasks you’ve used so far in the monthly billing period and when your tasks will reset (example shown above). You can also upgrade your plan to add more tasks from this page.
+</Accordion>
+<Accordion title="How can I test and see how many tasks my Workflow will use?">
+
+We are building functionality to let you test task usage. For now - refer to the below task usage parameters:
+
+- Text input step - no task usage incurred
+- Code step - maximum 1 task per Workflow run
+- Vector DB call - 1 task per call
+- LLM step with your own API key - 1 task per call
+- LLM step with an AirOps hosted model - tasks proportional to usage
+- Other API step - 1 task per call
+- Output step - no task usage incurred
+</Accordion>
+</AccordionGroup>

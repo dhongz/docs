@@ -1,0 +1,72 @@
+---
+title: "Add Rows in Grid"
+---
+
+
+### What is the Add Rows in Grid Step?
+
+The Add Rows in Grid step is **specifically designed to create or update separate rows** in an AirOps Grid beyond the current row where your workflow is running. This is different from simply mapping outputs to columns in your current Grid row.
+
+<Warning>
+**Important Distinction**:
+
+If you just want to map workflow outputs as columns in the current Grid row where your workflow is running, you **do not need** the Add Rows in Grid step. Instead, use a JSON step at the end of your workflow.
+</Warning>
+
+### When to Use Add Rows in Grid vs. JSON Step for Grid Outputs
+
+#### Use a JSON Step (Not Add Rows in Grid) When:
+
+- You simply want to map workflow outputs to columns in the **same row** where your workflow is running
+- You want to organize multiple output values into a structured format
+- You're running a workflow in a Grid and want to see results in that same row
+
+```text
+Example: Your workflow generates a title, content, and meta description.You want these to appear as columns in your Grid next to your inputs.
+```
+
+#### Use the Add Rows in Grid Step Only When:
+
+- You need to create entirely new rows in a separate Grid or in the same Grid
+- You want to update existing rows in another Grid
+
+```text
+Example: Your workflow analyzes one keyword but generates 10 related keywords,each needing its own row in a separate Grid for further processing.
+```
+
+### How to Map Outputs in a Grid (Without Add Rows in Grid)
+
+<Steps>
+<Step title="Add a JSON step as the final step in your workflow"/>
+<Step title="Structure your outputs as key-value pairs"/>
+<Step title="When you run the workflow in a Grid, these keys will automatically be available to map as output columns"/>
+<Step title= 'Select "Add Outputs as Columns" in the Grid interface after running'/>
+</Steps>
+
+### How to Configure the Add Rows in Grid Step (For Creating/Updating Separate Rows)
+
+When you actually need to create or update separate rows beyond your current workflow row:
+
+#### Select a Grid
+
+Choose the Grid where you want to write your data:
+
+- **Create a New Grid**: Generate a new Grid to store your data
+- **Select Existing Grid**: Add data to an already existing Grid
+
+#### Output Mapping
+
+Define how the data from your workflow should be mapped to columns in the separate Grid:
+
+- **Column Names**: Define the names of the columns in your target Grid
+- **Values**: Select which workflow step outputs should populate each column
+
+#### Write Mode
+
+Choose how your data should be written to the Grid:
+
+- **Append**: Add new rows to the existing Grid data
+- **Replace**: Clear existing Grid data and replace it with the new data
+- **Update**: Update specific rows in the Grid based on a key column
+
+By understanding the distinction between simple output mapping (JSON step) and creating separate rows (Add Rows in Grid step), you'll be able to build more efficient and effective workflows.

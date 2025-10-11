@@ -1,0 +1,72 @@
+---
+title: "Publishing and Versioning"
+description: "Track changes and productionize apps with versions"
+---
+
+Versioning allows you to easily manage historic instances, drafts, and published default versions of your Workflows.
+
+## What is the difference between a draft, a version, and a default version?
+
+1. **Drafts** are not saved permanently, and only the latest draft is saved.
+2. **Versions** on the other hand are permanently saved. They can always be viewed and restored. You can also run versions of Workflows as a batch, API, or add them to another workflow or agent
+3. The **Default Version** is the version of the Workflow that:
+	1. Users interact with in the AirOps UI
+	2. Runs when you call the Execute POST endpoint, unless another version is passed in as a parameter
+
+## How do I create a new version?
+
+When you're ready to share, integrate, or run your Workflow, publish it into a permanent version by clicking "**Publish Workflow"** in the top right-hand corner:
+
+<Frame>
+![](/images/building-workflows/how-do-i-create-new-version.png)
+</Frame>
+
+This generates "Version 1" of your Workflow, which now acts as the Default Version.
+
+## What happens to my previous version if I publish again?
+
+All previously published versions are permanently saved, and a new version becomes the Default version.
+
+## Utilizing Previous Versions
+
+To view the previous versions of your Workflow, simply click on the **"Versions"** dropdown and select the desired version:
+
+<Frame>
+![](/images/building-workflows/using-previous-version.png)
+</Frame>
+
+<Info>
+Your draft will NOT be overwritten by simply clicking on a previous version.
+</Info>
+
+### Restoring previous versions as a draft
+
+To restore a previous version to your current draft, start by selecting your desired historical version from the dropdown, then hitting **"Restore."**
+
+<Info>
+Your current draft WILL be overwritten by clicking **"Restore,"** so be sure you don't have any changes that could be lost.
+</Info>
+
+<Frame>
+![](/images/building-workflows/restoring-prev-version-as-draft.png)
+</Frame>
+
+This promotes your historic version into the current draft, which you can then choose to save or publish.
+
+### Set previous versions as the Default Version
+
+To restore a previous version to be your Default Version, start again by selecting your desired historical version from the dropdown, then hitting **"Set Default."**
+
+<Frame>
+![](/images/building-workflows/set-previous-version-as-default.png)
+</Frame>
+
+When you change the default version, only the version in production is changed. The latest draft does NOT change.
+
+## Referencing Versions through the API
+
+Once you have multiple versions of your Workflow, you can specify which specific version to execute via the AirOps API.
+
+To do this, navigate back to the display window of your Workflow, and click on the **"Integrate"** tab at the top:
+
+The general POST command will always run against the Default Version, while the Versioning endpoint allows you to specify the desired version to execute.

@@ -1,0 +1,136 @@
+---
+title: "Transcribe Audio File"
+description: "Transcribe audio or video files into text"
+---
+
+## How to Configure the Transcription Step
+
+When configuring a Transcription Step, there are two main pieces to consider:
+
+1. Selecting the best transcription model for your use-case
+2. How to pass your audio file to AirOps
+
+<Info>
+Once you're ready to get started, you can click the "Configure" button of your Transcription Step to set these values.
+</Info>
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/zw6zMG4DZf8rLDhjlrPC?embed"
+ title="Arcade demo"
+ allowFullScreen
+ allow="clipboard-write"
+ className="w-full rounded-xl"
+ style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+### **Transcription Model**
+
+AirOps offers 5 transcription models at this time:
+
+- [**Deepgram Whisper Large**](https://deepgram.com/learn/improved-whisper-api)**:** fast, reliable transcription that includes built-in diarization (speaker identification). With the ability to auto detect language or set the language [code](https://developers.deepgram.com/docs/languages-overview)
+- [**Deepgram Nova**](https://deepgram.com/learn/nova-speech-to-text-whisper-api)**:** the fastest model to-date
+- [**Deepgram Nova 2**](https://deepgram.com/learn/nova-2-speech-to-text-api)**:** provides the best overall value
+- [**Deepgram Enhanced**](https://deepgram.com/changelog/introducing-new-enhanced-model)**:** higher accuracy and better word recognition. With the ability to auto detect language or set the language [code](https://developers.deepgram.com/docs/languages-overview)
+- [**AssemblyAI**](https://www.assemblyai.com/blog/conformer-2/)**:** With the ability to select the number of speakers expected in a transcript, AssemblyAI is an excellent choice for diarization
+
+<Warning>
+**Keep in mind:**
+
+Deepgram has a **2GB** file size limit and AssemblyAI has a **5GB** file size limit
+</Warning>
+
+### Adding Your File into AirOps
+
+There are currently two methods for passing your audio or video files into AirOps.
+
+#### Option #1: Upload via the AirOps UI
+
+
+- In the `Start Step` of your Workflow, define your Workflow Input as "File Media"
+
+- Add the **input** as the `File to transcribe`
+
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/T7L31xTdI3bTIzyQIFL4?embed"
+ title="Arcade demo"
+ allowFullScreen
+ allow="clipboard-write"
+ className="w-full rounded-xl"
+ style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+#### Option #2: Upload via Google Drive
+
+
+- Within Google Drive, configure your audio or video file so that "Anyone with the link" can view:
+
+<Frame>
+<img src="/images/building-workflows/upload-via-google-drive.png" />
+</Frame>
+
+- Add an **input** with the variable name `google_drive_link`
+
+- Add a **code step** with the following Javascript to convert the shareable URL from Google Drive into a downloadable URL:
+
+```bash highlight={1}
+const fileID = google_drive_link.match(/[-\w]{25,}/);
+
+return \`https://drive.google.com/uc?export=download&id=${fileID[0]}&confirm=t\`
+```
+- Add the *output of the code step* as the `File to transcribe`
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/taddcde90KVBzgX6iSJA?embed"
+ title="Arcade demo"
+ allowFullScreen
+ allow="clipboard-write"
+ className="w-full rounded-xl"
+ style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+### Multiple Speakers?
+
+If selected, the model will automatically detect multiple speakers. This will result in the following outputs from the model.
+
+> Speaker 0:
+><br/><br/>
+> Speaker 1:
+><br/><br/>
+> Speaker 0:
+
+> Speaker A:
+><br/><br/>
+> Speaker B:
+><br/><br/>
+> Speaker A:
+
+<Info>
+Only AssemblyAI allows you to select the # of expected speakers. Without selecting # of speakers, the transcription may detect more (or fewer) speakers than expected
+</Info>
+
+### Detect Language?
+
+Check to automatically detect the language of the file
+
+### Language
+
+If `Detect Language?` is unchecked, you can specify the language you want to detect.
+
+<Danger>
+
+Not all models support multiple languages.** Check out the documentation of each model below to determine which languages are supported
+</Danger>
+
+<Columns cols={2}>
+<Card title="Deepgram" icon="globe" href="https://developers.deepgram.com/docs/languages-overview" horizontal />
+<Card title="AssemblyAI" icon="robot" href="https://www.assemblyai.com/docs/concepts/supported-languages" horizontal />
+</Columns>
+
+

@@ -1,0 +1,58 @@
+---
+title: "Upload a file"
+description: "Upload a file to your workspace. Use the returned file ID as an input for your apps that require file inputs."
+api: POST https://api.airops.com/public_api/workspace_files
+contentType: multipart/form-data
+---
+
+### Authorizations
+
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+### Body
+<ParamField body="file" type="string" format="binary" required/>
+
+## Responses
+
+### 200 File uploaded successfully
+
+<Expandable title="Response body">
+<ResponseField name="id" type="integer">
+The id of the file, you can use this id as an app's input
+
+Example: `23`
+</ResponseField>
+
+<ResponseField name="created_at" type="string" format="date-time">
+Example: `2023-06-20T00:49:56.696Z`
+</ResponseField>
+
+<ResponseField name="updated_at" type="string" format="date-time">
+Example: `2023-10-24T11:26:21.820Z`
+</ResponseField>
+</Expandable>
+
+### 401  Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+<ResponseExample>
+```bash 200 File uploaded successfully
+{
+  "id": 23,
+  "created_at": "2023-06-20T00:49:56.696Z",
+  "updated_at": "2023-10-24T11:26:21.820Z"
+}
+```
+
+```bash Authentication error 401
+No Content
+```
+</ResponseExample>

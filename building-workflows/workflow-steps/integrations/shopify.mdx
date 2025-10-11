@@ -1,0 +1,142 @@
+---
+title: "Shopify"
+---
+
+<Frame>
+![](/images/building-workflows/shopify.png)
+</Frame>
+
+The Shopify Integration step allows you to connect your AirOps workflows directly with your Shopify store. This powerful integration enables you to create articles, create custom collections, and update products directly in your Shopify store.
+
+## How to Configure the Shopify Integration Step
+
+### Authentication
+
+Before using the Shopify integration in your workflows, you must first connect your Shopify store in the AirOps Settings:
+
+<Steps>
+<Step>
+	Navigate to <Icon icon="gear" /> Settings > Integrations
+</Step>
+<Step>
+	Find the Shopify section and click "Configure"
+</Step>
+<Step>
+	Enter your Shopify store URL (e.g., "your-store.myshopify.com")
+</Step>
+<Step>
+	Complete the OAuth authentication process by granting AirOps the necessary permissions
+</Step>
+</Steps>
+
+### Action Types
+
+Select the specific Shopify action you want to perform:
+
+<Steps>
+<Step title="Create Article">
+Add a new article to your Shopify blog
+</Step>
+<Step title="Create Custom Collection">
+Create a new custom collection in your Shopify store
+</Step>
+<Step title="Update Product">
+Modify an existing product in your Shopify store
+</Step>
+</Steps>
+
+### Action-Specific Parameters
+
+**Create Article**
+
+- **Blog**: Select the blog where you want to create the article
+- **Title**: The title of the blog article (required)
+- **Body (Optional)**: The main HTML content of the article
+- **Published**: Select if the article should be published
+- **Author (Optional)**: The name of the article's author
+- **Template (Optional)**: The suffix of the Liquid template used for the article
+- **Handle (Optional)**: Enter the handle of the article
+- **Image URL (Optional)**: Featured image URL for the article
+
+**Create Custom Collection**
+
+- **Title**: Title of the custom collection
+- **Description (Optional)**: Main content of your custom collection description
+- **Handle (Optional)**: Handle of the custom collection
+- **Collects (Optional)**: Enter the list of product IDs to collect
+- **Published (Optional)**: Whether the collection should be published
+- **Sort Order (Optional)**: Sort order of the custom collection
+- **Image URL (Optional)**: Enter the URL of the Custom Collection image
+- **Image Alt Text (Optional)**: Alternative text for the collection image
+
+**Update Product**
+
+- **Product ID**: ID of the product to update
+- **Title**: Title of the product
+- **Body**: Main content of your product description
+- **Product Type**: Category or type of product
+- **Metafields**: Enter the list of metafields
+- **Tags**: Enter the comma-separated tags
+- **When the step fails**: Choose to terminate workflow or continue
+
+## Output Format
+
+The Shopify Integration step returns a JSON object with the result of your action. The format varies depending on the action performed.
+
+### Create Article Example
+
+```json expandable
+jsonCopy{
+  "article": {
+    "id": 12345678901,
+    "title": "How to Optimize Your E-commerce Site for Conversions",
+    "author": "Jane Smith",
+    "blog_id": 23456789012,
+    "created_at": "2025-02-20T15:30:22Z",
+    "updated_at": "2025-02-20T15:30:22Z",
+    "published_at": "2025-02-20T15:30:22Z",
+    "summary_html": "Learn the essential strategies for improving your e-commerce conversion rates.",
+    "handle": "how-to-optimize-your-e-commerce-site-for-conversions",
+    "tags": "conversion optimization, e-commerce tips, user experience",
+    "admin_graphql_api_id": "gid://shopify/Article/12345678901",
+    "image": {
+      "created_at": "2025-02-20T15:30:22Z",
+      "alt": "E-commerce conversion optimization",
+      "width": 1200,
+      "height": 627,
+      "src": "https://cdn.shopify.com/s/files/1/0123/4567/8901/articles/ecommerce-conversion.jpg"
+    }
+  }
+}
+```
+
+## How to Use the Results
+
+You can access the Shopify data in subsequent workflow steps using Liquid syntax. For example:
+
+To access a created article's ID:
+
+```bash
+Copy{{ step_2.output.article.id }}
+```
+
+To loop through a list of products in an LLM prompt:
+
+```bash
+Copy{% for product in step_2.output.products %}
+- {{ product.title }} ({{ product.price }})
+{% endfor %}
+```
+
+## Common Use Cases
+
+- Creating and updating product descriptions at scale
+- Generating SEO-optimized blog content for your store
+- Updating product pricing based on market analysis
+- Creating personalized product collections
+- Building custom product recommendation systems
+- Automating content creation for seasonal promotions
+
+## Error Handling
+
+By default, the Shopify Integration step will terminate the workflow if it fails. You can configure it to continue by selecting "Continue" instead of "Terminate Workflow" in the step settings.

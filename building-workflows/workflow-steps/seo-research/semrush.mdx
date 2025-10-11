@@ -1,0 +1,302 @@
+---
+title: "Semrush"
+---
+
+## Semrush Steps
+
+Semrush steps provide powerful SEO and competitive analysis capabilities directly within your workflows. These steps allow you to retrieve valuable keyword, domain, and backlink data from Semrush's extensive database, enabling data-driven content and SEO strategies.
+
+### Available Semrush Steps
+
+AirOps offers the following Semrush steps:
+
+<Columns cols={2}>
+<Card title="Backlinks Overview" icon="link" href="/building-workflows/workflow-steps/seo-research/semrush#backlinks-overview">
+Examine a domain's backlink profile
+</Card>
+<Card title="Domain Organic Search Keywords" icon="magnifying-glass" href="/building-workflows/workflow-steps/seo-research/semrush#domain-organic-search-keywords">
+View a domain's ranking keywords
+</Card>
+<Card title="Domain Organic Search Pages" icon="magnifying-glass" href="/building-workflows/workflow-steps/seo-research/semrush#domain-organic-search-pages">
+Identify a domain's top-performing pages
+</Card>
+<Card title="Domain Overview" icon="circle-info" href="/building-workflows/workflow-steps/seo-research/semrush#domain-overview">
+Get comprehensive SEO metrics for a domain
+</Card>
+<Card title="Domain vs. Domain" icon="chart-column" href="/building-workflows/workflow-steps/seo-research/semrush#domain-vs-domain">
+Compare SEO performance between domains
+</Card>
+<Card title="Keyword Magic Tool" icon="wand-magic-sparkles" href="/building-workflows/workflow-steps/seo-research/semrush#keyword-magic-tool">
+Access related and broad match keywords
+</Card>
+<Card title="URL Organic Search Keywords" icon="magnifying-glass" href="/building-workflows/workflow-steps/seo-research/semrush#url-organic-search-keywords">
+See which keywords a specific page ranks for
+</Card>
+</Columns>
+### Backlinks Overview
+
+This step allows you to examine a domain's backlink profile, retrieving comprehensive backlink data for any domain.
+
+**Configuration**
+
+- **URL**: Input the domain for which you'd like to return a backlink report
+
+**Output Format**
+
+```json
+{
+  "Authority Score": 32,
+  "Total Backlinks": 75000,
+  "Referring Domains": 5000,
+  "Referring URLs": 70000,
+  "Referring IPs": 2000,
+  "Class C IPs": 1600,
+  "Follow Links": 58000,
+  "Nofollow Links": 15000,
+  "Sponsored Links": 200,
+  "UGC Links": 40,
+  "Text Links": 71000,
+  "Image Links": 4000,
+  "Form Links": 30,
+  "Frame Links": 25
+}
+```
+
+### Domain Organic Search Keywords
+
+This step allows you to view a domain's ranking keywords, retrieving a comprehensive list of keywords that a specific domain is ranking for in organic search results.
+
+**Configuration**
+
+- **Domain**: Enter the domain to analyze for top Google keywords
+- **Display Limit (optional)**: The number of results returned to a request. If this parameter isn't specified or equals 0, the default value will be 100 lines
+
+**Output Format**
+
+```json expandable
+[
+  {
+    "Url": "https://www.example.com/",
+    "Keyword": "example",
+    "Search Volume": 1300,
+    "CPC": 0.5,
+    "Competition": 0.1,
+    "Traffic (%)": 33.52,
+    "Number of Results": 588000
+  },
+  {
+    "Url": "https://www.example.com/really-good-blog",
+    "Keyword": "example blog",
+    "Search Volume": 260,
+    "CPC": 0.5,
+    "Competition": 0.1,
+    "Traffic (%)": 2.06,
+    "Number of Results": 232000000
+  },
+
+  // Additional results, up to Display Limit count
+
+]
+```
+
+### Domain Organic Search Pages
+
+This step helps you identify a domain's top-performing pages in terms of organic search visibility.
+
+**Configuration**
+
+- **Domain**: Enter the domain to analyze for top pages
+- **Display Limit (optional)**: The number of results returned to a request. If this parameter isn't specified or equals 0, the default value will be 100 lines
+
+**Output Format**
+
+```json
+[
+  {
+    "Url": "https://www.example.com/",
+    "Traffic": 1104,
+    "Traffic (%)": 35.58
+  },
+  {
+    "Url": "https://www.example.com/blog",
+    "Traffic": 192,
+    "Traffic (%)": 6.18
+  },
+    // Additional results, up to Display Limit count
+]
+```
+
+### Domain Overview
+
+This step provides comprehensive SEO metrics for a domain, giving you a high-level view of a website's organic and paid search performance, backlink profile, and overall search visibility.
+
+**Configuration**
+
+- **Domain**: Enter the domain you want to analyze (e.g., "example.com")
+
+**Output Format**
+
+```json
+{
+  "Domain": "example.com",
+  "Rank": 100000,
+  "Organic Keywords": 5000,
+  "Organic Traffic": 3000,
+  "Organic Cost": 2200,
+  "Adwords Keywords": 10,
+  "Adwords Traffic": 100,
+  "Adwords Cost": 30
+}
+```
+
+### Domain vs. Domain
+
+This step allows you to compare up to 5 domains by common keywords, unique keywords, all keywords, or search terms that are unique to the first domain.
+
+**Configuration**
+
+- **Domains**: Enter a list of domains to compare (2 to 5 domains). Make sure to use double quotes for each domain (i.e. \["nike.com", "adidas.com", "reebok.com"\])
+- **Keyword Report Type**:
+	- **Missing**: keywords where *all* of your competitors have rankings but your site (the site entered in the first) has no ranking.
+	- **Untapped**: keywords in which you don’t have a ranking but *one* of your competitors does.
+	- **Shared**: keywords, where every site entered has a ranking.
+	- **All**: combined list of all keyword rankings between the competitors.
+- **Display Limit (optional)**: The number of results returned to a request. If this parameter isn't specified or equals 0, the default value will be 100 lines
+- **Minimum Search Volume (optional)**: Filter by minimum search volume
+- **Search Term (optional)**: Filter by Keywords containing the given term
+
+**Output Format**
+
+```json expandable
+[
+  {
+    "Keyword": "x",
+    "domainone.com": 0,
+    "domaintwo.com": 12,
+    "domainthree.com": 0,
+    "Number of Results": 25270000000,
+    "CPC": 1.03,
+    "Search Volume": 13600000,
+    "Keyword Difficulty": 100,
+    "Competition": 0
+  },
+  {
+    "Keyword": "you",
+    "domainone.com": 0,
+    "domaintwo.com": 12,
+    "domainthree.com": 0,
+    "Number of Results": 25270000000,
+    "CPC": 0.01,
+    "Search Volume": 7480000,
+    "Keyword Difficulty": 100,
+    "Competition": 0.04
+  },
+   // Additional results here
+]
+```
+
+### Keyword Magic Tool
+
+This step lets you access related and broad match keywords, discovering keyword variations and related terms for any seed keyword.
+
+**Configuration**
+
+- **Keyword**: Enter the seed keyword to explore
+- **Keyword Types**:
+	- **Related Keywords**: This report provides an extended list of related keywords, synonyms, and variations relevant to a queried term in a chosen database.
+	- **Broad Match Keywords**: The report lists broad matches and alternate search queries, including particular keywords or keyword expressions.
+	- **Phrase Questions**: The report lists phrase questions relevant to a queried term in a chosen database.
+- **Display Limit (optional)**: The number of results returned to a request. If this parameter isn't specified or equals 0, the default value will be 100 lines
+- **Database** (Optional): Select the geographic database
+	- Regional database types:
+		us: USA Desktop mobile-us: USA Mobile uk: UK Desktop mobile-uk: UK Mobile de: Germany Desktop mobile-de: Germany Mobile fr: France Desktop mobile-fr: France Mobile es: Spain Desktop mobile-es: Spain Mobile it: Italy Desktop mobile-it: Italy Mobile ca: Canada Desktop mobile-ca: Canada Mobile
+
+**Output Format**
+
+```json expandable
+[
+  {
+    "Keyword": "example keyword",
+    "Search Volume": 823000,
+    "CPC": 6.73,
+    "Competition": 0.04,
+    "Number of Results": 935000000,
+    "Trends": [
+      0.36,
+      0.44,
+      0.54,
+      0.44,
+      0.44,
+      0.44,
+      0.44,
+      0.44,
+      0.44,
+      0.44,
+      0.54,
+      0.44
+    ],
+    "Keyword Difficulty Index": 100,
+    "Intent": 0
+  },
+  {
+    "Keyword": "second example keyword",
+    "Search Volume": 201000,
+    "CPC": 0,
+    "Competition": 0,
+    "Number of Results": 9800000000,
+    "Trends": [
+      0.29,
+      0.36,
+      0.29,
+      0.29,
+      0.2,
+      0.2,
+      0.44,
+      1,
+      0.81,
+      0.81,
+      0.66,
+      1
+    ],
+    "Keyword Difficulty Index": 100,
+    "Intent": 1
+  },
+  // Additional results
+]
+```
+
+### URL Organic Search Keywords
+
+This step helps you see which keywords a specific page ranks for, retrieving a list of keywords that a specific URL is ranking for in organic search results.
+
+**Configuration**
+
+- **URL**: Enter the complete URL to analyze
+
+**Output Format**
+
+```json expandable
+[
+  {
+    "Keyword": "example keyword",
+    "Position": 90,
+    "Search Volume": 6600,
+    "Keyword Difficulty": 100,
+    "CPC": 4.93,
+    "Competition": 0.06,
+    "Traffic (%)": 0,
+    "Number of Results": 154000000
+  },
+  {
+    "Keyword": "another example keyword",
+    "Position": 94,
+    "Search Volume": 3600,
+    "Keyword Difficulty": 42,
+    "CPC": 0.28,
+    "Competition": 1,
+    "Traffic (%)": 0,
+    "Number of Results": 1360000
+  },
+  // Additional results
+]
+```

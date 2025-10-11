@@ -1,0 +1,44 @@
+---
+title: "Execution History"
+description: "Monitor your Workflows with execution history"
+---
+
+After publishing and running your workflow, you may want to review the execution details, results, and any issues that occurred. The **History** tab provides comprehensive insights into your workflow runs, allowing you to:
+
+- View successful completions and their outputs
+- Identify and troubleshoot any errors or unexpected results
+- Analyze performance metrics and execution times
+- Review input parameters used in previous runs
+- Track the progress of running workflows
+<Frame>
+<img src="/images/execution-history.avif"/>
+</Frame>
+## Accessing a Workflow's Execution History
+<Steps>
+<Step title="After the Workflow has been published, click on the Workflow > History"/>
+<Step title="You can filter your executions by:">
+	1. **Timeframe:** filter executions by custom timeframe
+	2. **Status:** filter executions by its status: Cancelled, Error, Pending, Review Needed, Running, Success
+</Step>
+<Step title="Click Columns in order to display inputs or output from your workflow"/>
+<Step title="To view complete details about an execution, click on View">
+	1. **Details:** view the source, version, task cost, UUID, runtime, and error details
+	2. **Input:** view the input of the execution
+	3. **Output:** view the output of the execution
+	4. **Logs:** view the outputs of each step of the execution
+</Step>
+</Steps>
+## How to Retry an Errored Execution
+
+AirOps execution history allows you to retry a workflow using the same version that was published at the time of the original execution.
+<Check>
+This is helpful to retry server errors from external API providers or an OpenAI rate limit error.
+</Check>
+However, this would not be helpful to retry user errors, such as incorrect code, incorrect liquid syntax, etc.
+
+To retry an errored execution:
+<Steps>
+<Step title="Filter the Status to Error"/>
+<Step title="Click on Workflow > History"/>
+<Step title="Click Retry in the Actions column"/>
+</Steps>

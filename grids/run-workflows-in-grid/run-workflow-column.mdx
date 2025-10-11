@@ -1,0 +1,49 @@
+---
+title: "Run Workflow Column"
+description: "AirOps Grid allows you to execute workflows on individual rows or in bulk."
+---
+
+
+### How to Run Workflow Columns
+<Frame>
+<img src="/images/how-to-run-workflow-column.avif"/>
+</Frame>
+<Steps>
+<Step title="Run for a single row">
+	- Click the **Play button** in the workflow column for the specific row you want to process
+	- The cell will first display "Pending" status while the workflow initializes
+	- As the workflow progresses, it will show the names of individual steps currently executing
+	- Wait for the workflow to complete its run
+</Step>
+<Step title="Run for multiple rows">
+	- Click the **Play button** in the workflow column header (top of the column)
+	- A dropdown menu will appear with several options:
+		- **All Rows**: Process every row in the grid
+		- **Remaining Rows**: Process all rows that haven't been run yet
+		- **First 10 Rows**: Process only the first ten rows
+		- **Rows with Errors**: Retry only the rows that previously encountered errors
+</Step>
+<Step title="Status indicators">
+	- **Pending**: The workflow has been triggered and is waiting to begin
+	- **Step names**: Shows which step in the workflow is currently running
+	- **Success**: The workflow completed successfully
+	- **Error**: An error occurred that halted the workflow
+	- **Review Needed**: The workflow has paused at a Human Review step and requires your input before continuing
+</Step>
+<Step title="Stop running workflows">
+	- To stop a workflow that's currently running, click either the **Stop** **icon** in the cell or the **Stop Runs** button at the bottom of the grid
+</Step>
+<Step title="Continue after Review Needed">
+	- When a workflow reaches a human review step, click the cell to open the review interface
+	- Make your selection or edit the content as needed
+	- Submit your review to allow the workflow to continue processing
+</Step>
+</Steps>
+By using these workflow execution features, you can automate content creation and optimization across your entire grid, saving time while maintaining control of the results.
+
+### Run All Workflows in a Row
+
+You can run all the workflows in a given row by clicking the play button on the left of the row. This feature allows you to process multiple workflow steps across an entire row at once, rather than running each workflow column individually.
+<Frame>
+<img src="/images/run-all-workflows-in-a-row.avif"/>
+</Frame>

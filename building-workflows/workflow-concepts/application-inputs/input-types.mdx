@@ -1,0 +1,66 @@
+---
+title: "Input Types"
+description: "Choosing the correct input type is important for the success of your Workflow."
+---
+
+### Basic Input Types
+
+Basic input types allow users to type information or select options from a dropdown:
+
+- **Short Text:** A single-line text field
+- **Long Text:** A multi-line text field
+- **Single Select:** Allows the user to choose one option from a list
+- **Multi Select:** Allows the user to choose multiple options from a list
+
+### Advanced Input Types
+
+Advanced input types allow users to pass in JSON, files, databases, or numbers as inputs:
+
+<Danger>
+Workflows with file inputs cannot be published as public Workflows
+</Danger>
+
+- **JSON:** Allows the user to pass a JSON object or list
+- **File Text:** Allows the user to upload a .pdf, .txt, .docx, .md file that is converted into text
+- **File Media:** Allows the user to upload a .mp3, .mp4, .wav, .jpg, .png, .webp file which is converted into a downloadable link
+- **File CSV:** Allows the user to upload a .csv file which is transformed into a list of JSON objects
+- **Data Sources:** Allows the user to connect to a [data source](/your-data/memory-stores/add-data/import-from-sql-database/data-sources) that has been added in AirOps
+- **Number:** Allows the user to pass a numerical string that is interpreted as a number instead of a string
+
+<Warning>
+**Warning:**
+
+If you input a number using Short Text or Long Text, it will be interpreted as a string - e.g. 3 will be interpreted as "3". Instead, use the **Number** input type to pass a number.
+</Warning>
+
+### AirOps-Specific Input Types
+
+AirOps-specific input types provide access to additional platform features:
+
+- **Brand Kit:** Allows you to choose a brand kit as an input and reference any of its attributes throughout the workflow
+	- **Example:** An article writing workflow that automatically adapts content style, tone, and messaging according to different brand guidelines (e.g., creating the same type of content for multiple client brands while maintaining each brand's unique voice)
+- **Knowledge Base:** Allows you to dynamically set a knowledge base upfront and reference it throughout the workflow
+	- **Example:** An internal linking workflow that recommends relevant page connections based on different sitemaps, allowing content teams to optimize SEO by connecting related content across various sections of a website
+
+### Input Specifications
+
+Detailed specifications on the input types and resulting data types:
+
+| Input Name | Input Type | Resulting Data Type | Use Cases |
+|:------------|:------------|:---------------------|:-----------|
+| Short Text |  | String | Allow the user to type a single-line text input |
+| Long Text |  | String | Allow the user to type a multi-line text input |
+| Single-Select |  | String | Allow the user to select one option |
+| Multi-Select |  | String | Allow the user to select multiple options |
+| JSON | JSON or List | JSON or List | Create an API that accepts a JSON payload |
+| File Text | .pdf, .txt, .docx, .md | String | Generate summaries or insights from PDFs |
+| File Media | .mp3, .mp4, .wav, .jpg, .png, .webp | Downloadable link to file | Transcribe and analyze interviews |
+| File CSV | .csv | A list of JSON objects | and analyze the results |
+| Database |  | Database | Run a query on your database |
+| Number |  | Number |  |
+| Brand Kit |  | Single Select or ID |  |
+| Knowledge Base |  | Single Select or ID |  |
+
+<Info>
+*Please note: Files do not have a specific size limit, but large files could impact upload time and server load.*
+</Info>

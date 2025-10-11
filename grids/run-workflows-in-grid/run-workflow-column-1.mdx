@@ -1,0 +1,135 @@
+---
+title: "Schedule Workflow Column"
+---
+
+## Schedule Workflow Runs in Grid
+
+Schedule your workflows to run automatically on a recurring basis directly from the Grid interface. This powerful feature enables hands-free automation of your content operations, ensuring your workflows execute at optimal times without manual intervention.
+<Frame>
+<img src="/images/schedule-workflow-runs-in-grid.avif"/>
+</Frame>
+### Overview
+
+The Schedule feature allows you to set up recurring workflow runs based on your preferred frequency, timing, and conditions. Whether you need daily content updates, weekly SEO refreshes, or monthly bulk operations, scheduled runs ensure your workflows execute consistently and reliably.
+
+### How to Schedule a Workflow
+
+#### 1. Access the "Schedule Workflow" Option
+<Steps>
+<Step title="Navigate to your Grid containing the workflow column"/>
+<Step title="Click on the workflow column header"/>
+<Step title="Select Schedule Workflow from the menu options">
+  <Frame>
+<iframe
+  src="https://demo.arcade.software/xExFs8MkJrf5gmqxsblv?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+</Step>
+</Steps>
+
+#### 2. Configure Your Schedule
+
+**Set the Frequency and Time**
+
+Choose when and how often your workflow should run:
+
+**For Daily Schedules:**
+
+- **Frequency**: Select "Day" from the dropdown
+- **Time**: Choose your preferred hour and minute (e.g., 9:00 AM)
+- Workflow will run every day at the specified time
+
+**For Weekly Schedules:**
+
+- **Frequency**: Select "Week" from the dropdown
+- **Time**: Choose your preferred hour and minute
+- **Days**: Select one or more days of the week (Mon-Sun)
+
+**For Monthly Schedules:**
+
+- **Frequency**: Select "Month" from the dropdown
+- **Time**: Choose your preferred hour and minute
+- **Days**: Click specific calendar dates, or use the dropdown to select:
+  - **Day**: Choose specific dates (1-31)
+  - **Week**: Select by week of the month
+  - **Month**: For broader monthly patterns
+
+**Configure Row Filters (Optional)**
+
+Target specific rows for your scheduled runs by adding filters:
+<Steps>
+<Step>
+**Select a column** from the dropdown (e.g., "keyword")
+</Step>
+<Step>
+**Choose a condition**:
+   - `is not empty` - Only run on rows with data in this column
+   - `is empty` - Only run on rows without data in this column
+   - `contains` - Run on rows containing specific text
+   - `not contains` - Exclude rows containing specific text
+   - `is equal to` - Run on exact matches
+   - `is not equal to` - Exclude exact matches
+</Step>
+<Step>
+**Enter a value** for conditions that require it (contains, not contains, etc.)
+</Step>
+<Step>
+ Click **Add Filter** to include additional conditions
+</Step>
+</Steps>
+**Set Row Limits (Optional)**
+
+Control the volume of each scheduled run:
+
+- Enter a number to limit how many rows are processed per run
+- Leave blank to process all matching rows
+- Useful for managing workload and processing time
+
+#### 3. Save Your Schedule
+
+Click **Save Schedule** to activate your recurring workflow runs.
+
+### Common Use Cases
+
+- **Daily content refreshes** to keep information current
+- **Weekly SEO monitoring** for tracking keyword performance
+- **Monthly content generation** for editorial calendars
+
+### Best Practices
+
+#### 1. **Use Row Filters Wisely**
+
+- Filter on empty output columns to avoid reprocessing completed rows
+- Use "contains" filters to target specific content types or categories
+- Combine multiple filters for precise targeting
+
+#### 2. **Time Dependent Workflows Appropriately**
+
+When one scheduled workflow's outputs feed into another workflow:
+
+- Schedule them with sufficient time gaps to ensure the first completes before the second begins
+- Consider the typical execution time of your workflows when setting schedules
+
+#### 3. **Monitor Initial Runs**
+
+- Check the History tab after your first scheduled run
+- Verify that the correct rows were processed
+- Adjust filters or timing as needed
+
+### Managing Scheduled Runs
+
+#### View Active Schedules
+
+- Access your scheduled runs from the Grid's workflow column menu
+- View schedule details including frequency, filters, and last run time
+
+#### Edit or Delete Scheduled Runs
+
+- Click on an existing scheduled workflow column to modify settings
+- Update frequency, timing, filters, or limits as needed or delete the scheduled run
+- Changes take effect immediately

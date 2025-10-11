@@ -1,0 +1,46 @@
+---
+title: "Format JSON"
+description: "Format output as JSON"
+---
+
+## How does the JSON Step work?
+
+The JSON Step allows you to structure the output of your workflow into a standardized JSON format. This is done by selecting the keys and values of the different steps you want to expose in the output.
+
+## How to Configure a JSON Step
+
+The JSON Step is fairly intuitive. Given that you're formatting the output of a previous step, it will typically flow directly into your End step.
+
+You can name the "key" and "value" to whatever you choose, and you can choose to populate them with the input of prior steps:
+
+<Frame>
+<iframe 
+src="https://demo.arcade.software/BtyQUAfSJf5dzhIWUVIR?embed" 
+title="https://demo.arcade.software/BtyQUAfSJf5dzhIWUVIR?embed" 
+style={{width: '100%', maxWidth: '100%', aspectRatio: '1.52155 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+Clicking the **"Add Variable +"** button will let you define additional fields within your JSON output.
+
+## Example
+
+Let's walk through a quick example of using a JSON Step to achieve our desired output in a JSON format.
+
+Our workflow takes a simple string input (city name), and utilizes an LLM Step to generate a quick historic description of the city. We'll insert our JSON Step after this, formatting our output as:
+
+```json
+{
+  "city_name": "Los Angeles",
+  "description": "The full description of the city."
+}
+```
+
+<Frame>
+<iframe 
+src="https://demo.arcade.software/2XKC3NgLFXFs5zJYKZNJ?embed" 
+title="https://demo.arcade.software/2XKC3NgLFXFs5zJYKZNJ?embed" 
+style={{width: '100%', maxWidth: '100%', aspectRatio: '1.52155 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+

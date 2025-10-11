@@ -1,0 +1,51 @@
+---
+title: "Delete a document"
+description: "Remove a document from a memory store. This action is permanent and cannot be undone."
+api: DELETE https://api.airops.com/public_api/vector_stores/{memory_store_id}/vector_store_documents/{memory_store_document_id}
+contentType: application/json
+---
+
+### Authorizations
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+### Path parameters
+<ParamField path="memory_store_id" type="string" required>
+The Memory Store id
+
+Example: `123`
+</ParamField>
+
+<ParamField path="memory_store_document_id" type="string" required>
+The id of the document to delete
+
+Example: `456`
+</ParamField>
+
+
+## Responses
+
+### 200 Document deleted
+<Expandable>
+No Content
+</Expandable>
+
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+<ResponseExample>
+```bash 200 Document deleted
+No Content
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>

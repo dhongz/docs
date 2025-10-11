@@ -1,0 +1,90 @@
+---
+title: "Hunter.io"
+description: "Retrieve email and company data"
+---
+
+The Contact Enrichment Step offers multiple options for retrieving email and LinkedIn information. This can help build a robust hub for your user information and outbound sourcing.
+
+## Supported Contact Enrichment Types
+
+At this time, AirOps supports the following Contact Enrichment options.
+
+<Info>
+The endpoints for the email steps can all be found in greater detail [here](https://hunter.io/api-documentation/v2#domain-search).
+</Info>
+
+### Hunter.io Email Verifier (Workflow Only)
+
+This option allows you to verify the deliverability of an email address. When built into your workflows, this step is useful for only sending messages to intended recipients and avoiding any emails that bounce.
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/ju0qmF9GLB5TfQJE6Hhu?embed"
+title="https://demo.arcade.software/ju0qmF9GLB5TfQJE6Hhu?embed"
+style= {{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+### Hunter.io Person Email Search (Workflow Only)
+
+This option allows you to get the most likely email address from a domain name, first name, and last name.
+
+In the example below, we walk through what the output looks like when the step finds a valid match as well as what the output looks like when it does not.
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/RP33lpCEljOeLhMJFYsM?embed"
+title="https://demo.arcade.software/RP33lpCEljOeLhMJFYsM?embed"
+style= {{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+### Hunter.io Domain Email Search (Workflow Only)
+
+This option provides a method to get publicly available email addresses associated with the domain.
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/UIsLk6CsReDxSTsmUcR7?embed"
+title="https://demo.arcade.software/UIsLk6CsReDxSTsmUcR7?embed"
+style= {{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+### People Data Labs - Person Enrichment (Workflow Only)
+
+The People Data Labs Person Enrichment provides LinkedIn Information, contact information, and much more. For a complete example of the data included, check out an [Example Person Record](https://docs.peopledatalabs.com/docs/example-record).
+
+You must provide **one** of the following for this step:
+
+- Social profile
+- Email address
+- Phone number
+- Name and company
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/pTljAzbMkTA7Y5V7fZiT?embed"
+title="https://demo.arcade.software/pTljAzbMkTA7Y5V7fZiT?embed"
+style= {{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+### People Data Labs - Company Enrichment (Workflow Only)
+
+The People Data Labs Company Enrichment provides funding, employee count, and much more. For a complete example of the data included, check out an [Example Company Record](https://docs.peopledatalabs.com/docs/example-company-record).
+
+You must provide **one** of the following for this step:
+
+- Name
+- Ticker
+- Website
+- Profile
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/Wq0sP0vDnDFRIR3bY8RK?embed"
+title="https://demo.arcade.software/Wq0sP0vDnDFRIR3bY8RK?embed"
+style= {{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>

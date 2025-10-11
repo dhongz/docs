@@ -1,0 +1,45 @@
+---
+title: "Read from Grid"
+description: 'The "Read from Grid" Step allows you to get data from an existing AirOps Grid directly into your workflow.'
+---
+
+## How to Configure the Read from Grid Step
+
+### Select a Grid
+
+Choose the specific Grid you want to import data from. The dropdown will show all available Grids in your workspace.
+
+### Filtering Options
+
+You can optionally filter the rows you want to import from the selected Grid:
+
+- **All Rows**: Import all rows from the selected Grid
+- **Selected Rows**: Import only specific rows based on your criteria
+
+### Column Selection
+
+Choose which columns from the Grid you want to import:
+
+- **All Columns**: Import all columns from the selected Grid
+- **Selected Columns**: Specify only certain columns to import
+
+## Output Format
+
+The Read from Grid step outputs data in a structured format that can be easily used in subsequent steps of your workflow. The output will be an array of objects, with each object representing a row from the Grid.
+
+Example output:
+
+```json
+[
+  {
+    "column1": "value1",
+    "column2": "value2",
+    "column3": "value3"
+  },
+  {
+    "column1": "value4",
+    "column2": "value5",
+    "column3": "value6"
+  }
+]
+```

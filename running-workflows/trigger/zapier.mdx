@@ -1,0 +1,51 @@
+---
+title: "Zapier"
+description: "Trigger a Workflow with Zapier"
+---
+
+This guide provides a step-by-step introduction to integrating your Workflow with Zapier, leveraging the power of AirOps via Zapier's workflows. By connecting AirOps to Zapier, you can seamlessly integrate with thousands of other applications and automate your tasks.
+
+## Authentication
+
+To start off, you'll need your API Key for authentication This can be found in the "Settings" page of your Workspace.
+
+## Choosing an Event
+
+Before creating a Zap with AirOps, it’s essential to choose the appropriate event. AirOps offers two different events you can select:
+
+- **Run AirOps Workflow (Wait for Result)**: This event triggers the Workflow and waits for its execution output. Use this when the output from the AirOps Workflow is needed in your workflow. **If your workflow has a CODE output, an input field named "Sample output" will appear. To fill this, manually run your** Workflow **in AirOps, copy the output, and paste it into this field in Zapier, helping Zapier understand the output format for seamless workflow integration**.
+- **Run AirOps Workflow**: This event only triggers the Workflow without waiting for the execution output. Opt for this when initiating the AirOps Workflow is required, but the output is not needed for your Zap.
+
+**Ensure to select the event type that aligns with your workflow needs as you proceed with setting up your Zap.**
+
+## Selecting a Workflow
+
+After authenticating your AirOps account, creating a Zap with AirOps as the Action app will present you with a dropdown list. This list displays all the Workflows you've created in AirOps. Simply select the desired Workflow from the dropdown, and Zapier will preconfigure the necessary parameters based on your selection.
+<Frame>
+<img src="/images/selecting-a-workflow.avif"/>
+</Frame>
+## Input Parameters
+
+With the Workflow selected from the dropdown, Zapier will automatically display the required input parameters specific to that Workflow. Fill in the parameters as guided by Zapier's user-friendly interface.
+<Frame>
+<img src="/images/execute-in-airops.avif"/>
+</Frame>
+## Building Your First Zap
+
+With your AirOps account authenticated and the right Workflow selected:
+<Steps>
+<Step title="Choose a Trigger app from the Zapier library and define its event."/>
+<Step title="For the Action, select AirOps from the list of available Workflows. You will be presented with two types of actions:">
+	a. **Run AirOps Workflow (Wait for Result)**: This action will wait for the Workflow execution output. Use this when you need to use the output from the AirOps Workflow in your workflow.
+	
+    b. **Run AirOps Workflow**: This action just triggers the Workflow but does not wait for the execution output. Use this when you only need to start the AirOps app but do not require the output.
+</Step>
+<Step title="Pick your desired AirOps Workflow from the dropdown."/>
+<Step title="Fill in any required parameters that Zapier presents.">
+	a. *If you chose "Run AirOps Workflow (Wait for Result)" and your Workflow has a JSON output, fill in the "Sample output" input by manually running your app in AirOps and pasting the output. This lets Zapier know the output format.*
+</Step>
+<Step title="Test your Zap to ensure it runs smoothly."/>
+<Step title="Congratulations!">
+ You've now integrated AirOps with Zapier. Explore the myriad of possibilities that this integration offers and let automation take your workflows to new heights.
+</Step>
+</Steps>

@@ -1,0 +1,59 @@
+---
+title: "Rate an execution"
+description: "Provide feedback (positive, neutral, or negative) for a completed execution."
+api: PATCH https://api.airops.com/public_api/airops_apps/executions/{execution_uuid}/feedback
+contentType: application/json
+---
+
+<Note>
+**Preconditions:** The execution must be in **success** status.
+</Note>
+### Authorizations
+
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+
+### Path parameters
+<ParamField path="execution_uuid" type="string" format="uuid" required>
+The unique identifier (UUID) for the execution.
+
+Example: `c3405f16-d0e8-4d5c-8ad9-85ef332c44ee`
+</ParamField>
+
+
+
+### Body
+<ParamField body="feedback" type="string" enum required>
+The feedback of the execution
+
+Example: `positive`
+
+Possible values: `positive` `neutral` `negative`
+</ParamField>
+
+## Responses
+
+### 204 Feedback sent
+<Expandable>
+No Content
+</Expandable>
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+<ResponseExample>
+```bash 204 Feedback sent
+No Content
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>

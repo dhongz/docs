@@ -1,0 +1,94 @@
+---
+title: "Content Comparison"
+---
+
+## Content Comparison Step
+
+The "Content Comparison" Step allows you to visually compare two pieces of HTML content and highlight the differences between them. This powerful functionality is especially useful for reviewing content changes, tracking edits, and ensuring quality control in your content workflows.
+
+<Frame>
+![](/images/building-workflows/flow/content-comparison.png)
+</Frame>
+
+### What is the Content Comparison Step?
+
+The Content Comparison step enables you to compare an original version of HTML content with a modified version, clearly visualizing additions, deletions, and changes. This is particularly valuable when you need to:
+
+- Review AI-suggested content changes
+- Track edits made during a content review process
+- Verify content updates before publishing
+- Maintain quality control over content versions
+- **Perform on-page content refresh workflows with last-mile human review**
+
+### How to Configure the Content Comparison Step
+
+#### Original Content (HTML Required)
+
+Specify the original **HTML content** that will serve as the baseline for comparison. This field expects HTML-formatted content and can be:
+
+- A direct HTML string
+- The output from a previous step that generates HTML (using Liquid syntax like `{{ step_1.output }}`)
+- HTML content retrieved from your Knowledge Base or external source
+
+**Important:** This field requires HTML content, not plain text or markdown.
+
+#### Updated Content (HTML Required)
+
+Specify the modified or updated **HTML content** that will be compared against the original. Like the original content, this field expects HTML and can be:
+
+- A direct HTML string
+- The output from a previous step that generates HTML (using Liquid syntax like `{{ step_2.output }}`)
+- HTML content retrieved from your Knowledge Base or external source
+
+**Important:** This field requires HTML content, not plain text or markdown.
+
+#### Update Instructions (Optional - Any Format)
+
+This optional field allows you to provide context about why changes were made. Unlike the content fields above, this field accepts **any text format** (not HTML required). You can include:
+
+- Reasons for the content changes
+- Instructions that were used to generate the updated content
+- Notes about specific modifications made
+- AI prompts or guidelines that led to the changes
+
+When provided, AirOps will summarize these change reasons in the final diff view, making it easier for reviewers to understand the context behind content updates.
+
+<Frame>
+![](/images/building-workflows/flow/content-comparison-grid.png)
+</Frame>
+
+### Grid View with Visual Diff (Final Step Feature)
+
+**When Content Comparison is the FINAL step in your workflow**, the grid output provides an enhanced review experience:
+
+1. **Eye Icon in HTML Column**: The resulting HTML column in the grid will display an eye icon (👁️) next to each row
+2. **Interactive Diff View**: Clicking the eye icon opens a visual diff viewer that shows:
+	- Original content with strikethrough formatting for removed text
+	- New content highlighted for additions
+	- A "Proposed Improvement" summary (based on your Update Instructions)
+	- **Accept/Reject buttons** for last-mile human review
+
+<Frame>
+<iframe 
+src="https://demo.arcade.software/bQYAXaaHWv1DalGqq6o6?embed" 
+title="https://demo.arcade.software/bQYAXaaHWv1DalGqq6o6?embed" 
+style={{width: '100%', maxWidth: '100%', aspectRatio: '2.23581 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+This feature is **particularly powerful for on-page content refresh use cases**, where you need to:
+
+- Review AI-suggested improvements to existing content
+- Maintain quality control before publishing updates
+- Ensure brand consistency and accuracy
+- Make final accept/reject decisions with full context
+
+### Best Practices
+
+1. **Always use HTML content** for the Original and Updated Content fields
+2. **Place Content Comparison as the final step** in your workflow to leverage the grid's visual diff viewer
+3. **Provide clear Update Instructions** to help reviewers understand why changes were made
+4. **Use for content refresh workflows** where human review of changes is critical before publishing
+
+This step transforms content comparison from a technical process into an intuitive, visual review experience that empowers teams to confidently update and improve their content at scale.
+

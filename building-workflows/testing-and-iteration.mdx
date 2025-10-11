@@ -1,0 +1,75 @@
+---
+title: "Testing and Iteration"
+description: "Best practices for testing and iterating on your workflow"
+---
+
+Testing and iteration are fundamental steps to creating a production-ready Workflow. In this section, we will outline the best practices for testing and iterating on your workflow.
+
+## How to Test Your Workflow
+
+There are two ways to test your workflow: one step at a time or all steps at once.
+
+When you test one step at a time, the value of each step will be updated. **When you test all steps at once, the values of each step will only be updated if the execution is successful. However, the values will not be updated if you encounter an error.** As a result, the best practice is to always test one step at a time until your workflow is production-ready
+
+### Test One Step
+
+<Frame>
+![](/images/building-workflows/test-one-step.png)
+</Frame>
+
+- **Begin at the Start step:** to begin testing a workflow, you must add values to the start step
+- **Click on the arrow of the first step:** this will execute the first step only
+- **Use the logs to understand the step's output in order to reference it in future steps:** logs are critical to understanding the data structure of the step's output - use this output to help you reference this step in subsequent steps
+- **Design the next step(s):** continue designing your workflow by referencing the previous steps using the pink variable helper button
+- **Continue testing each subsequent step:** after designing a step, click the play button to test the step. Continue this process until you have a production-ready workflow
+
+### Test your entire Workflow
+
+There are **two options for testing your workflow end-to-end:**
+
+<Columns cols={2}>
+<Card title="Option 1: Click Test Workflow from the Inputs step" img="/images/building-workflows/option-1.png" />
+<Card title="Option 2: Click Test Workflow from the top right of the Studio" img="/images/building-workflows/option-2.png" />
+</Columns>
+
+<Info>
+Use the **Test Workflow** feature when your Workflow is ready
+</Info>
+
+<Steps>
+<Step title="Click Test Workflow">
+Click **Test Workflow** in the upper right-hand corner
+</Step>
+<Step title="Input your test values">
+Add the test values you want to execute
+</Step>
+<Step title="Execute">
+Click **Execute** to test the entire workflow
+</Step>
+</Steps>
+
+## Error Handling Best Practices
+
+When creating a workflow for production, there are edge cases you should test for and handle in your workflow before running at scale. Also, remember, you can always ask for the [Copilot's help to Fix Errors](/copilot/fix-errors-with-copilot) you run into while testing.
+
+### 1\. Context Window Limit
+
+Every LLM model has a maximum context window, which means there is a maximum number of tokens (or characters) you can have in your prompt before it errors out.
+
+<Info>
+1 token generally corresponds to ~4 characters and ~3/4 of one word.
+</Info>
+
+1. To ensure your prompt stays within the context window limit, you can approximate the number of tokens you will use by copying and pasting your prompt into the following OpenAI token counter: [https://platform.openai.com/tokenizer](https://platform.openai.com/tokenizer)
+2. To handle edge cases where your prompt exceeds the token limit, you can use the following Liquid syntax to slice your inputs or step outputs into a shorter chunk: `{{step_1.output | slice: 0, 10000}}`where 10000 is replaced by the number of characters you want to chunk.
+
+### 2\. Prompt Formatting Errors
+
+Many production Workflows of large language models depend on consistent output formatting from the model. To ensure consistency in your workflow, consider the following methods to handle unexpected output from the prompt:
+
+1. **Prompting Techniques:**
+	- To prevent the model from introducing it's answer with a phrase such as "*Sure, here is a...*", you can add a command in both the **System** and **User** such as "*Output your answer in the following format, and do not include any additional commentary:*"
+	- If your output is HTML or JSON, to prevent the model from starting with ` ```html ` or ` ```json `, you can tell the model *"Start with #..."* or *"Start with \{, and end with } and do not include* `*```json*` *in your response"*
+2. **Code Parsing:**
+	- If you're still struggling with consistent output, or you want to handle extreme cases where it may deviate from the expected output, you can use code to parse out any text that precedes your first character.
+

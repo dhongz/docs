@@ -1,0 +1,83 @@
+---
+title: "Review Workflow Run Metadata"
+description: "After a workflow has been executed, AirOps provides detailed metadata that helps you understand what happened during the run. This information is essential for troubleshooting, optimizing performance, and monitoring resource usage."
+---
+
+
+### How to Access Run Metadata
+
+When viewing a completed workflow run, you'll see several tabs at the top of the results panel:
+<Steps>
+<Step title="Output">
+Shows the final result produced by your workflow
+</Step>
+<Step title="Inputs">
+ Displays all parameters and values that were used to run the workflow
+</Step>
+<Step title="Logs">
+ Provides a step-by-step breakdown of the execution process
+</Step>
+<Step title="Details">
+ Contains technical information about the workflow run
+</Step>
+</Steps>
+<Frame>
+<iframe
+  src="https://demo.arcade.software/Oh4cWU8CXf44GQOpsRWq?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+### Understanding Each Metadata Section
+
+#### Inputs
+
+The Inputs tab shows exactly what data was fed into your workflow, including:
+
+- Any keywords or text inputs
+- Brand Kit selections
+- File uploads
+- Configuration parameters
+
+This information helps you verify that the correct data was used for processing.
+
+#### Logs
+
+The Logs tab offers a comprehensive breakdown of your workflow execution:
+
+- Each step that was executed, with timestamps
+- Execution time for individual steps
+- Task usage per step
+- Status indicators (success or error)
+- Output from each step in the workflow
+
+Logs are particularly valuable for identifying bottlenecks or troubleshooting errors in complex workflows.
+
+#### Details
+
+The Details tab provides technical information about the workflow run, including:
+
+- Status (success, error, pending)
+- Version number
+- Execution time and date
+- Total runtime duration
+- Number of tasks consumed
+- Unique identifier (UUID)
+- Source of execution (API, grid, manual)
+- Token usage broken down by model, input, and output
+
+### Using Metadata for Optimization
+
+Workflow metadata helps you:
+
+- Identify which steps are consuming the most time or resources
+- Troubleshoot errors by pinpointing exactly where a workflow failed
+- Monitor token usage to optimize costs
+- Verify that inputs were processed as expected
+- Track execution history for auditing purposes
+
+By regularly reviewing this metadata, you can adjust your workflows for better performance, lower costs, and more reliable results.

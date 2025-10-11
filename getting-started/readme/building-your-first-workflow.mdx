@@ -1,0 +1,255 @@
+---
+title: "Building your First Workflow"
+---
+
+<Frame>
+![](/images/getting-started/building-first-workflow.png)
+</Frame>
+
+## Building Your First AirOps Workflow: Keyword SERP Researcher
+
+In this tutorial, we'll walk through building your first AirOps Workflow - a Keyword SERP Researcher that analyzes Google search results for your target keywords.
+
+## Interactive Tutorial
+
+<Frame>
+  <iframe
+  src="https://demo.arcade.software/emHfbSG0PcdSrIcWVTGN?embed"
+  title="https://demo.arcade.software/emHfbSG0PcdSrIcWVTGN?embed"
+  allowfullscreen=""
+  allow="clipboard-write"
+  className="contentkit-webframe h-96"
+  ></iframe>
+</Frame>
+
+## Step-by-Step Guide
+
+### Creating the Workflow
+
+#### Step 1: Create a New Workflow
+
+<Steps>
+    <Step>
+    From the Home screen, click the "Create" button in the top-right corner
+    </Step>
+    <Step>
+    Select "Workflow" from the dropdown menu
+    </Step>
+    <Step>
+    You'll be directed to the AirOps Workflow Studio where you'll build your workflow
+    </Step>
+</Steps>
+
+<Frame>
+![](/images/getting-started/create.png)
+</Frame>
+
+#### Step 2: Configure Your Workflow Input
+
+<Steps>
+    <Step>
+    In the Workflow Studio, you'll see a node labeled "Set Inputs" at the top of your workflow
+    </Step>
+    <Step>
+    Click on this node to configure your input field
+    </Step>
+    <Step>
+    Click "Add field to group" or a similar option
+    </Step>
+    <Step>
+    Select "Short Text" as the input type
+    </Step>
+    <Step>
+    Label the field "keyword" - this will be the search term you want to analyze
+    </Step>
+    <Step>
+    Make sure the variable name is also "keyword" (this happens automatically)
+    </Step>
+    <Step>
+    Toggle "Required" to ensure a keyword is always provided
+    </Step>
+    <Step>
+    Save your configuration
+    </Step>
+</Steps>
+
+<Frame>
+![](/images/getting-started/configure.png)
+</Frame>
+
+### Setting Up the Google Search Step
+
+#### Step 1: Add a Google Search Step
+
+<Steps>
+<Step>
+You'll need to add a Google Search step after your inputs
+</Step>
+<Step>
+Look for the "+" button or "Add Step" option below your input node
+</Step>
+<Step>
+Navigate through the categories and select "Web Research" category
+</Step>
+<Step>
+Choose "Google Search" from the available steps
+</Step>
+<Step>
+This will add a Google Search step to your workflow, similar to what's shown in Image 2
+</Step>
+</Steps>
+
+
+#### Step 2: Configure the Google Search Step
+
+<Steps>
+<Step>
+Click on the Google Search step
+</Step>
+<Step>
+In the "Search Query" field, click on the variable explorer (pink icon on the top right of the input field) and choose `{{ keyword }}`
+</Step>
+<Step>
+Leave the "Search Parameters" field empty for now
+</Step>
+<Step>
+Save your configuration
+</Step>
+</Steps>
+
+<Frame>
+![](/images/getting-started/configure-google-search-step.png)
+</Frame>
+
+### Creating the LLM Analysis Step
+
+#### Step 1: Add a Prompt LLM Step
+
+<Steps>
+<Step>
+After your Google Search step, add another step
+</Step>
+<Step>
+Choose "Prompt LLM" (Large Language Model) from the available steps
+</Step>
+<Step>
+This will add an LLM step after your Google Search step
+</Step>
+</Steps>
+
+#### Step 2: Configure the LLM Model
+
+<Steps>
+<Step>
+Click on the LLM step
+</Step>
+<Step>
+We're using "GPT-4o" as our model in this example
+</Step>
+<Step>
+You can leave other settings at their defaults for now
+</Step>
+</Steps>
+
+<Frame>
+![](/images/getting-started/configure-llm-model.png)
+</Frame>
+
+#### Step 3: Craft Your LLM Prompt
+
+<Steps>
+<Step>
+In the LLM step panel, enter the following prompt in the input field that says "User" on its left:
+
+```text expandable
+You are tasked with analyzing the themes and best practices of top-performing Google search results for a given keyword. This analysis will help understand what makes these pages successful and provide insights for content creation.
+
+The keyword for analysis is:
+{{ keyword }}
+
+Here are the top-performing results from Google for this keyword:
+{{ step_1.output }}
+
+To complete this task, follow these steps:
+
+1. Carefully read through all the top-performing results.
+
+2. Analyze the themes:
+   a. Identify common topics or subjects addressed across multiple results.
+   b. Note any unique angles or perspectives on the main topic.
+   c. Observe the depth and breadth of information covered.
+
+3. Identify best practices:
+   a. Examine the content structure (headings, subheadings, lists, etc.).
+   b. Assess the use of media (images, videos, infographics, etc.).
+   c. Evaluate the writing style and tone.
+   d. Look for patterns in content length and detail level.
+   e. Note any common external resources or references used.
+   f. Observe how the content addresses user intent.
+
+4. Present your analysis in the following format:
+
+# Analysis
+## Themes
+[List and briefly describe 3-5 main themes you've identified]
+
+## Best Practices
+[List and explain 5-7 best practices you've observed]
+
+## Recommendations
+[Provide 3-5 actionable recommendations for creating content based on your analysis]
+
+Remember to be thorough in your analysis and objective in your observations. Focus on patterns and practices that appear to contribute to the success of these top-performing pages. Your insights should be valuable for anyone looking to create high-quality content on this topic.
+```
+
+</Step>
+<Step>
+Notice how this prompt references both the keyword input (`{{ keyword }}`) and the output from the previous Google Search step (`{{ step_1.output }}`)
+</Step>
+</Steps>
+
+### Testing and Publishing Your Workflow
+
+#### Step 1: Test Your Workflow
+
+<Steps>
+    <Step>
+    Click "Test Workflow" in the top right of the Studio navigation bar (play icon next to it)
+    </Step>
+    <Step>
+    Enter a test keyword (e.g., "content marketing tips" or "best running shoes")
+    </Step>
+    <Step>
+    Click "Test Workflow" to run your workflow
+    </Step>
+    <Step>
+    Review the results to ensure both steps are working correctly
+    </Step>
+</Steps>
+
+#### Step 2: Publish Your Workflow
+
+<Steps>
+    <Step>
+    Look for a "Publish" button on the top right of the Studio
+    </Step>
+    <Step>
+    Give your workflow a descriptive name like "Keyword SERP Researcher"
+    </Step>
+    <Step>
+    Add a brief description of what the workflow does
+    </Step>
+    <Step>
+    Publish your workflow to make it available for running
+    </Step>
+</Steps>
+
+<Frame>
+![](/images/getting-started/publish-workflow.png)
+</Frame>
+
+### You did it 🎉
+
+Congratulations! You've successfully built your first AirOps Workflow. This Keyword SERP Researcher provides insights for your content creation strategy by analyzing what makes top-ranking content successful for any keyword.
+
+As you become more familiar with AirOps, you can expand this workflow by adding more steps, incorporating human review steps, or connecting it to other workflows to create a comprehensive content creation pipeline.

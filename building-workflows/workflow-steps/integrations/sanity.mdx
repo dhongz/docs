@@ -1,0 +1,121 @@
+---
+title: "Sanity"
+description: "The Sanity Integration allows you to list, create and update posts on your Sanity.io site."
+---
+
+<Frame>
+![](/images/building-workflows/sanity.png)
+</Frame>
+
+## Authentication
+
+1. **Generate an API Key**
+
+<Steps>
+<Step>
+	Go to your project Dashbaord on Sanity.io
+</Step>
+<Step>
+	Go to the API tab
+</Step>
+<Step>
+	Click on the "Add API Token" button
+</Step>
+<Step>
+	Set a name for your token (i.e. "AirOps")
+</Step>
+<Step>
+	Set the permissions as "Editor"
+</Step>
+<Step>
+	Click on "Save"
+</Step>
+<Step>
+	Copy the generated token
+</Step>
+</Steps>
+
+2. **Add the API Key to AirOps**
+
+<Steps>
+<Step>
+	Go to AirOps > Settings > Integrations page
+</Step>
+<Step>
+	Click on the "Add New" and select Sanity
+</Step>
+<Step>
+	Paste the generated token in the API Key field
+</Step>
+<Step>
+	Click on "Save"
+</Step>
+</Steps>
+
+<Info>
+**Security Note:** 
+
+Treat your API Key like a password. It provides REST API access to your Sanity instance, and it should not be shared. Store it securely and only use it in server-side or secure/authenticated environments.
+</Info>
+
+## Functions and Their Parameters
+
+### Common Configuration Parameters
+
+1. **Project ID**: The ID of your Sanity project. (e.g. "w22x3y4z")
+2. **Dataset**: The dataset you want to use. (e.g. "production")
+
+### List Resources
+
+Fetches a list of resources from your Sanity project. This is useful for retrieving existing posts, images, or other content types. Returns 100 records per page.
+
+1. **Resource Type**: The type of resource you want to list. (e.g. "post")
+2. **Last ID**: To use pagination, you can set the last ID of the previous request. (Optional)
+3. **Include drafts?**: Whether to include draft resources in the results. (Optional)
+
+### Fetch Resource
+
+Fetches a single resource from your Sanity project. This is useful for retrieving detailed information about a specific post or image.
+
+Array of blocks will be returned as is but a companion data structure will be returned with the blocks attributes converted to plain HTML within the `__airops.html` JSON path.
+
+1. **Resource ID**: The ID of the resource you want to fetch. (e.g. "4ddb0459-2734-4611-b1af-4ee13f3d5630")
+
+### Create Resource
+
+Creates a new resource in your Sanity project. This is useful for adding new posts, images, or other content types.
+
+1. **Resource JSON**: The JSON object representing the resource you want to create.
+	- For instance: `{ "title": "My New Post", "category": "blog" }`
+	- When used in conjunction with the Resource HTML input, HTML attributes will be ignored from this input.
+	- See [https://www.sanity.io/docs/js-client#creating-documents](https://www.sanity.io/docs/js-client#creating-documents).
+2. **Resource HTML**: A JSON object containing the resource attribute name as the key and the HTML document as value. (Optional)
+	- For instance: `{ "body": "<h1>My New Post</h1><p>This is the content of my new post.</p>" }`
+	- This is useful for creating posts with rich text content.
+	- The HTML will be converted to Sanity's Portable Text structure and used in the payload to create the resource. Send as many HTML attributes as needed.
+
+### Update Resource
+
+Updates an existing resource in your Sanity project.
+
+1. **Resource ID**: The ID of the resource you want to update. (e.g. "4ddb0459-2734-4611-b1af-4ee13f3d5630")
+2. **Resource JSON**: The JSON object representing the resource you want to update.
+	- For instance: `{ "title": "My Updated Post", "category": "blog" }`
+	- When used in conjunction with the Resource HTML input, HTML attributes will be ignored from this input.
+	- See [https://www.sanity.io/docs/js-client#patchupdate-a-document](https://www.sanity.io/docs/js-client#patchupdate-a-document).
+3. **Resource HTML**: A JSON object containing the resource attribute name as the key and the HTML document as value. (Optional)
+	- For instance: `{ "body": "<h1>My New Post</h1><p>This is the content of my new post.</p>" }`
+	- This is useful for creating posts with rich text content.
+	- The HTML will be converted to Sanity's Portable Text structure and used in the payload to create the resource. Send as many HTML attributes as needed.
+
+### Upload Image
+
+Uploads an image to your Sanity project. This is useful for adding images to your content or media library.
+
+1. **Image URL**: The URL of the image you want to upload to Sanity. (e.g. "https://example.com/image.jpg")
+
+### Publish Resource
+
+Publishes a draft resource in your Sanity project, making it live and visible to your audience.
+
+1. **Resource ID**: The ID of the draft resource you want to publish. (e.g. "drafts.4ddb0459-2734-4611-b1af-4ee13f3d5630")

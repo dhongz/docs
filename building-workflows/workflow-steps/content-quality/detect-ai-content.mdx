@@ -1,0 +1,52 @@
+---
+title: "Detect AI Content"
+description: "The 'Detect AI Content' step allows you to analyze text to determine whether it was likely written by an AI or a human. This powerful tool uses Originality.ai's advanced AI detection technology to help you identify AI-generated content, ensuring content authenticity and compliance with content policies."
+---
+
+### How to Configure the Detect AI Content Step
+
+- **Content**: Input the content you'd like to analyze
+
+### Output Format
+
+The Detect AI Content step returns a JSON object containing detailed analysis results:
+
+```json expandable
+{
+  "success": true,
+  "disclaimer": "If you are trying to scan content that is under 50 words in length, you will run into AI accuracy issues.",
+  "public_link": "https://app.originality.ai/share/[ID]",
+  "title": "API V1 Scan",
+  "score": {
+    "original": 0,
+    "ai": 1
+  },
+  "blocks": [
+    {
+      "text": "content text one ",
+      "result": {
+        "fake": 1,
+        "real": 0,
+        "status": "success"
+      }
+    },
+    {
+      "text": "content text two ",
+      "result": {
+        "fake": 0.9790024454394978,
+        "real": 0.02099755456050223,
+        "status": "success"
+      }
+    },
+  
+          // Additional results here        
+  
+  ],
+  "credits_used": 3,
+  "credits": 123,
+  "subscription": 123,
+  "content": "example content",
+  "aiModelVersion": 1,
+  "id": [ID]
+}
+```

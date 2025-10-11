@@ -1,0 +1,61 @@
+---
+title: "Slack"
+description: "Integrate your Workflow with Slack"
+---
+
+## Parameters:
+
+The Slack integration allows you to send a message to a specific channel. It takes the following parameters:
+
+1. **Channel:** can be public or private, based on how you authenticated it
+2. **Text:** text to be posted in the channel
+
+## Example
+
+1. Authenticate your Slack account
+2. Type your channel name, e.g. #updates
+3. Add the message of what you want to send to the Slack channel
+
+<Frame>
+<iframe 
+src="https://demo.arcade.software/FHnvXLtdqOT6UmLgZyMp?embed" 
+title="https://demo.arcade.software/FHnvXLtdqOT6UmLgZyMp?embed" 
+style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+## Text Formatting
+
+Text formatting is supported in the Slack integration. You can use the following formatting options:
+
+- **Bold:** `*text*`
+- **Italic:** `_text_`
+- **Strikethrough:** `~text~`
+
+### Notes:
+
+- Links are automatically converted to clickable URLs.
+- Lists and headers are not currently supported in the slack integration
+
+### Channel ID Input for Slack Integration
+
+You can input your Slack Channel ID (public or private) or Member ID into the tool. For private channels, ensure that AirOps is added to the channel before proceeding. Here are the steps:
+
+1. **Public Channels:** Directly input the Channel ID.
+2. **Private Channels:** Add AirOps to the channel, then input the Channel ID.
+3. **Direct Messages:** Input the Member ID.
+
+**Finding Channel ID or Member ID in the Slack App:**
+
+- **Channel ID:**
+	- Open the desired channel in the Slack app.
+	- Tap the channel name at the top to open the channel details.
+	- Scroll down to find the Channel ID listed under the channel information.
+- **Member ID:**
+	- Open the direct message with the member in the Slack app.
+	- Tap the member’s name at the top to open their profile.
+	- Scroll down to find the Member ID listed under the profile information.
+
+**Troubleshooting:**
+
+If you encounter any errors, please visit [AirOps Integrations](https://app.airops.com/account/integrations) to reauthenticate Slack. Ensure correct permissions and channel access for seamless integration.

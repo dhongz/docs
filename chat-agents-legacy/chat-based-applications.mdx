@@ -1,0 +1,101 @@
+---
+title: "Chat Agents"
+description: "Trigger workflows with a chat-based app"
+---
+
+
+## What is an Agent?
+
+An Agent enables a conversational user experience, similar to ChatGPT but with your own data, unique capabilities and defined objectives. It's an incredibly powerful new interaction model that we are just starting to explore.
+<Frame caption="Chat with your Agents to answer your questions">
+<img src="/images/wht-is-an-ai-agent.avif"/>
+</Frame>
+
+
+## How do I build an Agent?
+
+To build an Agent, you need to establish the Agent goal and connect some tools or data to it.
+
+For a simple step-by-step guide on how to talk to your docs, check out our [Agent Quick Start](/chat-agents-legacy/agent-quick-start) guide.
+
+## Configuring an Agent
+
+In order to properly configure your Agent for success, you will need to adjust the parameters to best fit your desired outcome. We'll walkthrough each of the fields shown below:
+
+<Frame>
+<iframe
+  src="https://demo.arcade.software/q1ib6Mxrr3rhkxWtLkGB?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+### Selecting an AI Model
+
+AirOps currently supports the following versions of GPT for building an Agent:
+<Frame caption="List of AI Model options">
+<img src="/images/selecting-an-ai-model.avif"/>
+</Frame>
+
+
+You can select a different model based on your available resources and how you would like for the Agent to perform. For additional information, see our documentation page on [Choosing a Model](/building-workflows/workflow-steps/ai-steps/llm/choosing-a-model).
+
+### Temperature
+
+The "Temperature" slider represents the amount of variability in the Agent's response. The higher the temperature, the more varied the response.
+
+### System Prompt
+
+The "System" prompt is used to define the behavior and objective of the assistant, giving high-level instructions about how the assistant should behave. For best results, we recommend making your prompt as specific as possible regarding the desired behavior.
+
+For example:
+
+- `You are a writing assistant that speaks like Shakespeare. You must speak in iambic pentameter, and only use known language from before the year 1616.`
+- `You are an expert math teacher that assists students with their questions. You should not use abstract examples, but instead focus on explaining the theory and formulas. Deliver your responses as concisely as possible, and try to get the students to reach the answers without providing it yourself. `
+
+Use the "System" prompt to set the overall context for the conversation and provide important information to the model to help it accomplish its objective.
+
+### Opening Remarks
+
+The "Opening Remarks" text input field allows you to determine how your Agent starts a conversation. It can be useful for conveying its intended purposes for less familiar users.
+
+### Tool Usage
+
+The "Tool Usage" checkboxes keep your users informed regarding which of the connected tools are helping to generate the Agent's responses.
+<Frame>
+<img src="/images/tool-usage.avif"/>
+</Frame>
+As an example, let's walk through a simple Agent we created. The Agent should help answer questions around existing documentation, and we've connected it with a Knowledge Base with AirOps docs as well as a Knowledge Base with Airtable's docs. When our Agent responds to us, it will tell us which of the two connected tools it used to generate the answer:
+
+<Frame>
+<iframe
+  src="https://demo.arcade.software/UpWNGKRktKrpqCtNMQx8?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+
+The "Add tool usage results to Memory Context" checkbox is useful for storing the result of your tool usage into the LLM Context. This means that as the conversation continues, the Agent will remember which tool it used most frequently as a reference point for future answers.
+
+If I were to apply it to our example above, I could ask our Agent a question like:
+
+`What is the syntax for an API call?`
+
+Because the Agent remembers it used the connected "airops_docs" tool previously, it will try to provide a response based on that same tool first. This can be useful for conversations that you know will reference a single tool, but it is good to keep in mind in case you want the Agent to look more broadly across all of its connected tools.
+<Info>
+If you are enabling the "Add tool usage results to memory context" checkbox, be sure to keep in mind the potential downstream impact on your limited LLM context, i.e. you can quickly overload your LLM context by storing the results.
+</Info>
+### User-Assistant Example Interactions
+
+These prompts provide the model with example exchanges and help in directing the conversation.
+
+- User prompts typically contain a user's question or command, while assistant prompts carry the assistant's response.
+- You may not need to provide examples in the User / Assistant format, but this can be very helpful, particularly if you are looking for very specific output formats like JSON.
+
+For further information on best practices for user-assistant prompting, see our documentation page on how to [Prompt with GPT](/building-workflows/workflow-steps/ai-steps/llm/prompt-with-gpt).

@@ -1,0 +1,124 @@
+---
+title: "Retrieve an app"
+description: "Get details of a specific app by its UUID."
+api: GET https://api.airops.com/public_api/workspace/apps/{app_uuid}
+contentType: application/json
+---
+
+### Authorizations
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+
+### Path parameters
+<ParamField path="app_uuid" type="string" format="uuid" required>
+The unique identifier (UUID) for the app. You can find this in your app's Integrate section.
+
+Example: `6d2f4e0b-1a1d-49ae-8034-ba56f932119e`
+</ParamField>
+
+
+## Responses
+
+### 200 App found
+
+<Expandable title="Response body">
+<ResponseField name="Response" type="object">
+Represents an AirOps app (workflow or agent).
+<Expandable title="properties">
+<ResponseField name="id" type="integer">
+The unique numeric identifier for the app.
+
+Example: `297`
+</ResponseField>
+
+<ResponseField name="name" type="string">
+The name of the app.
+
+Example: `my draft`
+</ResponseField>
+
+<ResponseField name="description" type="string">
+A description of the app's purpose.
+
+Example: `draft`
+</ResponseField>
+
+<ResponseField name="background_color" type="string">
+The background color for the app (hex color code).
+
+Example: `#fea`
+</ResponseField>
+
+<ResponseField name="created_at" type="string" format="date-time">
+Timestamp when the app was created.
+
+Example: `2023-06-20T00:49:56.696Z`
+</ResponseField>
+
+<ResponseField name="updated_at" type="string" format="date-time">
+Timestamp when the app was last updated.
+
+Example: `2023-10-24T11:26:21.820Z`
+</ResponseField>
+
+<ResponseField name="active_version_id" type="integer">
+The ID of the currently active version of the app.
+
+Example: `44`
+</ResponseField>
+
+<ResponseField name="emoji" type="string">
+Emoji icon for the app.
+</ResponseField>
+
+<ResponseField name="public" type="boolean">
+Whether the app is publicly accessible.
+
+Example: `false`
+</ResponseField>
+
+<ResponseField name="uuid" type="string" format="uuid">
+The UUID of the app.
+
+Example: `6d2f4e0b-1a1d-49ae-8034-ba56f932119e`
+</ResponseField>
+
+<ResponseField name="readme" type="string">
+The README documentation for the app.
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+<ResponseExample>
+```bash 200 App found
+{
+  "id": 297,
+  "name": "my draft",
+  "description": "draft",
+  "background_color": "#fea",
+  "created_at": "2023-06-20T00:49:56.696Z",
+  "updated_at": "2023-10-24T11:26:21.820Z",
+  "active_version_id": 44,
+  "emoji": "",
+  "public": false,
+  "uuid": "6d2f4e0b-1a1d-49ae-8034-ba56f932119e",
+  "readme": ""
+}
+```
+
+```bash Authentication error 401
+No Content
+```
+</ResponseExample>

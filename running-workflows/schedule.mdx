@@ -1,0 +1,38 @@
+---
+title: "Run on a Schedule"
+description: "Schedule your workflow to run on a recurring basis"
+---
+
+
+Once you've published a Workflow, you can schedule it to run on a repeat basis via the UI. The same Workflow can have multiple schedules tied to it.
+
+## Configuring a Schedule
+
+To set a schedule, simply navigate to the Workflow's view page, and select the "Run" dropdown shown below:
+<Frame>
+<iframe
+  src="https://demo.arcade.software/FndJpKSqTPBW9Y0g6yfU?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full aspect-video rounded-xl"
+></iframe>
+</Frame>
+
+Depending upon the inputs and outputs of your Workflow, some of the fields in the scheduling options will change.
+<Info>
+When creating your schedule, make sure to select the proper version of your Workflow to run. If you make a mistake, you can edit it from the Schedule UI.
+</Info>
+## Maintaining State
+
+One of the challenges with creating scheduled workflows is maintaining a "working memory" of previous decisions made by the LLM. For example, if you want to create an LLM workflow that checks a website for "recent news" to generate content ideas, you will need to implement a way of retrieving previous ideas to avoid reptition.
+
+[Knowledge Bases](/your-data/memory-stores) can we help with this. By implementing the following framework you can solve this issue :
+
+Before starting, create a new, empty Knowledge Base. Then, in your workflow, add the following :
+
+1. **Knowledge Base Search** **Step -** Search Knowledge Bases for today's date. It will retrieve the most recent entries added to that Knowledge Base.
+2. **LLM Step -** Provide ~5-10 outputs from the **Knowledge Base Search Step** to your model with a prompt like "Here are outputs you have provided previously, please do not repeat any of these ideas:"
+3. **Knowledge Base Write Step** - Write to the Knowledge Base with today's date (see [Liquid docs](https://shopify.github.io/liquid/filters/date/) for more info) in the search column and add the output in a metadata column. This will mean that only the date will be used when the Knowledge Base is searched.
+
+Any question, please contact us.

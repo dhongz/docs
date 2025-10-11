@@ -1,0 +1,114 @@
+---
+title: "Liquid Template"
+description: "An introduction to our powerful templating language"
+---
+
+## What is Liquid?
+
+[Liquid](https://shopify.github.io/liquid/basics/introduction/) is a templating language created by Shopify and used extensively by others to create dynamic content. It's useful for referencing variables, modifying text (for example truncating) and for creating basic logic (if statements, for loops etc).
+
+Liquid can be used in most areas throughout our product, including:
+
+- Input Fields in Workflows
+- LLM Prompts
+- Text Steps
+- Knowledge Base Search Steps
+- JSON Steps
+
+<Info>
+Code Steps do NOT use Liquid Syntax
+</Info>
+
+## How to Reference Inputs with Liquid
+
+This section will walk through how to reference your pre-defined input variables.
+
+<Steps>
+    <Step>
+    Ensure that you have [configured an Input step](/building-workflows/workflow-concepts/application-inputs)
+    </Step>
+    <Step>
+    If you did not enter a separate variable name, use the default variable name to reference the input value
+    </Step>
+    <Step>
+    Click the purple Variable Selector to see a list of your available inputs and select the desired input
+    </Step>
+</Steps>
+
+In the example below, we walk through using our input variable value, and referencing it in our LLM Step using Liquid syntax.
+
+<Frame>
+<iframe src="https://demo.arcade.software/OMkzzu6SdRcxNWMEWIBm?embed" title="https://demo.arcade.software/OMkzzu6SdRcxNWMEWIBm?embed" allowfullscreen="" allow="clipboard-write" class="contentkit-webframe"
+style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+## How to Reference Outputs with Liquid
+
+Just like with inputs, you can reference the outputs of any prior step of your Workflow in any subsequent step.
+
+Currently, step names are automatically defined incrementally, e.g. `step_1` ,`step_2` , `step_3` , etc.
+
+To reference the output of a step, simply click the `step_number` pill or manually type it in in the format `{{step_12.output}}` . If that step outputs JSON, then you can reference any of the sub-keys.
+
+In the example below, we walk through how you can view the full list of available variables and use the proper syntax to call them within your Workflow.
+
+<Frame>
+<iframe src="https://demo.arcade.software/OMkzzu6SdRcxNWMEWIBm?embed" title="https://demo.arcade.software/OMkzzu6SdRcxNWMEWIBm?embed" allowfullscreen="" allow="clipboard-write" class="contentkit-webframe"
+style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+### Consolidating Step Outputs using Liquid
+
+One of the more useful applications for Liquid syntax is combining it with our Text Step to perform additional formatting and ensure your output looks exactly the way you desire.
+
+The screenshot below showcases how we reference the output of previous steps (even pulling specific array elements as variables) to format our "step\_2" into a more readable and organized output.
+
+<Frame>
+![](/images/building-workflows/consolidating-steps-output-using-liquid.png)
+</Frame>
+
+### Advanced Liquid Templating Use Cases
+
+Liquid templating provides powerful capabilities for handling complex data structures in your Workflows. Below are advanced techniques for working with iterators, arrays, and structured data.
+
+#### Looping Through Iterator Outputs
+
+When working with the Iteration Step, you can use Liquid's `for` loops to process the output array elements. This pattern is commonly used to consolidate information from multiple iterations into a single output:
+
+```bash
+{% for chunk in step_12.output %}
+  {{ chunk }}
+{% endfor %}
+```
+
+#### Processing Search Results
+
+**Basic Content Extraction**
+
+Extract and format content from search results or Knowledge Base searches:
+
+```bash
+{% for result in step_3.output %}
+  {{ result.content }}
+{% endfor %}
+```
+
+**Metadata Handling**
+
+Access and format metadata from Knowledge Base search results:
+
+```bash
+{% for result in step_4.output %}
+  Title: {{ result.metadata.title }}
+  Description: {{ result.metadata.description }}
+{% endfor %}
+```
+
+By mastering these advanced Liquid templating techniques, you can transform complex data structures into well-formatted outputs that serve as perfect inputs for subsequent steps in your Workflow.
+
+### More Information
+
+For additional information regarding Liquid, we recommend reviewing [Shopify's Documentation](https://shopify.github.io/liquid/).
+

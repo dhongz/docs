@@ -1,0 +1,69 @@
+---
+title: "Logs"
+---
+
+### What are Workflow Logs?
+
+Workflow Logs provide a detailed, step-by-step record of everything that happens during a workflow execution. They capture the complete journey of your data through each step of your workflow, including:
+
+- **Step execution details**: Runtime duration, success/failure status, and number of tasks processed
+- **Input and output data**: The exact data that went into each step and what came out
+- **Metadata**: Information about who ran the workflow, when it was executed, and from what source
+- **Error messages**: Detailed error information when steps fail, helping you identify and fix issues
+
+### Why Logs Matter for Your Workflows
+
+- **Understand workflow behavior**: See exactly what data flows into and out of each step
+- **Debug failed executions**: Identify where and why workflows fail with detailed error messages
+- **Optimize performance**: Find bottlenecks by reviewing step execution times
+- **Iterate without re-running**: Load any past execution into Studio with all outputs intact
+
+<Frame>
+![](/images/building-workflows/logs-matter-for-workflows.png)
+</Frame>
+
+### Where to Find Logs
+
+- **Studio Testing Mode**: Click on the History icon on the top right of the Studio to view the Logs that workflow's executions
+- **Workflow History**: Access all past executions via the "History" tab in your workflow
+- **Grid Workflow Columns**: Click any cell in the workflow column to view logs for that specific row's run
+
+### Loading Executions into Studio
+
+The **"Open in Studio"** button lets you load any previous workflow execution back into the Studio with all step outputs restored. This powerful feature enables you to:
+
+<Steps>
+<Step>
+    Debug issues without re-running the entire workflow
+</Step>
+<Step>
+    Test changes using real data from actual executions
+</Step>
+<Step>
+    Skip waiting for external API calls or long-running processes
+</Step>
+<Step>
+    Iterate on prompts and logic with production data
+</Step>
+</Steps>
+
+To use it: Simply click "Open in Studio" from any execution's log view. The Studio will load with all intermediate outputs populated, allowing you to modify and test any step immediately.
+
+This is especially valuable for debugging complex workflows, working with time-sensitive data, or collaborating on workflow improvements.
+
+<Frame>
+<iframe 
+src="https://demo.arcade.software/fc5g9N1qrk19HTAWNiKo?embed" 
+title="https://demo.arcade.software/fc5g9N1qrk19HTAWNiKo?embed" 
+allowfullscreen="" 
+allow="clipboard-write" 
+style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+### Best Practices for Using Logs
+
+1. **Use Descriptive Step Names**: Give your steps clear, descriptive names to make logs easier to navigate and understand
+2. **Monitor Execution Times**: Keep an eye on step durations to catch performance degradation early
+
+By leveraging the full power of Logs, you can build more reliable workflows, debug issues faster, and continuously improve your automation processes.

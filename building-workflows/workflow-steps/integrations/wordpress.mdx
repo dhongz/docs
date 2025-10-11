@@ -1,0 +1,158 @@
+---
+title: "WordPress"
+description: "Integrate your Workflow with WordPress"
+---
+
+<Frame>
+![](/images/building-workflows/wordpress.png)
+</Frame>
+
+The WordPress Integration allows you to manage posts on your WordPress site.
+
+## Authentication
+
+1. **Generate an Application Password in WordPress**
+<Steps>
+    <Step>
+        Log into your Wordpress admin dashboard
+    </Step>
+    <Step>
+        Navigate to **Users** → **Edit** (Administrator account)
+    </Step>
+    <Step>
+        Scroll down to **Application Passwords**, add a new one named "AirOps Integration" or similar
+    </Step>
+    <Step>
+        Copy the generated password (it won't appear again)
+    </Step>
+    <Step>
+        Save your WordPress username, not the label you created but the actual login username
+    </Step>
+</Steps>
+
+2. **Link WordPress inside AirOps**
+<Steps>
+    <Step>
+        Log into your AirOps workspace, go to **Account** → **Integrations** → **Add New** → **WordPress**
+    </Step>
+    <Step>
+        In the modal that appears, enter
+        1. Username (your WordPress login)
+        2. Password (the Application Password you generated)
+        3. Site URL (include the full path if your site is in a subdirectory, e.g. `https://example.com/blog`)
+    </Step>
+    <Step>
+        Click "Add" to finalize the connection
+    </Step>
+</Steps>
+
+<Frame>
+![](/images/wordpress-integration.png)
+</Frame>
+
+<Note>
+**Security Note:** Treat your Application Password like a normal password. It provides REST API access to your WordPress site, and it should not be shared. Store it securely and only use it in server-side or secure/authenticated environments.
+</Note>
+
+### FAQ
+
+<AccordionGroup>
+	<Accordion title="Why can't I see Application Passwords when editing a user?">
+	- Application Passwords are available from WordPress 5.6 onwards
+	- Most security plugins control whether this feature is enabled or not. Check your Security plugins and configure them so that Application Passwords is enabled.
+	- If you use Solid Security plugin [follow this guide](https://help.solidwp.com/hc/en-us/articles/204489650-Solid-Security-Application-Passwords).
+	</Accordion>
+	<Accordion title="I created an Application Password but I can't see the generated password.">
+	- This usually happens when a plugin overrides css/js in Wordpress. In order to see the password you need to follow these steps:
+		1. Go to the user profile where you want to create an Application Password
+		2. Open the Dev Tools in your browser (right click then inspect)
+		3. Fill the input for the Application Password name and submit it
+		4. Open the console tab in the Dev Tools
+		5. Paste the following Javascript line: `document.querySelector('.new-application-password-notice input').value`
+		6. Save the value, this is your password
+	</Accordion>
+	<Accordion title="Where can I find more information about Application Passwords?">
+	- Official docs here[https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/](https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/)
+	</Accordion>
+</AccordionGroup>
+
+
+## Functions and Their Parameters
+
+### **Create Post**
+
+#### **Required**
+
+1. Title
+2. Content (HTML)
+
+#### Optional
+
+1. WordPress URL
+	- Leave empty to use the URL from your WordPress workspace's credentials
+	- The URL to your WordPress site (i.e. mywordpress.com/blog). If you are using a Network of sites (WordPress MultiSite) this is the URL to one of your sites (not the network).
+2. Author ID
+3. Excerpt
+4. Slug
+5. Featured Media ID
+6. Meta
+7. Template
+8. Post Type
+	1. Leave empty to use the default type "posts".
+	2. When using a custom post type:
+		1. Specify the REST API base slug or the plural version of your custom post type. i.e. "authors", "items", ...
+		2. Make sure the custom post type is visible to the REST API. This can be configured via your plugin of choice for custom post types.
+9. Categories
+10. Advanced Custom Fields Data
+	1. From the Advanced Custom Fields plugin.
+	2. Leave empty to ignore.
+	3. Field expects JSON data.
+	4. Field group must have Show In Rest API setting enabled.
+
+### **Update Post**
+
+#### **Required**
+
+1. Post ID
+
+#### Optional
+
+When an optional attribute is empty, it will not be updated in WordPress.
+
+1. WordPress URL
+	- Leave empty to use the URL from your WordPress workspace's credentials
+	- The URL to your WordPress site (i.e. mywordpress.com/blog). If you are using a Network of sites (WordPress MultiSite) this is the URL to one of your sites (not the network).
+2. Author ID
+3. Title
+4. Content (HTML)
+5. Excerpt
+6. Slug
+7. Featured Media ID
+8. Meta
+9. Template
+10. Post Type
+	1. Leave empty to use the default type "posts".
+	2. When using a custom post type:
+		1. Specify the REST API base slug or the plural version of your custom post type. i.e. "authors", "items", ...
+		2. Make sure the custom post type is visible to the REST API. This can be configured via your plugin of choice for custom post types.
+11. Categories
+12. Advanced Custom Fields Data
+	1. From the Advanced Custom Fields plugin.
+	2. Leave empty to ignore.
+	3. Field expects JSON data.
+	4. Field group must have Show In Rest API setting enabled.
+
+### **Upload Image**
+
+#### **Required**
+
+1. Image URL
+	- The URL to the image you want to upload into WordPress.
+	- Allowed image types are JPG, PNG, GIF and WEBP.
+
+#### Optional
+
+1. WordPress URL
+	- Leave empty to use the URL from your WordPress workspace's credentials
+	- The URL to your WordPress site (i.e. mywordpress.com/blog). If you are using a Network of sites (WordPress MultiSite) this is the URL to one of your sites (not the network).
+

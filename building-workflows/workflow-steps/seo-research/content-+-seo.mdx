@@ -1,0 +1,304 @@
+---
+title: "Content4SEO"
+description: "Additional data retrieval to optimize your searches"
+---
+
+DataForSEO steps provide comprehensive SEO data and research capabilities within your workflows. These powerful tools help you discover keyword opportunities, analyze domain rankings, and gather content insights to inform your SEO and content strategies.
+
+### Available DataForSEO Steps
+
+AirOps offers the following DataForSEO steps:
+
+<Columns cols={2}>
+<Card title="Keyword Ideas from Domain" icon="lightbulb" href="/building-workflows/workflow-steps/seo-research/content-+-seo#keyword-ideas-from-domain">
+Discover potential keywords that a domain could target
+</Card>
+<Card title="Keyword Ranked For" icon="magnifying-glass" href="/building-workflows/workflow-steps/seo-research/content-+-seo#keyword-ranked-for">
+Identify keywords a domain currently ranks for and their metrics
+</Card>
+<Card title="News Research" icon="newspaper" href="/building-workflows/workflow-steps/seo-research/content-+-seo#news-research">
+Find keyword mentions in recent news articles
+</Card>
+<Card title="Related Keyword Finder" icon="magnifying-glass" href="/building-workflows/workflow-steps/seo-research/content-+-seo#related-keyword-finder">
+Uncover semantically related keywords
+</Card>
+<Card title="Related Searches Finder" icon="magnifying-glass" href="/building-workflows/workflow-steps/seo-research/content-+-seo#related-searches-finder">
+Access Google's related search suggestions
+</Card>
+<Card title="Web Research" icon="magnifying-glass" href="/building-workflows/workflow-steps/seo-research/content-+-seo#web-research">
+Retrieve keyword-relevant content snippets from the web
+</Card>
+<Card title="On-Page SEO Analysis" icon="magnifying-glass" href="/building-workflows/workflow-steps/seo-research/content-+-seo#on-page-seo-analysis">
+Analyze a URL's SEO structure and content
+</Card>
+</Columns>
+
+### Keyword Ideas from Domain
+
+This step helps you discover potential keywords that a domain could target, revealing new content opportunities.
+
+**Configuration**
+
+- **Domain**: Enter the domain you want to analyze
+- **Search Location (Optional)**: Specify the geographic location for search results (Default: United States)
+- **Language (Optional)**: Select the language for search results (Default: English)
+- **Output Format (Optional)**: Choose the format for returned data (Default: Markdown)
+- **Number of Results (Optional)**: Determine how many search results to return (Default: 100)
+
+**Output Format**
+
+```bash
+# Keyword Ideas for example.com
+
+      #### Keyword: ai tools
+
+      - **Search Volume:** 120000
+      - **Competition Level:** MEDIUM
+      - **Competition Index:** Not Available
+      ---
+
+      #### Keyword: ai websites
+
+      - **Search Volume:** 27100
+      - **Competition Level:** MEDIUM
+      - **Competition Index:** Not Available
+      ---
+
+// Additional results here
+```
+
+### Keyword Ranked For
+
+This step helps you identify keywords a domain currently ranks for and their metrics, providing valuable insights into a website's organic search visibility.
+
+**Configuration**
+
+- **Domain**: Enter the domain you want to analyze
+- **Brand (Optional)**: If added, will only return non-branded keywords
+- **Search Location (Optional):** Specify the geographic location for search results (Default: United States)
+- **Language (Optional)**: Select the language for search results (Default: English)
+- **Output Format (Optional)**: Choose the format for returned data (Default: Markdown)
+- **Number of Results (Optional)**: Determine how many search results to return (Default: 100)
+
+**Output Format**
+
+```bash
+#### Keyword: keyword1
+
+  - **Search Volume:** 1600
+  - **Competition Level:** LOW
+  - **Current Rank:** 1
+  ---
+
+  #### Keyword: keyword2
+
+  - **Search Volume:** 50
+  - **Competition Level:** LOW
+  - **Current Rank:** 1
+  ---
+
+  // Additional results here
+```
+
+### News Research
+
+This step allows you to find keyword mentions in recent news articles, helping you discover trending stories and topics related to your target keywords.
+
+**Configuration**
+
+- **News Search**: Searches current news for the provided search term
+- **Search Location (Optional):** Specify the geographic location of your search (Default: United States)
+- **Search Language (Optional)**: Select the language of your search (Default: English)
+- **Output Format (Optional)**: Choose the format for returned data (Default: Markdown)
+
+**Output Format**
+
+```bash
+# Live Google News "keyword"
+
+- **Type:** news_search
+- **Domain:** www.businesswire.com
+- **Title:** Accuris Partners with Citation Compliance to Enhance Engineering Workbench and Accuris Thread with Regulatory Content
+- **URL:** https://www.businesswire.com/news/home/20250225787473/en/Accuris-Partners-with-Citation-Compliance-to-Enhance-Engineering-Workbench-and-Accuris-Thread-with-Regulatory-Content
+- **Snippet:** Accuris, the market leader in engineering standards content and technology, today announced it will be adding a comprehensive set of...
+---
+
+- **Type:** news_search
+- **Domain:** www.tvtechnology.com
+- **Title:** C2HR: Broadcast Engineering Among Hottest Jobs in Content Development
+- **URL:** https://www.tvtechnology.com/news/c2hr-broadcast-engineering-among-hottest-jobs-in-content-development
+- **Snippet:** Broadcast techs saw a 25% boost in their pay in 2024, according to annual survey.
+---
+
+  // Additional results here
+```
+
+### Related Keyword Finder
+
+This step helps you uncover semantically related keywords that are closely associated with your target keyword, expanding your keyword portfolio with relevant terms.
+
+**Configuration**
+
+- **Keyword**: Enter the primary keyword or phrase
+- **Location (Optional):** Specify the geographic location for search results (Default: United States)
+- **Language (Optional)**: Select the language for search results (Default: English)
+- **Output Format (Optional)**: Choose the format for returned data (Default: Markdown)
+
+**Output Format**
+
+```bash
+Keyword Ideas for "keyword"
+
+#### Keyword: related keyword one
+
+- **Competition:** 0.07
+- **Competition Level:** LOW
+- **Search Volume:** 823000
+---
+
+#### Keyword: related keyword two
+
+- **Competition:** 0.04
+- **Competition Level:** LOW
+- **Search Volume:** 823000
+---
+
+  // Additional results here
+```
+
+### Related Searches Finder
+
+This step allows you to access related search suggestions.
+
+**Configuration**
+
+- **Keyword**: Enter the primary keyword or phrase
+- **Search Location (Optional):** Specify the geographic location for search results (Default: United States)
+- **Search Language (Optional)**: Select the language for search results (Default: English)
+- **Output Format (Optional)**: Choose the format for returned data (Default: Markdown)
+
+**Output Format**
+
+```bash
+Related Keywords for "keyword"
+
+Keyword: keyword one
+Competition: 0.04
+Competition Level: LOW
+Search Volume: 3600
+Related Keywords: 7 types of marketing, 10 types of marketing, 12 types of marketing, what are the 4 types of marketing?, 7 types of marketing with examples, 3 types of marketing, types of marketing pdf, types of marketing in economics
+
+Keyword: keyword two
+Competition: 0.04
+Competition Level: LOW
+Search Volume: 590
+Related Keywords: 5 examples of marketing, example of marketing plan, example of marketing in business, example of marketing mix, example of marketing definition, example of marketing for students, example of marketing management, what is marketing
+
+  // Additional results here
+```
+
+### Web Research
+
+This step helps you retrieve keyword-relevant content snippets from the web, analyzing what successful content contains and gathering insights for your own content creation.
+
+**Configuration**
+
+- **Search Phrase**: Enter the search term or phrase you want to research
+- **Limit** (Optional): The maximum number of returned citations, defaults to 25
+- **Offset** (Optional)
+- **Output Format (Optional)**: Choose the format for returned data (Default: Markdown)
+- **Location (Optional):** Specify the geographic location for search results
+
+**Output Format**
+
+```bash
+Web research for: keyword
+
+Title: [snippet title]
+Type: content_analysis_search
+URL: https://www.example.com/keyword
+Snippet: [content snipped]
+Date Published: 2024-09-19 12:16:00 +00:00
+
+Title: [snippet title]
+Type: content_analysis_search
+URL: https://www.example.com/keyword
+Snippet: [content snipped]
+Date Published: 2024-09-19 12:16:00 +00:00
+
+  // Additional results here
+```
+
+### On-Page SEO Analysis
+
+This step enables you to analyze a URL's SEO structure and content.
+
+**Configuration**
+
+- **Page URL**: Enter the complete URL of the page you want to analyze
+- **Enable Javascript? (Optional)**: Load javascript on the page to render dynamic content (Default: False)
+- **Check page spelling? (Optional)**: Return potentially incorrect spellings found on the page (Default: True)
+- **Output Format (Optional)**: Select the format for returned data (Default: Markdown)
+
+**Output Format**
+
+```bash expandable
+# Page Evaluation
+Page load time: 1.5 sec. sec
+URL of the page: example.com
+Crawl progress:
+
+  # Metadata Information
+  Meta Title: Example - Example meta title
+  Meta Description: Example meta description here
+  Meta Charset: 60000
+  Meta Keywords:
+  Canonical URL: example.com
+
+    # Social Media Tags
+    og:title: Example - example title
+    og:description: Example meta description here
+
+    # Performance Metrics
+    Page Loading Time: 288 ms
+    DOM Complete Time: 288 ms
+    Largest Contentful Paint: 0 ms
+
+    # SEO Checks
+    Page is redirected: false
+    Page loading time is high: false
+    Page is broken: false
+    Page has high content rate: false
+
+    # All h1 Tags
+
+    - Example h1 tag
+
+
+    # All h2 Tags
+
+    - First example h2
+
+    - Second example h2
+
+    ...
+
+
+    # All  Misspelled Words
+
+    - word
+    - word
+    - word
+    - word
+    ...
+
+    # Render Blocking Scripts Count
+    Render Blocking Scripts Count: 3
+
+    # All Resource Errors
+
+    Line: 563 - Message: The closing tag and the currently open tag do not match.
+
+
+    ...
+```

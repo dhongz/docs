@@ -1,0 +1,167 @@
+---
+title: "Snowflake"
+description: "Connect to a Snowflake database in AirOps"
+---
+
+<Info>
+**Remember to allowlist our IP Address `52.71.87.39`**
+
+If your database is protected by a firewall, remember to allow inbound access to AirOPs IP address over your database port.
+</Info>
+
+## Basic Connection Parameters
+
+1. **Account Identifier** - the ID of your Snowflake Account.
+	- If your Snowflake URL is `https://**[en54071.us-east-2.aws](http://en54071.us-east-2.aws)**.snowflakecomputing.com/`, then your account identifier is `**en54071.us-east-2.aws**`**.**
+	- You can also find your Snowflake account ID by typing `CURRENT_ACCOUNT()` into a Snowflake worksheet and running it.
+2. **User** - the Snowflake user that AirOps will connect to the database with. It is best practice to create a new user for AirOps (instructions below), but any user with SELECT privileges can be used. **Snowflake usernames are case sensitive.**
+3. **Warehouse** - the Snowflake warehouse that AirOps will connect to.
+4. **Database** - database within the above Snowflake Warehouse.
+5. **Role** (Optional) - the Snowflake role to use for the connection. If not provided, we will use the default user's role.
+
+## Authentication Methods
+
+AirOps supports two authentication methods for Snowflake connections:
+
+### Username & Password Authentication
+
+**Password** - password for the above user.
+
+### Key Pair Authentication (Recommended)
+
+Key Pair authentication provides enhanced security and is required when MFA is enabled on your Snowflake account.
+
+**Private Key** - Your RSA private key in PEM format (see setup instructions below).
+
+**Private Key Passphrase** (Optional) - Only required if your private key is encrypted.
+
+## Setting up Key Pair Authentication
+
+### Step 1: Generate Key Pair
+
+Open the command line in a terminal window.
+
+Generate a private key. You can generate an encrypted version of the private key or an unencrypted version of the private key.
+
+**To generate an unencrypted version**, you can execute one of the following commands:
+
+```bash
+openssl genrsa -out rsa_key.pem 2048
+```
+
+```bash
+openssl genrsa 2048 | openssl pkcs8 -topk8 -inform PEM -out rsa_key.p8 -nocrypt
+```
+
+**To generate an encrypted version (recommended)**, execute the command:
+
+```bash
+openssl genrsa 2048 | openssl pkcs8 -topk8 -v2 <ALGORITHM> -inform PEM -out rsa_key.p8
+```
+
+You can use different algorithms with the -v1 command line option. These algorithms use the PKCS#12 password-based encryption algorithm and allow you to use strong encryption algorithms like triple DES or 128-bit RC2. You can use the following encryption algorithms:
+
+- `PBE-SHA1-RC2-40`
+- `PBE-SHA1-RC4-40`
+- `PBE-SHA1-RC2-128`
+- `PBE-SHA1-RC4-128`
+- `PBE-SHA1-3DES`
+- `PBE-SHA1-2DES`
+
+To use **stronger encryption algorithms**, execute the command:
+
+```bash
+openssl genrsa 2048 | openssl pkcs8 -topk8 -v2 -inform PEM -out rsa_key.p8
+```
+
+You can use different algorithms with the -v2 command line option. You can use the following encryption algorithms:
+
+- `AES128`
+- `AES256`
+- `DES3`
+
+### Step 2: Generate Public Key
+
+From the command line, generate the public key by referencing the correct version of your generated private key. You can execute one of the following commands:
+
+If you used the openssl genrsa -out rsa_key.pem 2048 command to create the private key, run:
+
+```bash
+openssl rsa -in rsa_key.pem -pubout -out rsa_key.pub
+```
+
+If you used the openssl genrsa 2048 | openssl pkcs8 -topk8 -inform PEM -out rsa_key.p8 -nocrypt command to create the private key, then run:
+
+```bash
+openssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
+```
+
+### Step 3: Assign Public Key to Snowflake User
+
+In a Snowflake worksheet, execute the command:
+
+```bash
+ALTER USER <USERNAME> SET RSA_PUBLIC_KEY='<PUBLIC_KEY>';
+```
+
+Replace &lt;USERNAME&gt; with your Snowflake username and &lt;PUBLIC\_KEY&gt; with the contents of your public key file (excluding the -----BEGIN PUBLIC KEY----- and -----END PUBLIC KEY----- lines).
+
+### Step 4: Configure AirOps Connection
+
+<Steps>
+<Step>
+    Select "Key Pair Authentication" as your authentication method
+</Step>
+<Step>
+    Copy and paste your private key into the "Private Key" field (include the -----BEGIN PRIVATE KEY----- and -----END PRIVATE KEY----- lines)
+</Step>
+<Step>
+    If your private key is encrypted, enter the passphrase in the "Private Key Passphrase" field
+</Step>
+<Step>
+    Complete the other connection fields and test your connection
+</Step>
+</Steps>
+
+## Setup User and Role (for New Users)
+
+To add a Snowflake database as a Data Source on AirOps, use an existing user or create a user with **read** access to the tables, views, and schemas you would like to access from AirOps:
+
+### 1\. Create AirOps Role
+
+```bash
+CREATE ROLE IF NOT EXISTS AIROPS_ROLE COMMENT = "Airops default role";
+```
+
+### 2\. Create AirOps User and Assign Role
+
+```bash highlight={1}
+CREATE USER AIROPS_USER
+	password = '<secure-password>'
+	first_name = 'AirOps'
+	last_name = 'User'
+	default_warehouse = '<warehouse>'
+	default_namespace = '<database>.<schema>'
+	default_role = AIROPS_ROLE;
+
+GRANT ROLE AIROPS_ROLE TO USER AIROPS_USER;
+GRANT ROLE AIROPS_ROLE TO ROLE SYSADMIN;
+```
+
+### 3\. Grant USAGE privileges to AirOps role
+
+```bash
+GRANT USAGE ON WAREHOUSE COMPUTE_WH TO ROLE AIROPS_ROLE;
+
+GRANT USAGE ON DATABASE "<database>" TO ROLE AIROPS_ROLE;
+
+GRANT USAGE ON ALL SCHEMAS IN DATABASE "<database>" TO ROLE AIROPS_ROLE;
+GRANT USAGE ON FUTURE SCHEMAS IN DATABASE "<database>" TO ROLE AIROPS_ROLE;
+
+GRANT SELECT ON ALL TABLES IN DATABASE "<database>" TO ROLE AIROPS_ROLE;
+GRANT SELECT ON FUTURE TABLES IN DATABASE "<database>" TO ROLE AIROPS_ROLE;
+
+GRANT SELECT ON ALL VIEWS IN DATABASE "<database>" TO ROLE AIROPS_ROLE;
+GRANT SELECT ON FUTURE VIEWS IN DATABASE "<database>" TO ROLE AIROPS_ROLE;
+```
+

@@ -1,0 +1,28 @@
+---
+title: "Run SQL Query"
+description: "Query your database directly from a workflow"
+---
+
+The SQL Query Step allows you to run queries directly against your connected databases. This can be useful for pulling data into your workflows, or even building out workflows focused on writing directly to your databases.
+
+## Configuring a "SQL Query" Step
+
+The SQL Query Step is fairly straightforward. The only prerequisite is that you have connected a SQL database via a read user. See our documentation page on [Connecting Datasources](/your-data/memory-stores/add-data/import-from-sql-database/data-sources) for more information.
+
+Once you have successfully connected a data source, you can add a SQL Query Step into your Workflows as shown below:
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/10JanDKu9KE0Ahb7n7Fp?embed"
+title="https://demo.arcade.software/10JanDKu9KE0Ahb7n7Fp?embed"
+style={{width: '100%', maxWidth: '100%', aspectRatio: '1.52155 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+One of the most powerful use-cases we've seen for our SQL Query Step is to power an Agent to assist with writing and editing your own queries. It was so popular, that we built our "Data Sidekick" Agent template around it.
+
+As you start to dig into your use-cases more deeply, we would recommend giving it a quick peek behind the curtains:
+
+<Frame caption="Using a SQL Query Step to power our 'Data Sidekick' Agent">
+![](/images/building-workflows/code/configure-sql-query.png)
+</Frame>

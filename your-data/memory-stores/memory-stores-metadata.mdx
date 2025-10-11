@@ -1,0 +1,93 @@
+---
+title: "Knowledge Base Metadata"
+description: "Filter when searching a Knowledge Base"
+---
+
+## What is Knowledge Base Metadata?
+
+Metadata is additional information you can add to a document that you can filter on when searching a Knowledge Base, similar to filtering the columns of a spreadsheet.
+
+For example, you may want to:
+
+- Only return information specific to a client
+- Only return results that have a relevant classification
+- Only return results in a specific location
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/y41OGVJZuh8LHtOtcWlz?embed"
+title="https://demo.arcade.software/y41OGVJZuh8LHtOtcWlz?embed"
+allowfullscreen=""
+allow="clipboard-write"
+class="contentkit-webframe"
+className="w-full aspect-video rounded-xl"
+></iframe>
+</Frame>
+
+## How to Add Metadata to a Knowledge Base
+
+There are 3 different ways to add metadata to a knowledge base document:
+
+1. While adding your **.csv** or **Google Sheets** as content into the Knowledge Base
+	- All columns in your .csv or Google sheet will be stored as metadata by default
+2. Via the [**Knowledge Bases API "Update"**](/your-data/memory-stores/memory-stores-api#supported-api-calls) **endpoint**
+3. Via the AirOps [**"Knowledge Base Write" Step**](/building-workflows/workflow-steps/memory-steps/memory-write)
+
+## Adding Metadata Columns from a .csv or Sheet
+
+When uploading a .csv or connecting a Google Sheet, you will have the option to manually pick or choose which columns will be searchable. The remaining columns will still be returned as results, but the searchable columns can be utilized for filtering.
+
+As an example, we can build a Knowledge Base that will help answer questions around shipments. While our database may contain information about the origin city and state of our shipments, we can add a .csv into the Knowledge Base that also includes geolocation. That way, we can filter on the individual state names later, but still utilize the lat/lon coordinates:
+
+## Filtering Knowledge Bases with Metadata
+
+If you are dealing with an extensive amount of data, you can scope your search using metadata filters. When uploading a CSV or Google Sheet, additional columns will be added to your Knowledge Base chunk as metadata and you can scope your search to just those.
+
+For more information on configuring and filtering on Metadata, please see our [Knowledge Bases Metadata documentation page](/your-data/memory-stores/memory-stores-metadata).
+
+The code editor uses MongoDB's query and projection operators. While we support a comprehensive range of these operators, here are some of the most commonly used ones:
+
+**\$eq** - Equal to (for numbers, strings, booleans)
+
+**\$ne** - Not equal to (for numbers, strings, booleans)
+
+**\$gt** - Greater than (for numbers)
+
+**\$gte** - Greater than or equal to (for numbers)
+
+**\$lt** - Less than (for numbers)
+
+**\$lte** - Less than or equal to (for numbers)
+
+**\$in** - In array (for strings or numbers)
+
+**\$nin** - Not in array (for strings or numbers)
+
+<Info>
+When your metadata involves a list of strings, such as:
+
+`"genres": ["thriller", "mystery"]`
+
+the Knowledge Base accepts both genres as valid matches during the search.
+</Info>
+
+### Filtering on Metadata in a Workflow
+
+For an example on how to use the Knowledge Base Search Step to filter on Metadata in a Workflow, please see our [Knowledge Base Search Step documentation page](/building-workflows/workflow-steps/memory-steps/memory-search#filter-the-memory-store-optional).
+
+If you need help setting up your Knowledge Base or metadata filters, please don't hesitate to reach out to us for help!
+
+### Filtering on Metadata in the API
+
+Once you're confident that your uploaded documents in the Knowledge Base have reliable metadata, you can utilize the [Knowledge Bases API "Search" endpoint](/your-data/memory-stores/memory-stores-api#supported-api-calls) to start filtering.
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/1qOMDldFNqFWJ15cm6Wb?embed"
+title="https://demo.arcade.software/1qOMDldFNqFWJ15cm6Wb?embed"
+allowfullscreen=""
+allow="clipboard-write"
+class="contentkit-webframe"
+className="w-full aspect-video rounded-xl"
+></iframe>
+</Frame>

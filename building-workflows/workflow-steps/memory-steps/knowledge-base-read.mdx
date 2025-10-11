@@ -1,0 +1,123 @@
+---
+title: "Get Knowledge Base File"
+description: "Read data from your Knowledge Bases by using filters."
+---
+
+## What is a Knowledge Base Read Step?
+
+The Knowledge Base Read step allows you to query your Knowledge Bases by using filters in order to get any relevant data for use in your workflows. This is especially helpful when doing [Retrieval Augmented Generation](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) (RAG).
+
+The main difference between this step and the [Knowledge Base Search](/building-workflows/workflow-steps/memory-steps/memory-search) step is that while in the search step, you can do queries and get text chunks, the read step allows you to apply filters and get full documents.
+
+For more information on setting up a Knowledge Base, see our documentation page [here](/your-data/memory-stores).
+
+## How to Configure a Knowledge Base Read Step
+
+### Select a Knowledge Base
+
+Select the Knowledge Base that you want to use from the dropdown.
+
+<Frame>
+![](/images/building-workflows/data/select-knowledge-base.png)
+</Frame>
+
+### Select specific files (optional)
+
+You can optionally select multiple documents that you want to read from a list:
+
+<Frame>
+![](/images/building-workflows/data/select-specific-files.png)
+</Frame>
+
+### Add Filters (Optional)
+
+You can add filters for your metadata fields to narrow down the read results. For example, in our *marketing\_data.csv* example, we have 2 columns: "Country" and "UnitPrice".
+
+Since we want to only fetch the products that are from the United Kingdom and cost less than $3, we can do it like this:
+
+<Frame>
+![](/images/building-workflows/data/add-filters.png)
+</Frame>
+
+In order for the filtering to be effective, we recommend reading through [Knowledge Bases Metadata](/your-data/memory-stores/memory-stores-metadata) to ensure you're providing optimal metadata fields to filter on.
+
+## Knowledge Base Read Step Output
+
+The Knowledge Base Read step will output a list of documents with their respective records. In our the previous filtered products example, the output will look like this:
+
+```json expandable
+[
+  {
+    "document_name": "marketing_data.csv",
+    "records": [
+      {
+        "__text": "WHITE HANGING HEART T-LIGHT HOLDER\n\n-----\n\nUnited Kingdom",
+        "InvoiceNo": 536365,
+        "StockCode": "85123A",
+        "Description": "WHITE HANGING HEART T-LIGHT HOLDER",
+        "Quantity": 6,
+        "InvoiceDate": "12/1/2010 8:26",
+        "UnitPrice": 2.55,
+        "CustomerID": 17850,
+        "Country": "United Kingdom"
+      },
+      ...
+    ]
+  },
+  {
+    "document_name": "marketing_data_2.csv",
+    "records": [
+      {
+        "__text": "CREAM CUPID HEARTS COAT HANGER\n\n-----\n\nUnited Kingdom",
+        "InvoiceNo": 536365,
+        "StockCode": "84406B",
+        "Description": "CREAM CUPID HEARTS COAT HANGER",
+        "Quantity": 8,
+        "InvoiceDate": "12/1/2010 8:26",
+        "UnitPrice": 2.75,
+        "CustomerID": 17850,
+        "Country": "United Kingdom"
+      },
+      ...
+    ]
+  }
+]
+```
+
+You can notice that:
+
+- Only the documents that were selected from the dropdown are returned.
+- Each document has a list of records attached to it. Since these documents are CSVs, each record represents a different row.
+- Only the records that match the selected filters are returned (United Kingdom and UnitPrice < 3).
+- There's a special "\_\_text" field that shows what's the searchable text selected during the CSV upload. Since in this case only the "Description" and "Country" columns were selected as searchable, those are the columns embedded in the "\_\_text" field.
+
+The following is an example output of retrieving a pdf document:
+
+```json
+[
+  {
+    "document_name": "US_Congress-2023-SB546-Enrolled.pdf",
+    "records": [
+      {
+        "__text": "S. 546  \n\nOne Hundred Eighteenth Congress of the United States of America\n\nAT T H E S E C O N D S E S S I O N\n\nBegun and held at the City of Washington on Wednesday, the third day of January, two thousand and twenty four\n\nAn Act\n\nTo amend the Omnibus Crime Control and Safe Streets Act of 1968 to authorize law enforcement agencies to use COPS grants for recruitment activities, and for other purposes...",
+        "__languages": [
+          "eng"
+        ],
+      }
+    ]
+  }
+]
+```
+
+## Using The Step Output In Order To Do RAG
+
+We can pass the output of the Knowledge Base Fetch step into an LLM step for doing Retrieval Augmented Generation.
+
+Following with our products example, we can retrieve the full list of products and pass it into an LLM step like this:
+
+<Frame>
+![](/images/building-workflows/data/using-step-output-1.png)
+</Frame>
+<Frame>
+![](/images/building-workflows/data/using-step-output-2.png)
+</Frame>

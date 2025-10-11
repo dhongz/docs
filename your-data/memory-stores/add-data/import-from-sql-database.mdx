@@ -1,0 +1,29 @@
+---
+title: "Import from SQL Database"
+sidebarTitle: "Overview"
+---
+
+## Importing from SQL Database
+
+AirOps enables you to connect your Knowledge Base directly to SQL databases, allowing you to import structured data and make it semantically searchable. This powerful integration lets you leverage your existing database information without manual exports.
+
+<Frame> 
+![](/images/your-data/importing-from-sql-database.png)
+</Frame>
+    
+To import data from an SQL database:
+
+- Click "Add Data" and select "Import from SQL Database" from the dropdown menu
+- Select a previously connected database or connect a new one through the settings
+- Name your query for future reference
+- Write your SQL query, ensuring you include these required columns:
+	- `id`: A unique identifier for each row
+	- `content`: The column or concatenated columns you want to make searchable
+- Click "Test Connection" to verify your query before importing
+- Once verified, import your data to add it to your Knowledge Base
+
+When writing your query, you can use SQL functions like `CONCAT` to combine multiple columns into a single searchable content field, creating richer context for your Knowledge Base.
+
+<Frame>
+![](/images/your-data/writing-query.png)
+</Frame>

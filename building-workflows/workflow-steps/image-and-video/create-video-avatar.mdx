@@ -1,0 +1,24 @@
+---
+title: "Create Video Avatar"
+description: "The 'Create Video Avatar' step allows you to generate AI-powered talking head videos featuring digital avatars that speak your provided text. This creates engaging, personalized video content without the need for filming real people."
+---
+
+
+### How to Configure the Create Video Avatar Step
+
+- **Script** - Enter the text that you want the avatar to speak in the video. This can be a greeting, explanation, presentation, or any other content you'd like delivered by a digital spokesperson. (up to 30 minutes of content)
+- **Emotion (Optional)** - Select the emotional style for delivery (Excited, Friendly, Serious, Soothing, or Broadcaster)
+- **Avatar ID (Optional)** - Specify a custom avatar ID or use one from the provided selection at runtime
+- **Voice ID (Optional)** - Define a specific voice ID for the avatar to use
+
+### Output Format
+
+The Create Video Avatar step returns a JSON object containing details about the generated video:
+
+```json
+{
+  "video_download_url": "https://example.com/avatar-video.mp4",
+  "video_id": "12345abcde",
+  "thumbnail_url": "https://example.com/avatar-video-thumbnail.jpeg"
+}
+```

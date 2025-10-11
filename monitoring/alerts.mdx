@@ -1,0 +1,47 @@
+---
+title: "Alerts"
+description: "Receive alerts through Slack or an incoming webhook when your Workflow fails"
+---
+
+
+Alerts allow you to receive notifications in Slack or through an incoming webhook when your Workflow returns an error.
+
+## How To Create An Alert
+
+To create an alert, follow these steps:
+<Steps>
+<Step title="Publish your Workflow in order to create an alert"/>
+<Step title="Click Monitor > Alerts"/>
+<Step title="Click Add Alert"/>
+<Step title="Name your alert"/>
+<Step title="Choose the Workflows you want to be notified about"/>
+<Step title="Choose how you want to be notified:">
+	- To receive the alert through an incoming Webhook: Click **Add** **Action >** **Webhook** and provide the URL where you will receive a POST request with the data of the error
+	- To receive the alert through Slack: click on **Add Action > Slack** and select the Slack channel where you want to receive notifications
+<Frame>
+<img src="/images/monitoring.png"/>
+</Frame>
+</Step>
+</Steps>
+### Slack Action
+
+When an alert containing a Slack action is triggered, the Slack action sends a message to the selected channel including the Workflow name, error message, and a link to the execution:
+<Frame>
+<img src="/images/slack-alerts.avif"/>
+</Frame>
+### Webhook Action
+
+When an alert containing a Webhook action is triggered, the Webhook action sends a **POST** request to the selected url, with a **JSON** body containing metadata about the errored execution, such as Workflow, Execution id, error message, and more:
+
+```bash
+{
+  "status": "error",
+  "id": 72367362,
+  "source": "web",
+  "user_id": 9000,
+  "airops_app_id": 9999,
+  "output": null,
+  "error_code": "SENSITIVE_CONTENT",
+  "error_message": "Content contains sensitive data"
+}
+```

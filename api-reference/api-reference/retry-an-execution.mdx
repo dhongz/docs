@@ -1,0 +1,59 @@
+---
+title: "Retry an execution"
+description: "Retry a failed execution from the last failed step."
+api: POST https://api.airops.com/public_api/airops_apps/executions/{execution_uuid}/retry
+contentType: application/json
+---
+
+
+**Preconditions:** The execution must be in **error** status.
+
+### Authorizations
+
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+### Path parameters
+<ParamField path="execution_uuid" type="string" format="uuid" required>
+The unique identifier (UUID) for the execution.
+
+Example: `c3405f16-d0e8-4d5c-8ad9-85ef332c44ee`
+</ParamField>
+
+
+
+## Responses
+
+### 204 Execution retried
+<Expandable>
+No Content
+</Expandable>
+
+### 400 Execution is not in error status
+<Expandable>
+No Content
+</Expandable>
+
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+<ResponseExample>
+```bash 204 Execution retried
+No Content
+```
+
+```bash 400 Execution is not in error status
+No Content
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>

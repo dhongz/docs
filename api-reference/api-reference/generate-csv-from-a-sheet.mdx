@@ -1,0 +1,65 @@
+---
+title: "Generate CSV from a sheet"
+description: "Create a CSV export job for a specific sheet. This is an asynchronous operation - use the returned job ID with the download endpoint to check status and retrieve the file."
+api: POST https://api.airops.com/public_api/workspace/grids/{grid_id}/sheets/{sheet_id}/csv_jobs
+contentType: application/json
+---
+
+### Authorizations
+
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+### Path parameters
+<ParamField path="grid_id" type="string" required>
+The Grid id
+
+Example: `789`
+</ParamField>
+
+<ParamField path="sheet_id" type="string" required>
+The Sheet id
+
+Example: `101`
+</ParamField>
+
+## Responses
+
+### 200 Job to generate CSV created
+
+<Expandable title="Response body">
+<ResponseField name="Response" type="object">
+<Expandable title="properties">
+<ResponseField name="id" type="integer">
+The id of the job
+
+Example: `230`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+
+
+
+<ResponseExample>
+```bash 200 Job to generate CSV created
+{
+  "id": 230
+}
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>

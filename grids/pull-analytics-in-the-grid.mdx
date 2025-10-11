@@ -1,0 +1,69 @@
+---
+title: "Google Search Console Analytics in Grid"
+---
+
+## Google Search Console
+
+AirOps makes it easy to append page-level, real-time Google Search Console analytics directly in your Grid, helping you identify top-performing content and optimization opportunities.
+
+<Frame>
+<iframe
+  src="https://demo.arcade.software/ZqW7Km3R3QoJ5FGBRwT2?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+### How to Add Google Search Console Analytics to your Grid
+<Steps>
+<Step title="Click the Add Column button in your Grid"/>
+<Step title=" Select Google Search Console from the Analytics section of the dropdown menu"/>
+<Step title="Connect to your Google Search Console account:">
+   - Select an existing Google Search Console authentication from the dropdown
+   - If this is your first time, you'll need to authenticate with your Google account
+</Step>
+<Step title="Configure the data mapping:">
+   - Under "Map URL column," select the column in your Grid that contains the URLs you want to analyze
+   - Click **Save Configuration**
+</Step>
+<Step title="Your Grid will now display new Search Console analytics columns:">
+   - **Search Analytics**: Data pull status indicator
+   - **Clicks 30D**: Number of clicks in the last 30 days with % change period on period
+   - **Impressions 30D**: Number of impressions in the last 30 days with % change period on period
+   - **CTR 30D (%)**: Click-through rate percentage with % change period on period
+   - **Position 30D**: Average ranking position with % change period on period
+</Step>
+<Step title="To fetch the latest data, click the Play button in the Search Analytics column">
+   - The status will update to show when the data was retrieved
+   - Performance metrics will display with percentage changes to indicate trends
+</Step>
+<Step title="Review the analytics data directly in your Grid:">
+   - Green percentages indicate positive trends
+   - Red percentages indicate negative trends
+   - Use these insights to identify underperforming content for optimization
+</Step>
+</Steps>
+### Scheduling Google Search Console Updates
+
+The Google Search Console column can be scheduled to automatically refresh your analytics data:
+<Steps>
+<Step>
+Click the **Google** **Search Analytics column header**
+</Step>
+<Step>
+ Select **"Schedule Workflow"**
+</Step>
+<Step>
+ Set your refresh schedule (e.g., daily at 9 AM, weekly on Mondays)
+</Step>
+<Step>
+ Configure row filters if needed to update specific URLs only
+</Step>
+</Steps>
+**Common scheduling patterns:**
+
+- **Daily updates** for high-traffic pages
+- **Weekly refreshes** for content monitoring
+- **Before optimization workflows** to ensure decisions are based on latest data

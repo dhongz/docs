@@ -1,0 +1,148 @@
+---
+title: "Iteration"
+description: "Execute a step multiple times over a list of objects"
+---
+
+## How does the Iteration Step work?
+
+The Iteration Step executes the same step(s) over each entry within a list. The only prerequisite to using an Iteration Step is ensuring that your input values have already been formatted into a list object.
+
+<Frame>
+![](/images/building-workflows/flow/how-does-iteration-step.png)
+</Frame>
+
+## What is a list?
+
+A list is a specific data type with elements separated by commas that begins with `[` and ends with `]` . For example:
+
+**A list of numbers:**
+
+```javascript
+[1,2,3,4,5]
+```
+
+**A list of strings:**
+
+```javascript
+["sales", "marketing", "finance"]
+```
+
+**A list of JSON objects:**
+
+```javascript
+[
+  {
+    "link": "https://openai.com/",
+    "title": "OpenAI",
+    "source": "OpenAI"
+  },
+  {
+    "link": "https://www.youtube.com/@OpenAI",
+    "title": "OpenAI",
+    "source": "YouTube"
+  },
+  {
+    "link": "https://en.wikipedia.org/wiki/OpenAI",
+    "title": "OpenAI",
+    "source": "Wikipedia"
+  }
+]
+```
+
+## How do I create a list?
+
+Lists can be generated in multiple different ways, including through an LLM step, code step, Google Search or API step. It ultimately comes down to what works best for your use-case, and we've provide a few examples below to help.
+
+### Creating a list via an LLM Step
+
+Because our LLM Steps allow you to adjust the prompt until you've achieved the desired outcome, it's a simple matter of specifying the list format within your prompt.
+
+Let's walk through an example workflow that takes in a country name as input, and returns the top 5 cities in that country. We'll adjust the existing workflow to return those top 5 cities in a list format:
+
+### Creating a list via a Code Step
+
+As our [Code Step](/building-workflows/workflow-steps/logic-steps/code) allows you to utilize both Javascript and Python, you can hard-code your return statement to match the desired list format, e.g.
+
+```javascript
+return(["San Francisco", "New York City", "Miami"]);
+```
+
+### Generating a list via a Google Search Step
+
+Our Google Search Step allows you to select the specific formatting of your resulting search:
+
+<Frame>
+![](/images/building-workflows/flow/google-search-step.png)
+</Frame>
+
+The resulting output of the Google Search Step will be formatted like so:
+
+```json
+// Output of the Google Search Step with Links Only
+[
+  "https://www.mckinsey.com/featured-insights/mckinsey-explainers/what-is-prompt-engineering",
+  "https://www.zdnet.com/article/six-skills-you-need-to-become-an-ai-prompt-engineer/",
+  "https://www.techtarget.com/searchenterpriseai/definition/AI-prompt-engineer",
+  "https://en.wikipedia.org/wiki/Prompt_engineering",
+  "https://www.datacamp.com/blog/what-is-prompt-engineering-the-future-of-ai-communication",
+  "https://www.iit.edu/blog/unlock-career-opportunities-ai-how-become-ai-prompt-engineer",
+  "https://aws.amazon.com/what-is/prompt-engineering/",
+  "https://hbr.org/2023/06/ai-prompt-engineering-isnt-the-future",
+  "https://time.com/6272103/ai-prompt-engineer-job/",
+  "https://www.promptingguide.ai/"
+]
+```
+
+## What is the element and element index?
+
+An element is the actual object/value (e.g. string, number, or object) in your list.
+
+The element index is the position of the element within the list, starting with the first element at index 0.
+
+<Frame>
+![](/images/building-workflows/flow/image-1.png)
+</Frame>
+
+## How do I reference the element?
+
+You can reference the element by clicking the pill `step_x.element` within your Iteration Step:
+
+<Frame>
+![](/images/building-workflows/flow/what-is-the-element-and-element-index.png)
+</Frame>
+
+In the example above, the LLM step will run 3 times, and the `{{step_1.element}]` will be replaced with `sales` , `marketing` , and `finance` as such:
+
+- `Give me 3 personas in the sales department`
+- `Give me 3 personas in the marketing department`
+- `Give me 3 personas in the finance department`
+
+## Is the element index required?
+
+The element index is optional, but it can be used to perform powerful logic.
+
+For example, in the case of our SEO blog writer, we use the `element_index` to help us write our introductions. Because our goal is to have the writer *only write to the first section* of the blog, the element index is useful for only applying the step in that paragraph.
+
+So, we add a [**Conditional** **Step**](/building-workflows/workflow-steps/flow/conditional) with:
+
+- `step_x.element_index == 0`
+
+which allows us to use a separate LLM Step with the introduction for the first section of the blog only.
+
+## What does the output look like?
+
+The iteration step will also output a list.
+
+The output of each iteration will be added to the list in the same order of the input.
+
+## How do I turn the list into text?
+
+You can turn the array back into text with a simple **Text** step that uses Liquid:
+
+```bash
+// Replace step_x.output
+
+{% for chunk in step_x.output %}
+{{chunk}}
+{% endfor %}
+```

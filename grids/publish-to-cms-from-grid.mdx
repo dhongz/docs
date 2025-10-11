@@ -1,0 +1,58 @@
+---
+title: "Publish to CMS from Grid"
+---
+
+## Webflow
+
+AirOps allows you to publish your AI-generated content directly to Webflow CMS collections, streamlining your content creation and publishing workflow.
+
+<Frame>
+<iframe
+  src="https://demo.arcade.software/O4jLjGFYSpdRL9GW6u95?embed"
+  title="Arcade demo"
+  allowFullScreen
+  allow="clipboard-write"
+  className="w-full rounded-xl"
+  style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+### How to Publish to Webflow CMS from Grid
+<Steps>
+<Step title="Click the Add Column button in your Grid"/>   
+<Step title="Select Webflow from the Export to CMS section of the dropdown menu"/>   
+<Step title="Connect to your Webflow account:">   
+   - Select an existing Webflow site authentication from the dropdown
+   - Click **Continue**
+</Step>
+<Step title="Configure the export settings:">      
+   - **Choose a Webflow Collection**: Select the collection you want to export to from the dropdown
+   - **Collection Item Status**: Choose whether items should be:
+     - **Draft**: Creates items in 'Queued to Publish' state (not visible on your site until manually published)
+     - **Published**: Makes items immediately visible on your site
+</Step>
+<Step title="Map columns to Webflow fields:">        
+   - **Item ID Handling**:
+     - For creating new items: Select "Create a new column" from the Grid Column dropdown for Webflow Item ID
+     - For updating existing items: Select the column that contains existing Webflow Item IDs
+   - **Field Mapping**: Match your Grid columns to the appropriate Webflow fields
+     - Fields marked with a red asterisk (\*) are required
+     - Ensure your column data types match the expected Webflow field formats (Number, Text, HTML, etc.)
+     - For unmapped fields, select "Do Not Export"
+   - Click **Save Column Mappings**
+</Step>
+<Step title="After configuration, two new columns will appear in your Grid:">      
+   - **Webflow Export**: Shows the export status and contains the action button
+   - **Webflow Item ID**: Stores the Webflow CMS item identifiers
+</Step>
+<Step title="Export your content:">      
+   - Click the **Play button** in the Webflow Export column for each row you want to publish
+   - Once exported, the column will display the status and export date
+   - The Webflow Item ID column will populate with the unique identifier for each exported item
+</Step>
+<Step title="Edit your column mappings (if needed):">   
+   - Click the three dots (⋮) in the Webflow Export column header
+   - Select **Edit**
+   - Adjust your mappings as needed and save
+</Step>
+</Steps>
+With this integration, you can create content at scale with AirOps and seamlessly publish it to your Webflow site without manual copying and pasting.

@@ -1,0 +1,136 @@
+---
+title: "Add a document"
+description: "Add a new document to a memory store. The document will be processed and made searchable. You can optionally include metadata for filtering."
+api: POST https://api.airops.com/public_api/vector_stores/{memory_store_id}/vector_store_documents
+contentType: application/json
+---
+
+### Authorizations
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+### Path parameters
+<ParamField path="memory_store_id" type="string" required>
+The Memory Store id
+
+Example: `123`
+</ParamField>
+
+
+
+### Body
+<ParamField body="text" type="string" required>
+The content of the document
+</ParamField>
+
+<ParamField body="name" type="string" required>
+The name of the document
+</ParamField>
+
+<ParamField body="metadata" type="object">
+The metadata of the document
+</ParamField>
+
+## Responses
+
+### 200 Document added
+
+<Expandable title="Response body">
+<ResponseField name="Response" type="object">
+Represents a document stored in a memory store.
+<Expandable title="properties">
+<ResponseField name="id" type="number">
+The unique identifier for the document.
+
+Example: `123`
+</ResponseField>
+
+<ResponseField name="document_type" type="string">
+The type of document.
+
+Example: `text`
+</ResponseField>
+
+<ResponseField name="name" type="string">
+The name of the document.
+
+Example: `My Document`
+</ResponseField>
+
+<ResponseField name="source" type="string">
+The source or origin of the document.
+
+Example: `api_upload`
+</ResponseField>
+
+<ResponseField name="status" type="string" enum>
+The processing status of the document.
+
+Example: `completed`
+</ResponseField>
+
+<ResponseField name="sync_progress_percentage" type="number" max="100">
+The percentage of processing completed (0-100).
+
+Example: `100`
+</ResponseField>
+
+<ResponseField name="created_at" type="string" format="date-time">
+Timestamp when the document was created.
+
+Example: `2024-01-15T10:30:00.000Z`
+</ResponseField>
+
+<ResponseField name="updated_at" type="string" format="date-time">
+Timestamp when the document was last updated.
+
+Example: `2024-01-15T10:35:00.000Z`
+</ResponseField>
+
+<ResponseField name="vector_store_id" type="number">
+The ID of the memory store containing this document.
+
+Example: `456`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+### 400 Invalid Request
+<Expandable>
+No Content
+</Expandable>
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+
+<ResponseExample>
+```bash 200 Document added
+{
+  "id": 123,
+  "document_type": "text",
+  "name": "My Document",
+  "source": "api_upload",
+  "status": "completed",
+  "sync_progress_percentage": 100,
+  "created_at": "2024-01-15T10:30:00.000Z",
+  "updated_at": "2024-01-15T10:35:00.000Z",
+  "vector_store_id": 456
+}
+```
+
+```bash 400 Invalid Request
+No Content
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>

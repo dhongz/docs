@@ -1,0 +1,43 @@
+---
+title: "Analytics"
+description: "AirOps offers tracking in for the form of its Analytics page."
+---
+
+Under the "Analytics" tab, there are currently three built-in charts related to your Workflow usage.
+
+1. Executions Time Series
+2. Latency Time Series
+3. Tasks Time Series
+
+By default, each time series shows plots the total data across all of your Workflows. You can use the "Workflow" dropdown tab to filter the data to a specific workflow.
+
+### Executions Time Series
+<Frame>
+<img src="/images/execution-time-series.avif"/>
+</Frame>
+The Execution Time Series (default selection) provides detailed visualization of your workflow execution performance over time.
+
+- Track successful (blue) vs. error (pink) executions to identify potential issues and optimize reliability.
+- Use time range selectors (2h, 24h, 7d, 30d) to analyze execution patterns across different periods.
+- Filter by specific workflows using the dropdown menu to focus on individual workflow performance.
+- The daily breakdown helps identify usage spikes and patterns, allowing for better capacity planning and troubleshooting.
+
+### Latency Time Series
+
+The Latency Time Series displays the time your Workflow spends in a queue vs. the actual time it spends running. You can select how you would like to see this data aggregated via the "Summarize by" dropdown tab:
+<Frame>
+<img src="/images/latency-time-series.avif"/>
+</Frame>
+### Tasks Time Series
+
+The Tasks Time Series displays the total number of Tasks run within your Workflow(s).
+<Frame>
+<img src="/images/tasks-time-series.avif"/>
+</Frame>
+## Adjusting the Timeframe
+
+For each Time Series, you have the option to select the exact data and time of the graphs via the calendar dropdown:
+<Frame>
+<img src="/images/adjusting-the-timeframe.avif"/>
+</Frame>
+Additionally, if you have already published your Workflow, you can navigate to its "Analytics" tab while viewing it. Please note that the current maximum lookback window is 3 months.

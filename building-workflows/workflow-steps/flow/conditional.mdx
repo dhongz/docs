@@ -1,0 +1,70 @@
+---
+title: "Conditional"
+description: "Branch your workflow logic"
+---
+
+## Condition Step
+
+The Condition Step allows you to create branching logic in your workflows, executing different steps based on whether a specified condition evaluates to `True` or `False`.
+
+### What is a Condition Step?
+
+A Condition Step acts as a decision point in your workflow, directing the flow based on a JavaScript expression that you define. It consists of:
+
+1. **The Condition**: A JavaScript expression that evaluates to either `True` or `False`
+2. **True Path**: Steps that execute when the condition evaluates to `True` (left branch)
+3. **False Path**: Steps that execute when the condition evaluates to `False` (right branch)
+
+<Frame>
+![](/images/building-workflows/flow/conditional-step.png)
+</Frame>
+
+### How to Configure a Condition Step
+
+<Steps>
+    <Step>
+    Click the "+" button to add a new step in your workflow
+    </Step>
+    <Step>
+    Select "Flow" from the categories, then choose "Condition"
+    </Step>
+    <Step>
+    In the configuration panel, enter your JavaScript condition
+    </Step>
+    <Step>
+    Add steps to both the True and False paths as needed
+    </Step>
+</Steps>
+
+### Condition Expression Syntax
+
+Conditions are written as JavaScript expressions that evaluate to a boolean value. You can:
+
+- Use comparison operators: `>, <, >=, <=, ===, !==`
+- Apply logical operators: `&&` (AND), `||` (OR), `!` (NOT)
+- Use conditional (ternary) operators: `condition ? trueValue : falseValue`
+- Access nested properties: `step_2.output.results[0].score > 80`
+
+### Common Use Cases
+
+- **Content branching**: Generate different content types based on user input
+- **Error handling**: Take alternative actions when a step fails
+- **Quality control**: Route content through additional steps if it doesn't meet quality thresholds
+
+### Example
+
+```javascript
+// If the keyword has high search volume, use a more detailed research approach
+step_2.output.search_volume > 5000
+```
+
+This condition will route the workflow through the True path for high-volume keywords and the False path for lower-volume keywords, allowing you to optimize your research process for each scenario.
+
+### Best Practices
+
+- **Keep conditions simple**: Complex logic is harder to debug and maintain
+- **Provide default paths**: Ensure both True and False paths are configured
+- **Use descriptive names**: Rename your condition steps to describe their purpose (e.g., "Check Search Volume")
+- **Test thoroughly**: Verify both paths work as expected with different inputs
+
+Condition Steps are powerful tools for creating adaptable workflows that respond intelligently to different scenarios and data conditions.

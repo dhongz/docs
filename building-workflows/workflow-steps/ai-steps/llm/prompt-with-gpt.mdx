@@ -1,0 +1,174 @@
+---
+title: "Prompting Guide"
+description: "How to prompt GPT"
+---
+
+## Getting Started by Generating Prompts with AI
+
+The **Generate with AI** feature allows users to scaffold a prompt with natural language.
+
+Simply click **Generate with AI**, choose the type of your task, and describe what you're looking to accomplish. Check out this guide to get started:
+
+<Frame>
+<iframe
+src="https://cdn.iframe.ly/g6YodzH"
+ title="Arcade demo"
+ allowFullScreen
+ allow="clipboard-write"
+ className="w-full rounded-xl h-96"
+></iframe>
+</Frame>
+
+## What is the System message?
+
+The system message defines the AI's persona, objective, specific tasks or rules.
+
+<Info>
+*Note: this definition varies from user-to-user and prompt-to-prompt. Too many System message instructions, and the output may degrade - so feel free to experiment by adding the instructions in the User prompt!*
+</Info>
+
+```bash
+System Message Example:
+You are a renowned poet.
+You write poems in the tone and style of Dr. Seuss.
+Only include topics appropriate for children.
+```
+
+## How do I decide what goes in the System message?
+
+There are no hard rules about what to include in the system prompt. However, we generally recommend including specific, well-defined tasks while avoiding extremely complex logic.
+
+## What is the User and the Assistant messages?
+
+The user and assistant define the conversation between you (the user) and the AI (the assistant).
+
+For example, in a conversation between you and chatGPT: your message is the "User" message and chatGPT's response is the "Assistant" response.
+
+<Info>
+Using both the User and Assistant allows you to provide examples that help the model "learn" your desired output format (JSON, HTML, etc) and language
+</Info>
+
+## How do I prompt with the User and Assistant?
+
+### How to Prompt with a User-Assistant Pair
+
+User-Assistant pairs (also known as one-shot or few-shot prompting) are examples we provide to the model to help it "learn" our desired response:
+
+<Steps>
+<Step>
+    Add an example **User** message
+</Step>
+<Step>
+    Add the expected **Assistant** response
+</Step>
+<Step>
+    *(optionally) Add more user-assistant pairs*
+</Step>
+<Step>
+    Add another **User** message with your input
+</Step>
+</Steps>
+
+For a detailed guide, check out our tutorial on K-Shot Prompting:
+
+<Frame>
+<iframe
+src="https://cdn.iframe.ly/46Cm9eL"
+ title="Arcade demo"
+ allowFullScreen
+ allow="clipboard-write"
+ className="w-full rounded-xl h-96"
+></iframe>
+</Frame>
+
+### Text Extraction Example
+
+> **System:** Your task is to extract the unique transcript ID from the end of the URL.
+><br/> <br/>
+> **User:** https://app.fireflies.ai/view/AirOps-Intro::DkMo5PetdLeCDglp
+><br/> <br/>
+> **Assistant:** DkMo5PetdLeCDglp
+><br/>
+><br/>
+> **User:** https://app.fireflies.ai/view/Mdei9OrqpQlWIijd
+><br/> <br/>
+> **Assistant:** Mdei9OrqpQlWIijd
+><br/><br/>
+> **User:** `{{link_to_sales_call}}`
+
+### Why use more than one User-Assistant pair?
+
+Using more than one example is helpful for nuanced logic.
+
+In our text extraction example, we provided two URL's with different formats to help the model understand how to extract text under multiple scenarios.
+
+<Check>
+**Use a real-life example:**
+
+The best way to generate high-quality outputs is by providing a high-quality example to the model. Use the most realistic example when possible, whether from the internet or from your own data.
+</Check>
+
+## How do I use LLMs that have vision capabilities in AirOps?
+
+Some LLMs, such as GPT-4o, have vision capabilities. To use these vision capabilities in AirOps, you need to provide a link of a downloadable image to the model:
+
+### How to Configure the LLM Step
+
+<Steps>
+<Step>
+    Add an **LLM** step to your workflow
+</Step>
+<Step>
+    Change the model to **GPT-4o**
+</Step>
+<Step>
+    Add an **Image URL** to the User message where it says "Add an Image URL"
+</Step>
+</Steps>
+
+### How to pass an image from a User Upload
+
+<Steps>
+<Step>
+    To upload a single image from your desktop, change the input type to **File Media** which accepts a .jpg, .png, or .webp file
+</Step>
+<Step>
+    AirOps will return a downloadable URL to this image
+</Step>
+<Step>
+    Pass the input as liquid syntax to GPT-4o where it says "Add an Image URL"
+</Step>
+</Steps>
+
+### How to pass an image from Google Drive
+
+<Steps>
+<Step>
+    To upload an image from Google Drive, choose **Short Text** as an input type
+</Step>
+<Step>
+    Change the Google Drive image so anyone with the link can view it
+</Step>
+<Step>
+    Add a code step to transform the Google Drive link into a downloadable URL replacing `short_text_input` with the name of your input:
+    -   ```bash
+		const fileID = short_text_input.match(/[-\w]{25,}/);
+		return \`https://drive.google.com/uc?export=download&id=${fileID[0]}&confirm=t\`
+		```
+</Step>
+<Step>
+    Pass the output of the previous step into GPT-4o where it says "Add an Image URL"
+</Step>
+</Steps>
+
+For a more detailed guide on GPT-4o, check out our tutorial here:
+
+<Frame>
+<iframe
+src="https://cdn.iframe.ly/21vrsfe"
+ title="Arcade demo"
+ allowFullScreen
+ allow="clipboard-write"
+ className="w-full rounded-xl h-96"
+></iframe>
+</Frame>

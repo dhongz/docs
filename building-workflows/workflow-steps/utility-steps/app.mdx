@@ -1,0 +1,41 @@
+---
+title: "Workflow"
+---
+
+## AirOps Workflow Step
+
+The Workflow Step allows you to run a published workflow within another workflow, allowing you to reuse existing workflows rather than rebuilding the same functionality.
+
+<Frame>
+<iframe src="https://demo.arcade.software/8MrnejvX1e1nap4jJDmC?embed"
+title="https://demo.arcade.software/8MrnejvX1e1nap4jJDmC?embed"
+style={{width: '100%', maxWidth: '100%', aspectRatio: '1.5 / 1', height: '100%', border: 'none'}}
+></iframe>
+</Frame>
+
+
+### Setup Instructions
+
+<Steps>
+<Step title="Drag the Workflow Step from the side panel into your canvas"/>
+<Step title="Select a published workflow from the dropdown list"/>
+<Step title="Select the version of the workflow to use"/>
+<Step title="Map the required inputs for the selected workflow"/>
+<Step title="Configure error handling behavior (Terminate or Continue)"/>
+</Steps>
+
+### Input Configuration
+
+- The step will automatically display the input fields required by the selected workflow
+- Map inputs using values from previous steps or static values
+- Use the variable selector (purple icon) to reference outputs from previous steps
+
+### Error Handling
+
+- Choose "Terminate Workflow" to stop the parent workflow if this step fails
+- Choose "Continue" to proceed with subsequent steps even if this workflow fails
+
+### Notes
+
+- The workflow you select must be published before it will appear in the dropdown
+- Output from the workflow step can be referenced in subsequent steps using: `{{ step_X.output }}`

@@ -1,0 +1,41 @@
+---
+title: "Search Stock Images"
+description: "The 'Search Stock Images' step allows you to find stock images from AirOps' integration with stock image providers Getty Images and Unsplash."
+---
+
+<Info>
+Note: This step is intended to be used with the Fetch Stock Image with ID step. 
+
+Search Stock Images step should be used first to return image options, and the selected image ID should be used to retrieve the final image using the Fetch Stock Image with ID step.
+</Info>
+
+### How to Configure the Search Stock Images Step
+
+Configuring the step requires setting the parameters shown below:
+
+- **Provider**: Select Getty or Unsplash
+- **Search Query**: Enter the keywords you want to use to search for relevant stock images. Be specific to get the most relevant results
+
+### Output Format
+
+The Search Stock Images step returns a JSON array of image results. Each result contains:
+
+```json
+[
+  {
+    "id": "1234567890",
+    "preview_url": "https://example.com/images/id/1234567890/photo/image-description.jpg",
+    "caption": "Description of the first image."
+  },
+  {
+    "id": "0987654321",
+    "preview_url": "https://example.com/images/id/0987654321/photo/another-image.jpg",
+    "caption": "Description of the second image."
+  },
+  // Additional results appear here
+]
+```
+
+### How to Use the Results
+
+You can use the preview\_url to decide which image(s) you'd like to use in your content. Then, use the corresponding image IDs to retreive the image using the Fetch Stock Images with ID step.

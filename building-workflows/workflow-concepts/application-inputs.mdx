@@ -1,0 +1,39 @@
+---
+title: "Workflow Inputs"
+sidebarTitle: "Overview"
+description: "Define the UI and API input values for your Workflows"
+---
+
+How to Add Input Variables
+
+Workflow Inputs are variables you can set at runtime and use inside of your Workflows.
+
+### 1\. Click the **"Configure"** button on your Start step
+
+<Frame caption="Click on 'Set Inputs' to define your inputs">
+![](/images/building-workflows/configure-workflow-inputs.png)
+</Frame>
+
+### 2\. Select your input type
+
+You will be prompted to first choose your desired **"Input Type."** This determines both the user interface and the data type of your input value:
+
+<Frame>
+![](/images/building-workflows/select-workflow-input-type.png)
+</Frame>
+
+### 3\. Customize the input field
+
+See the [next section](/building-workflows/workflow-concepts/application-inputs#input-types) for a full list of supported types to decide what works best for your use-case. Continue to populate the remaining fields of your Workflow Input:
+
+<Frame>
+![](/images/building-workflows/customize-workflow-input.png)
+</Frame>
+
+- **Label:** a descriptive label for the name of your input
+- **Variable Name:** the name of your input as a variable, which will be referenced as liquid syntax in your steps. By default, the variable name is automatically generated when you add a label, but it can be customized to be separate
+- **Hint:** helper text that appears below your input on the Workflow page
+- **Placeholder:** example value that will be overwritten by your input value
+- **Default Value:** a default value used if no other input value is provided, this is useful for API calls
+- **Required:** determines whether or not the input is required for your Workflow to run successfully
+

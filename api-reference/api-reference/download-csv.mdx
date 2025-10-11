@@ -1,0 +1,78 @@
+---
+title: "Download CSV / Check job status"
+description: "Check the status of a CSV generation job and download the CSV file once it's ready. Returns the job status and download URL when complete."
+api: GET https://api.airops.com/public_api/grids/{grid_id}/sheets/{sheet_id}/download_csv/{job_id}
+contentType: application/json
+---
+### Authorizations
+
+<ParamField header="Authorization" type="string" required>
+API requests are authenticated using Bearer tokens. Include your API key in the Authorization header:
+
+`Authorization: Bearer YOUR_API_KEY`
+
+You can find your API key in your workspace settings.
+</ParamField>
+
+
+### Path parameters
+<ParamField path="grid_id" type="string" required>
+The Grid ID
+
+Example: `789`
+</ParamField>
+
+<ParamField path="sheet_id" type="string" required>
+The Sheet ID
+
+Example: `101`
+</ParamField>
+
+<ParamField path="job_id" type="string" required>
+The Job ID
+
+Example: `230`
+</ParamField>
+
+
+## Responses
+
+### 200 CSV job status and download link
+
+<Expandable title="Response body">
+<ResponseField name="Response" type="object">
+<Expandable title="properties">
+<ResponseField name="status" type="string">
+The status of the job
+
+Example: `success`
+</ResponseField>
+
+<ResponseField name="download_url" type="string">
+The download link for the CSV file
+
+Example: `https://example.com/download/file.csv`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+### 401 Authentication error
+<Expandable>
+No Content
+</Expandable>
+
+
+
+<ResponseExample>
+```bash 200 CSV job status and download link
+{
+  "status": "success",
+  "download_link": "https://example.com/download/file.csv"
+}
+```
+
+```bash 401 Authentication error
+No Content
+```
+</ResponseExample>
+

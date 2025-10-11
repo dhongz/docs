@@ -1,0 +1,33 @@
+---
+title: "Error"
+description: "Throw custom error messages that terminate the workflow"
+---
+
+## What is the Error Step?
+
+The Error Step allows you to terminate the workflow and display a custom error message and error code to users.
+
+The error is composed of two parts:
+
+1. **Error Code:** A custom identifier for the error, which can be used for tracking and debugging in the workflow API
+2. **Error Message:** A custom message displayed in the AirOps UI, describing the error with instructions on how to resolve it.
+
+### Example use case
+
+Let's consider a scenario where we want to ensure that user input does not contain any sensitive content. We can configure the Error Step to throw the following error:
+
+1. **Error Code:** `SENSITIVE_CONTENT_ERROR`
+2. **Error Message:** `Your input contains sensitive information. Please remove any confidential data before proceeding.`
+
+#### Error Step configuration:
+
+<Frame caption="Error Step Configuration">
+![](/images/building-workflows/flow/error-configuration.png)
+</Frame>
+
+**Error Step displayed to user:**
+
+<Frame caption="Error Step Displayed to User">
+![](/images/building-workflows/flow/error-message.png)
+</Frame>
+

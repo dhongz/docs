@@ -1,0 +1,70 @@
+---
+title: "Model Selection Guide"
+description: "Determine which large language model to use"
+---
+
+## Which Model Should I Use?
+
+<Frame>
+![](/images/building-workflows/choosing-a-model.png)
+</Frame>
+
+### What to Consider
+
+Choosing a model depends on the following:
+
+1. **Context Window:** the context window refers to the number of tokens you can provide to a LLM. ~1 Token = ~4 characters
+2. **Task Complexity:** more capable models are generally better suited for complex logic.
+3. **Web Access:** whether the use case you're building require the model to have web access?
+4. **Cost:** more capable models are generally more expensive - for example, o1 is more expensive than GPT-4o.
+5. **Speed:** more capable models are generally slower to execute.
+
+## AirOps Popular LLMs
+
+| Model | Provider | Description | Context Window | JSON Mode | Web Access |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| GPT-5 | OpenAI | Flagship model for complex tasks | 400K | <Icon icon="check" /> | <Icon icon="check" /> | <Icon icon="check" /> |
+| GPT-4.1 | OpenAI | For complex tasks, vision-capable | 1M | <Icon icon="check" /> | <Icon icon="check" /> | - |
+| GPT-4o Search Preview | OpenAI | Flagship model for online web research | 128K | <Icon icon="check" /> | <Icon icon="check" /> | <Icon icon="check" /> |
+| O4 Mini | OpenAI | Fast multi-step reasoning for complex tasks | 128K | - | <Icon icon="check" /> | - |
+| O3 | OpenAI | Advanced reasoning for complex tasks | 128K | - | <Icon icon="check" /> | - |
+| O3 Mini | OpenAI | Fast multi-step reasoning for complex tasks | 128K | - | <Icon icon="check" /> | - |
+| Claude Opus 4.1 | Anthropic | Powerful model for complex and writing tasks | 200K | <Icon icon="check" /> | - | - |
+| Claude Sonnet 4 | Anthropic | Hybrid reasoning: fast answers or deep thinking | 200K | <Icon icon="check" /> | - | - |
+| Gemini 2.5 Pro | Google | Advanced reasoning for complex tasks | 1M | <Icon icon="check" /> | <Icon icon="check" /> | <Icon icon="check" /> |
+| Gemini 2.5 Flash | Google | Fast and intelligent model for lightweight tasks | 1M | <Icon icon="check" /> | <Icon icon="check" /> | <Icon icon="check" /> |
+| Perplexity Sonar | Perplexity | Balanced model for online web research | 128K | - | <Icon icon="check" /> | <Icon icon="check" /> |
+
+## Differences between “o-series” vs “GPT” models
+
+### **GPT-5 Series**: Built-In Reasoning
+
+**GPT-5 Models**: OpenAI's first model series to combine reasoning paradigm with traditional LLM capabilities. Features reasoning levels of `minimal`, `low`, `medium`, `high` that control how much reasoning the model performs.
+
+### **O-series Models (o3, o4-mini)**: Pure Reasoning Specialists
+
+Specialized exclusively for deep reasoning and step-by-step problem solving. These models excel at complex, multi-stage tasks requiring logical thinking and tool use. Choose these when maximum accuracy and reasoning depth are paramount. Features reasoning levels of `low`, `medium`, `high` for controlling reasoning token usage.
+
+### **GPT Models (4.1, 4o)**: Traditional General-Purpose
+
+Optimized for general-purpose tasks with excellent instruction following. GPT-4.1 excels with long contexts (1M tokens) while GPT-4o has variants for realtime speech, text-to-speech, and speech-to-text. GPT-4.1 also comes in mini and nano variants, while GPT-4o has a mini variant. These variants are cheaper and faster than their full-size counterparts. Strong in structured output generation.
+
+## How much will it cost to run?
+
+The cost to run a model depends on the number of input and output tokens.
+
+### Token Approximation
+
+**Input tokens:** to approximate the total input tokens, copy and paste your system, user, and assistant prompts into [the OpenAI tokenizer](https://platform.openai.com/tokenizer)
+
+**Output tokens:** to approximate the total output tokens, copy and paste your output into [the OpenAI tokenizer](https://platform.openai.com/tokenizer)
+
+### Cost Approximation
+
+**OpenAI:** divide the input and output tokens by 1000; then multiply by their respective costs [based on OpenAI pricing](https://openai.com/pricing)\*
+
+**Anthropic:** divide the input and output tokens by 1,000,000; then multiply by their respective costs [based on Anthropic pricing](https://www-cdn.anthropic.com/files/4zrzovbb/website/31021aea87c30ccaecbd2e966e49a03834bfd1d2.pdf)\*
+
+<Info>
+\*This is the cost if you [bring your own API Key](/your-workspace/byo-key). If you choose to use AirOps hosted models, you will be [charged tasks according to your usage](https://airopshq.notion.site/AirOps-Task-Pricing-by-Hosted-Service-fd825db1300545cb8c3b5de8bc16529e).
+</Info>

@@ -1,0 +1,51 @@
+---
+title: "Write to Knowledge Base"
+description: "Add a document to a Knowledge Base"
+---
+
+## What is a Knowledge Base Write Step?
+
+The Knowledge Base Write step allows you add content to an existing Knowledge Base. You can add both searchable content which will be converted into embeddings and metadata content which can be retrieved and filtered on.
+
+Learn how to set up an AirOps Knowledge Base [here](/your-data/memory-stores).
+
+## How to Configure the Knowledge Base Write Step
+
+### Select a Knowledge Base
+
+Select the name of your Knowledge Base from the dropdown.
+
+### Text
+
+The file, text, or data you want to make searchable.
+
+### Metadata
+
+Metadata that you want to assign to the embeddings in a JSON format such as:
+
+```json
+{
+    "title": "...",
+    "description": "...",
+    "tag": "..."
+}
+```
+
+<Info>
+Metadata allows you toin the Knowledge Base Search Step
+</Info>
+
+## Knowledge Base Write for Maintaining State
+
+One challenge in managing workflows with LLMs is ensuring continuity by keeping track of past decisions. For example, in creating a workflow that leverages a LLM to scour a website for "recent news" to suggest content ideas, it's crucial to have a mechanism in place for logging previous suggestions. This helps prevent the recurrence of ideas, maintaining the novelty and relevance of the content generated.
+
+[Knowledge Bases](/your-data/memory-stores) can we help with this. By implementing the following framework you can solve this issue :
+
+Before starting, create a new, empty Knowledge Base. Then, in your workflow, add the following :
+
+1. **Knowledge Base Search** **Step -** Search Knowledge Bases for today's date. It will retrieve the most recent entries added to that Knowledge Base.
+2. **LLM Step -** Provide ~5-10 outputs from the **Knowledge Base Search Step** to your model with a prompt like "Here are outputs you have provided previously, please do not repeat any of these ideas:"
+3. **Knowledge Base Write Step** - Write to the Knowledge Base with today's date (see [Liquid docs](https://shopify.github.io/liquid/filters/date/) for more info) in the search column and add the output in a metadata column. This will mean that only the date will be used when the Knowledge Base is searched.
+
+Any question, please contact us.
+

@@ -1,0 +1,66 @@
+---
+title: "Brand Kit"
+description: "Define your brand attributes and use them as variables in your workflow"
+---
+
+<Frame>
+![](/images/your-data/brand-kits.png)
+</Frame>
+
+## What is a Brand Kit?
+
+**Brand kits are portable personas that allow you to centrally store, manage, and update key contextual information for your LLM-powered workflows.** They provide a structured way to maintain and supply essential context about your brand, product, customer, and business, ensuring that any LLM within AirOps has the necessary context to generate content that aligns with your voice and objectives.
+
+By using a brand kit, you can define and improve the a context base that trains the LLM on unique characteristics of your business, ensuring that LLM outputs remain consistent, accurate, and on-brand across different workflows. Brand kits are centrally managed, meaning that as new insights are added—such as frequently asked questions, updated product details, or refined brand messaging—you can update the kit in one place, and all linked workflows will inherit the changes automatically.
+
+Each brand kit includes a default set of structured fields designed to capture core brand attributes. Additionally, you can define custom fields to support unique business needs. These fields can be referenced in their entirity—when applying an entire brand kit to an LLM call—or selectively for more targeted LLM calls.
+
+## Creating a Brand Kit
+
+<Frame>
+<iframe
+src="https://demo.arcade.software/xXnimMTcmXbVWJV8y7Z5?embed"
+title="https://demo.arcade.software/xXnimMTcmXbVWJV8y7Z5?embed"
+allowfullscreen=""
+allow="clipboard-write"
+class="contentkit-webframe"
+className="w-full aspect-video rounded-xl"
+></iframe>
+</Frame>
+
+## Brand Kit Variables
+
+### Brand Attributes
+
+|Attribute|Default Variable|Usage|
+| :---------| :----------------| :---------------- |
+| Brand URL | `{{brand_kit.brand_url}}` | Use the brand URL when referring to the brand to help provide context about the brand. |
+| Brand Name | `{{brand_kit.brand_name}}` | Use the brand name consistently throughout the content to maintain brand recognition. |
+| About the Brand | `{{brand_kit.brand_about}}` | Refer to the "About the Brand" section when creating content that requires background information or context about the brand and its offerings. |
+| Customer Profile | `{{brand_kit.brand_customer}}` | Use the customer profile when creating content to ensure that the messaging and tone are tailored to the brand's target audience. |
+| Competitors | `{{brand_kit.brand_competitors}}` | Be aware of the brand's competitors when creating content to differentiate the brand. |
+| Brand Point of View | `{{brand_kit.brand_point_of_view}}` | Incorporate the brand's mission and core values into the content to align with the brand's overall messaging, philosophy, and positioning. |
+
+
+### Writing Style Attributes
+
+|Attribute|Default Variable|Usage|
+| :---------| :----------------| :---------------- |
+| Author Persona | `{{brand_kit.writing_persona}}` | Use the writing persona in the `System` prompt of the Large Language Model step to maintain a consistent writing style. |
+| Tone of Voice | `{{brand_kit.writing_tone}}` | Adhere to the specified tone of voice when creating content to ensure that the brand's personality and style are consistently conveyed. |
+| Call-to-Action (CTA) Text | `{{brand_kit.writing_cta}}` | Use the brand's primary CTA text at the end of content to encourage users to take a specific action, such as signing up for the product. |
+| CTA Destination | `{{brand_kit.writing_cta_url}}` | Link the CTA text to the specified destination URL to direct users to the appropriate page or resource. |
+
+
+### Writing Sample Attributes
+
+|Attribute|Default Variable|Usage|
+| :---------| :----------------| :---------------- |
+| Writing Sample URL | `{{brand_kit.writing_sample_url}}` | AirOps uses the writing sample URL to scrape the best example of ideal content, which is used for k-shot prompting during content generation. If the article cannot be scraped, we return a default article. |
+| Writing Sample Title | `{{brand_kit.writing_sample_title}}` | Use the writing sample title when creating a User-Assistant pair or k-shot prompting. |
+| Writing Sample Outline | `{{brand_kit.writing_sample_outline}}` | Use the writing sample outline when creating a User-Assistant pair in order to help the model understand the structure and organization of the brand's preferred content format. |
+| Writing Sample Body | `{{brand_kit.writing_sample_body}}` | Use the writing sample body when creating a User-Assistant pair in order to help the model understand the brand's writing style and tone. |
+
+### Custom Attributes
+
+You can also add and name your own variables in Brand Kits at the bottom of the page.

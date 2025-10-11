@@ -1,0 +1,81 @@
+---
+title: "Google Docs"
+description: "Integrate your Workflow with Google Docs"
+---
+The Google Docs integration allows you to create a Doc within the connected Drive account.
+
+## Authentication
+
+Before using the Google Docs integration, you need to authenticate your Google account with AirOps. This integration requires specific permissions to create and manage Google Docs documents in Google Drive.
+
+### Multiple Google Accounts
+
+AirOps supports connecting multiple Google accounts within the same workspace. This allows you to:
+
+- Create documents in different Google Drive accounts
+- Manage permissions across multiple Google organizations
+- Switch between personal and business accounts
+
+Each authenticated account appears as a separate connector that you can select when configuring your workflow step.
+
+### Required Permissions
+
+The Google Docs integration requires the following OAuth 2.0 scopes:
+
+- `https://www.googleapis.com/auth/drive.file` - Create and manage files in Google Drive created by AirOps
+- `https://www.googleapis.com/auth/documents` - Create and edit Google Docs
+
+### How to Authenticate
+
+Before using Google Docs in your workflows, you need to set up the integration in your workspace settings:
+
+1. **Set up the Integration**
+	- Go to **Settings > Integrations** (or visit `/account/integrations`)
+	- Click **Add New** to create a new authentication
+	- Select **Google Docs** from the provider list
+2. **Complete OAuth Flow**
+	- Click **Authenticate** to begin the Google OAuth process
+	- Sign in with your Google account
+	- Grant the requested permissions to AirOps
+	- You'll be redirected back to AirOps with successful authentication
+3. **Use in Workflows**
+	- Navigate to your workflow and add the Google Docs step
+	- Select your authenticated Google account from the dropdown
+	- Configure the document parameters
+
+<Info>
+**Multiple Accounts:**
+
+If you have multiple Google accounts authenticated, you'll see a dropdown to select which account to use for each workflow step. Each authentication is available across all workflows in your workspace.
+</Info>
+
+## Parameters
+
+1. **Folder (Optional):** choose a folder to create the document in; defaults to the top-level otherwise
+2. **Title:** the title of the created document
+3. **Document Text:** the text to populate the document, supports Markdown
+
+## Troubleshooting
+
+### Common Issues
+
+**Authentication Failed**
+
+- Ensure you have granted all requested permissions during the OAuth flow
+- Check that your Google account has access to Google Drive and Google Docs
+- Try re-authenticating by visiting [AirOps Integrations](https://app.airops.com/account/integrations)
+
+**Document Creation Failed**
+
+- Verify the selected folder exists and you have write permissions
+- Ensure the Google account has sufficient Google Drive storage space
+- Check that the document title doesn't contain invalid characters
+
+**Permission Errors**
+
+- Confirm the authenticated account has permission to create files in the specified folder
+- For shared folders, ensure the account has "Editor" or "Owner" permissions
+
+## Example
+
+<Card title="Arcade" href="/" icon="/images/arcade.png" horizontal/>
