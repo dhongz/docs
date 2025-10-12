@@ -114,7 +114,7 @@
                     "pages": [
                       "building-workflows/workflow-steps/web-research",
                       "building-workflows/workflow-steps/web-research/google-search",
-                      "building-workflows/workflow-steps/web-research/google-search-1",
+                      "building-workflows/workflow-steps/web-research/perplexity-deep-research",
                       "building-workflows/workflow-steps/web-research/web-page-scrape"
                     ]
                   },
@@ -246,7 +246,7 @@
                     "pages": [
                       "building-workflows/workflow-steps/other-integrations",
                       "building-workflows/workflow-steps/other-integrations/youtube",
-                      "building-workflows/workflow-steps/other-integrations/youtube-1"
+                      "building-workflows/workflow-steps/other-integrations/reddit"
                     ]
                   }
                 ]
@@ -254,7 +254,6 @@
               "building-workflows/power-agents",
               "building-workflows/testing-and-iteration",
               "building-workflows/publishing-and-versioning",
-              "building-workflows/testing-and-iteration-1",
               "building-workflows/studio-toolbar"
             ]
           },
@@ -338,7 +337,6 @@
             "pages": [
               "your-workspace/workspaces",
               "your-workspace/folders",
-              "your-workspace/workspaces-1",
               "your-workspace/billing",
               "your-workspace/byo-key",
               "your-workspace/secrets",
