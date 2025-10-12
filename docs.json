@@ -295,7 +295,7 @@
                   "grids/run-workflows-in-grid",
                   "grids/run-workflows-in-grid/add-workflow-column",
                   "grids/run-workflows-in-grid/run-workflow-column",
-                  "grids/run-workflows-in-grid/run-workflow-column-1",
+                  "grids/run-workflows-in-grid/schedule-workflow-column",
                   "grids/run-workflows-in-grid/map-workflow-outputs",
                   "grids/run-workflows-in-grid/review-workflow-run-metadata"
                 ]
