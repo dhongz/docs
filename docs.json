@@ -114,7 +114,7 @@
                     "pages": [
                       "building-workflows/workflow-steps/web-research",
                       "building-workflows/workflow-steps/web-research/google-search",
-                      "building-workflows/workflow-steps/web-research/perplexity-deep-research",
+                      "building-workflows/workflow-steps/web-research/google-search-1",
                       "building-workflows/workflow-steps/web-research/web-page-scrape"
                     ]
                   },
@@ -246,7 +246,7 @@
                     "pages": [
                       "building-workflows/workflow-steps/other-integrations",
                       "building-workflows/workflow-steps/other-integrations/youtube",
-                      "building-workflows/workflow-steps/other-integrations/reddit"
+                      "building-workflows/workflow-steps/other-integrations/youtube-1"
                     ]
                   }
                 ]
@@ -254,7 +254,7 @@
               "building-workflows/power-agents",
               "building-workflows/testing-and-iteration",
               "building-workflows/publishing-and-versioning",
-              "building-workflows/logs",
+              "building-workflows/testing-and-iteration-1",
               "building-workflows/studio-toolbar"
             ]
           },
@@ -296,7 +296,7 @@
                   "grids/run-workflows-in-grid",
                   "grids/run-workflows-in-grid/add-workflow-column",
                   "grids/run-workflows-in-grid/run-workflow-column",
-                  "grids/run-workflows-in-grid/schedule-workflow-column",
+                  "grids/run-workflows-in-grid/run-workflow-column-1",
                   "grids/run-workflows-in-grid/map-workflow-outputs",
                   "grids/run-workflows-in-grid/review-workflow-run-metadata"
                 ]
@@ -338,7 +338,7 @@
             "pages": [
               "your-workspace/workspaces",
               "your-workspace/folders",
-              "your-workspace/settings",
+              "your-workspace/workspaces-1",
               "your-workspace/billing",
               "your-workspace/byo-key",
               "your-workspace/secrets",
@@ -497,27 +497,5 @@
       "linkedin": "https://www.linkedin.com/company/airopshq",
       "slack": "https://join.slack.com/t/airopsbuilders/shared_invite/zt-3b401du10-7wtCqHu~CaGdoXYWGi4_BQ"
     }
-  },
-  "redirects": [
-    {
-      "source": "/building-workflows/testing-and-iteration-1",
-      "destination": "/building-workflows/logs"
-    },
-    {
-      "source": "/building-workflows/workflow-steps/web-research/google-search-1",
-      "destination": "/building-workflows/workflow-steps/web-research/perplexity-deep-research"
-    },
-    {
-      "source": "/grids/run-workflows-in-grid/run-workflow-column-1",
-      "destination": "/grids/run-workflows-in-grid/schedule-workflow-column"
-    },
-    {
-      "source": "/your-workspace/workspaces-1",
-      "destination": "/your-workspace/settings"
-    },
-    {
-      "source": "/building-workflows/workflow-steps/other-integrations/youtube-1",
-      "destination": "/building-workflows/workflow-steps/other-integrations/reddit"
-    }
-  ]
+  }
 }
